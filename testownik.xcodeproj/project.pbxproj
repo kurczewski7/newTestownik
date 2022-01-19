@@ -578,12 +578,14 @@
 			isa = PBXGroup;
 			children = (
 				2CE1478123F6901900C834F4 /* testownik.xcdatamodeld */,
-				2C625DF8244372FA00EE29A0 /* DatabaseTableGeneric.swift */,
+				2C58BF4627400B8800FE833C /* Ratings.swift */,
+				2CEB3FF4271F08E8003011F3 /* ForcePressGestureRecognizer.swift */,
 				2C625DF424435FD000EE29A0 /* CoreDataStack.swift */,
 				2CB4841727850E2F001F58C5 /* Database.swift */,
 				2C6864BF244A05D700C159C7 /* DatabaseFetch.swift */,
-				2C6538DC2407282A004B1FC8 /* Testownik.swift */,
+				2C625DF8244372FA00EE29A0 /* DatabaseTableGeneric.swift */,
 				2CDB1DF52407C08800361884 /* DataOperations.swift */,
+				2C6538DC2407282A004B1FC8 /* Testownik.swift */,
 				2CE2F397242A5B1B00D1B731 /* Setup.swift */,
 				2C652AFA24087DCC00284ADF /* CloudPicker.swift */,
 				2CE2F399242A5B9200D1B731 /* Colors.swift */,
@@ -613,8 +615,6 @@
 		2CE1476C23F6901800C834F4 = {
 			isa = PBXGroup;
 			children = (
-				2C58BF4627400B8800FE833C /* Ratings.swift */,
-				2CEB3FF4271F08E8003011F3 /* ForcePressGestureRecognizer.swift */,
 				2C2FD3BB270270B300434C03 /* Speaking.bundle */,
 				2CE2F38B242A4CE800D1B731 /* Default-568h@2x.png */,
 				2CE1477723F6901800C834F4 /* testownik */,

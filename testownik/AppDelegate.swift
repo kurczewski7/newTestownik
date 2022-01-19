@@ -62,7 +62,7 @@ let speech = Speech()
         
         Locale.autoupdatingCurrent.languageCode
         print("App languae, Locale.autoupdatingCurrent.languageCode: \(Locale.autoupdatingCurrent.languageCode ?? "brak")")
-        print("Settins dev, Locale.current:\(Locale.current.languageCode ?? "brak")")
+        print("Settins dev, Locale.current:\(Locale.current.languageCode ?? "brak języka")")
         print("(Bundle.main.preferredLocalizations: \(String(describing: Bundle.main.preferredLocalizations.first))")
         print("Locale.current.identifier: \(Locale.current.identifier)")
        
