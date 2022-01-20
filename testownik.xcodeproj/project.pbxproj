@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0A231207E20459815F65BE7C /* Pods_testownik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3CD960258B27FF97A8FBA0C /* Pods_testownik.framework */; };
 		2C1409BC240EDA6D001611F0 /* XXDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1409BB240EDA6D001611F0 /* XXDocument.swift */; };
+		2C2AC57C27986E780069F8AC /* testownikTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 2CE1478E23F6901C00C834F4 /* testownikTests.xctest */; };
+		2C2AC57D27986E8C0069F8AC /* testownikUITests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 2CE1479923F6901C00C834F4 /* testownikUITests.xctest */; };
 		2C2FD3BC270270B300434C03 /* Speaking.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD3BB270270B300434C03 /* Speaking.bundle */; };
 		2C58BF4727400B8800FE833C /* Ratings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C58BF4627400B8800FE833C /* Ratings.swift */; };
 		2C625DF524435FD000EE29A0 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C625DF424435FD000EE29A0 /* CoreDataStack.swift */; };
@@ -925,6 +927,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2AC57C27986E780069F8AC /* testownikTests.xctest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,6 +935,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2AC57D27986E8C0069F8AC /* testownikUITests.xctest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

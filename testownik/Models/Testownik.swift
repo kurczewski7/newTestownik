@@ -138,8 +138,11 @@ class Testownik: DataOperations {
     }
     func getText(fileName: String, encodingSystem encoding: String.Encoding = .utf8) -> [String] {  //windowsCP1250
         var texts: [String] = ["brak danych"]
+        var encodingType: String.Encoding = .isoLatin2
         if let path = Bundle.main.path(forResource: fileName, ofType: "txt") {
             do {
+                //let xxx = try String(contentsOfFile: path ,usedEncoding: &encodingType)
+                print(("encoding:\(encodingType.rawValue)"))
                 let data = try String(contentsOfFile: path ,encoding: encoding)
                 let myStrings = data.components(separatedBy: .newlines)
                 texts = myStrings
@@ -151,20 +154,60 @@ class Testownik: DataOperations {
         }
         return texts
     }
+    func checkCodePage(fileName: String) {
+        var encodingType: String.Encoding = .utf8
+        let file = "001.txt"
+        //var str = ""
+        let url = URL(fileURLWithPath: "http://www.wp.pl")
+        
+        do {
+//            let str1 = try String(contentsOf: url, usedEncoding: &encodingType)
+//            print("Used for encoding url \(url.absoluteString) - \(str1): \(encodingType)")
+            print("file:\(fileName)")
+            let str2 = try String(contentsOfFile: fileName, usedEncoding: &encodingType)
+            print("Used for encoding string \(str2): \(encodingType)")
+        } catch {
+            print("XXXXXXX:AAAA")
+            
+        }
+
+//        do {
+//        let xx = String(contentsOf: <#T##URL#>, usedEncoding: &T##String.Encoding)
+//
+//        }
+        
+//        do {
+//            let str = try String(contentsOf: url, usedEncoding: &encodingType)
+//            print("Used for encoding: \(encodingType)")
+//        } catch {
+//            do {
+//                let str = try String(contentsOf: url, encoding: .utf8)
+//                print("Used for encoding: UTF-8")
+//            } catch {
+//                do {
+//                    let str = try String(contentsOf: url, encoding: .isoLatin1)
+//                    print("Used for encoding: Windows Latin 1")
+//                } catch {
+//                    // Error handling
+//                }
+//            }
+//        }
+    }
+        
     func getTextDb(txt: String, encodingSystem encoding: String.Encoding = .utf8) -> [String]  {
         var texts: [String] = ["brak danych"]
         
 //        let xxx = String.Encoding.windowsCP1250
         
         do {
-            //let data = try String(contentsOfFile: txt ,encoding: encoding)
-            let myStrings = txt.components(separatedBy: .newlines)
+            let data = try String(contentsOfFile: txt ,encoding: String.Encoding.windowsCP1252)
+            let myStrings = data.components(separatedBy: .newlines)
             texts = myStrings
-            //print("texts:\(texts)")
+            print("texts:\(texts)")
         }
-//        catch {
-//            print(error.localizedDescription)
-//        }
+        catch {
+            print(error.localizedDescription)
+        }
         return texts
     }
     //        let xxx = "first\nsecond\nferd"

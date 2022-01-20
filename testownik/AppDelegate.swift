@@ -20,6 +20,16 @@ let speech = Speech()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("S T A R T\n")
+        
+        
+        let testownik99 = Testownik()
+        //testownik99.checkCodePage(fileName: "203")
+        //testownik99.checkCodePage(fileName: "074.txt")
+        testownik99.getText(fileName: "203",encodingSystem: .utf8)
+        testownik99.getText(fileName: "074",encodingSystem: .windowsCP1250)
+        testownik99.getText(fileName: "060",encodingSystem: .windowsCP1250)
+        testownik99.getText(fileName: "201")
+        
         let ratings = Ratings()
         ratings.xxxxxx()
         let rr = ratings[2]
