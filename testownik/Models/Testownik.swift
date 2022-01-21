@@ -239,6 +239,7 @@ class Testownik: DataOperations {
         catch {
 //            print(error.localizedDescription)
 //            print("blad:\(contentsOfFile)")
+            print("CCCC")
             retVal = nil
         }
         return retVal
