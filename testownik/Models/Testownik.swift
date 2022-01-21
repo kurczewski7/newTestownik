@@ -141,7 +141,8 @@ class Testownik: DataOperations {
         var encodingType: String.Encoding = .isoLatin2
         if let path = Bundle.main.path(forResource: fileName, ofType: "txt") {
             do {
-                //let xxx = try String(contentsOfFile: path ,usedEncoding: &encodingType)
+                let yy = "DDDD"
+                let xxx = try String(contentsOfFile: path ,usedEncoding: &encodingType)
                 print(("encoding:\(encodingType.rawValue)"))
                 let data = try String(contentsOfFile: path ,encoding: encoding)
                 let myStrings = data.components(separatedBy: .newlines)
@@ -149,27 +150,114 @@ class Testownik: DataOperations {
                 print("text-Cs:\(texts)")
             }
             catch {
+                print("ENCODE:\(encodingType)")
                 print(error.localizedDescription)
             }
         }
         return texts
     }
-    func checkCodePage(fileName: String) {
-        var encodingType: String.Encoding = .utf8
-        let file = "001.txt"
-        //var str = ""
-        let url = URL(fileURLWithPath: "http://www.wp.pl")
+    func checkCodePage(fileName: String, encodingSystem encoding: String.Encoding = .ascii) -> [String] {
+        let encodingList: [String.Encoding] = [String.Encoding.utf8, .windowsCP1250, .windowsCP1251, .windowsCP1252, .windowsCP1253, .windowsCP1254, .isoLatin2, .isoLatin1, .ascii, .unicode,.macOSRoman]
+        var encodingType: String.Encoding = encoding
+        var texts: [String] = ["brak danych"]
+        var notFoundEncoding = true
         
-        do {
-//            let str1 = try String(contentsOf: url, usedEncoding: &encodingType)
-//            print("Used for encoding url \(url.absoluteString) - \(str1): \(encodingType)")
-            print("file:\(fileName)")
-            let str2 = try String(contentsOfFile: fileName, usedEncoding: &encodingType)
-            print("Used for encoding string \(str2): \(encodingType)")
-        } catch {
-            print("XXXXXXX:AAAA")
+        print("first encoding:\(encodingType.description),\(encodingType.rawValue)")
+        if let path = Bundle.main.path(forResource: fileName, ofType: "txt") {
+            do {
+                
+                let str = try String(contentsOfFile: path ,usedEncoding: &encodingType)
+                print(("encoding:\(encodingType.rawValue),\(encodingType.description)\nstr:\(str)\n"))
+                
+                let str1 = try String(contentsOfFile: path ,encoding: encodingType)
+                let myStrings = str1.components(separatedBy: .newlines)
+                texts = myStrings
+                notFoundEncoding = false
+                print("text-Cs:\(texts)")
+            }
+            catch {
+                for i in 0..<encodingList.count {
+                    if let str2 = giveCodepaeText(contentsOfFile: path, encoding: encodingList[i]) {
+                        texts = str2.components(separatedBy: .newlines)
+                        notFoundEncoding = false
+                        break
+                    }
+                }
+            }
+            if notFoundEncoding {
+                do {
+                    let str3 = try String(contentsOfFile: path)
+                    texts = str3.components(separatedBy: .newlines)
+                }
+                catch {
+                    texts.removeAll()
+                }
+             }
+        }
+        else {
+            texts.removeAll()
+        }        
+    return  texts
+    }
+
+            //            catch {
+//                print("ENCODE:\(encodingType),\(encodingType.rawValue)")
+//                print(error.localizedDescription)
+//                do {
+//
+//                }
+//                catch {
+//                    do {
+//                        let str2 = try String(contentsOfFile: path ,encoding: encodingList[3])
+//                        let myStrings = str2.components(separatedBy: .newlines)
+//                        texts = myStrings
+//                        print("text-Cs druie:\(texts)")
+//                    }
+//                    catch {
+//                        print("eeeerrrrrooorr")
+//                    }
+//                }
+//            }
+    func giveCodepaeText(contentsOfFile: String ,encoding: String.Encoding) -> String? {
+        var retVal: String?
+        let xxx = "/Users/slawek/Library/Developer/CoreSimulator/Devices/0ADA8F52-B81D-4FAD-A0D5-D1839A86029E/data/Containers/Bundle/Application/C734D989-BA8C-41C1-B29B-9E43179F4DB0/Testownik.app/newFile.txt"
+        if contentsOfFile == xxx {
+            do {
+                let string = try String(contentsOfFile: contentsOfFile ,encoding: encoding)
+                return string
+            }
+            catch {
+                print("AAAABBB CCC")
+            }
             
         }
+        do {
+            let str = try String(contentsOfFile: contentsOfFile ,encoding: encoding)
+            print(("file:\(contentsOfFile),encoding:\(encoding.rawValue),\(encoding.description)\nstr:\(str)\n"))
+            retVal = str
+        }
+        catch {
+//            print(error.localizedDescription)
+//            print("blad:\(contentsOfFile)")
+            retVal = nil
+        }
+        return retVal
+    }
+//        var encodingType: String.Encoding = .utf8
+//        let file = "001.txt"
+//        //var str = ""
+//        let url = URL(fileURLWithPath: "http://www.wp.pl")
+//
+//        do {
+////            let str1 = try String(contentsOf: url, usedEncoding: &encodingType)
+////            print("Used for encoding url \(url.absoluteString) - \(str1): \(encodingType)")
+//            print("file:\(fileName)")
+//            let str2 = try String(contentsOfFile: fileName, usedEncoding: &encodingType)
+//            print("Used for encoding string \(str2): \(encodingType)")
+//        } catch {
+//            print("XXXXXXX:AAAA")
+//
+//        }
 
 //        do {
 //        let xx = String(contentsOf: <#T##URL#>, usedEncoding: &T##String.Encoding)
@@ -192,7 +280,8 @@ class Testownik: DataOperations {
 //                }
 //            }
 //        }
-    }
+
+
         
     func getTextDb(txt: String, encodingSystem encoding: String.Encoding = .utf8) -> [String]  {
         var texts: [String] = ["brak danych"]

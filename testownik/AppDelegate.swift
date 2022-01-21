@@ -22,14 +22,19 @@ let speech = Speech()
         print("S T A R T\n")
         
         
+        
         let testownik99 = Testownik()
         //testownik99.checkCodePage(fileName: "203")
         //testownik99.checkCodePage(fileName: "074.txt")
-        testownik99.getText(fileName: "203",encodingSystem: .utf8)
-        testownik99.getText(fileName: "074",encodingSystem: .windowsCP1250)
-        testownik99.getText(fileName: "060",encodingSystem: .windowsCP1250)
-        testownik99.getText(fileName: "201")
-        
+        testownik99.checkCodePage(fileName: "203",encodingSystem: .utf8)
+        testownik99.checkCodePage(fileName: "074",encodingSystem: .windowsCP1250)
+        testownik99.checkCodePage(fileName: "060")
+        testownik99.checkCodePage(fileName: "201")
+        testownik99.checkCodePage(fileName: "newFile")
+        testownik99.checkCodePage(fileName: "204-kopia")
+        testownik99.checkCodePage(fileName: "999")
+        testownik99.checkCodePage(fileName: "888")
+
         let ratings = Ratings()
         ratings.xxxxxx()
         let rr = ratings[2]

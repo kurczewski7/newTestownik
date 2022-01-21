@@ -175,6 +175,10 @@
 		2CE2F398242A5B1B00D1B731 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F397242A5B1B00D1B731 /* Setup.swift */; };
 		2CE2F39A242A5B9200D1B731 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F399242A5B9200D1B731 /* Colors.swift */; };
 		2CE2F39C242A5BEF00D1B731 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F39B242A5BEF00D1B731 /* Extensions.swift */; };
+		2CEB11F6279A132700951038 /* 204-kopia.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB11F5279A132700951038 /* 204-kopia.txt */; };
+		2CEB11F8279A133500951038 /* newFile.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB11F7279A133500951038 /* newFile.txt */; };
+		2CEB11FA279A489300951038 /* 999.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB11F9279A489300951038 /* 999.txt */; };
+		2CEB11FC279A48CF00951038 /* 888.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB11FB279A48CF00951038 /* 888.txt */; };
 		2CEB3FF5271F08E8003011F3 /* ForcePressGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB3FF4271F08E8003011F3 /* ForcePressGestureRecognizer.swift */; };
 		2CF509B826F7398400841DA2 /* Messaes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF509B726F7398400841DA2 /* Messaes.swift */; };
 		2CF7F4152719846A00016384 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7F4142719846A00016384 /* Command.swift */; };
@@ -377,6 +381,10 @@
 		2CE2F397242A5B1B00D1B731 /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Setup.swift; path = testownik/Controllers/Setup.swift; sourceTree = SOURCE_ROOT; };
 		2CE2F399242A5B9200D1B731 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2CE2F39B242A5BEF00D1B731 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		2CEB11F5279A132700951038 /* 204-kopia.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "204-kopia.txt"; sourceTree = "<group>"; };
+		2CEB11F7279A133500951038 /* newFile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = newFile.txt; sourceTree = "<group>"; };
+		2CEB11F9279A489300951038 /* 999.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 999.txt; sourceTree = "<group>"; };
+		2CEB11FB279A48CF00951038 /* 888.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 888.txt; sourceTree = "<group>"; };
 		2CEB3FF4271F08E8003011F3 /* ForcePressGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForcePressGestureRecognizer.swift; sourceTree = "<group>"; };
 		2CF509B726F7398400841DA2 /* Messaes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messaes.swift; sourceTree = "<group>"; };
 		2CF7F4142719846A00016384 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Command.swift; path = testownik/Models/Command.swift; sourceTree = SOURCE_ROOT; };
@@ -540,6 +548,8 @@
 				2C7ACAB623F9EF6D00AE4E42 /* 079.txt */,
 				2C7ACAB723F9EF6D00AE4E42 /* 092.txt */,
 				2C7ACAB823F9EF6D00AE4E42 /* 086.txt */,
+				2CEB11FB279A48CF00951038 /* 888.txt */,
+				2CEB11F9279A489300951038 /* 999.txt */,
 			);
 			path = baza;
 			sourceTree = "<group>";
@@ -551,6 +561,8 @@
 				2C99AE9624001A6700FF28F5 /* 202.txt */,
 				2C99AE9724001A6700FF28F5 /* 203.txt */,
 				2CA8229E240411DB000941E1 /* 204.txt */,
+				2CEB11F5279A132700951038 /* 204-kopia.txt */,
+				2CEB11F7279A133500951038 /* newFile.txt */,
 			);
 			path = baza2;
 			sourceTree = "<group>";
@@ -845,6 +857,7 @@
 				2C7ACAF223F9EF6D00AE4E42 /* 012.txt in Resources */,
 				2C7ACB0323F9EF6D00AE4E42 /* 031.txt in Resources */,
 				2C7ACACA23F9EF6D00AE4E42 /* 062.txt in Resources */,
+				2CEB11FA279A489300951038 /* 999.txt in Resources */,
 				2C7ACAC223F9EF6D00AE4E42 /* 061.txt in Resources */,
 				2C7ACB0523F9EF6D00AE4E42 /* 027.txt in Resources */,
 				2CE1478523F6901C00C834F4 /* Assets.xcassets in Resources */,
@@ -856,6 +869,7 @@
 				2C7ACB1A23F9EF6D00AE4E42 /* 057.txt in Resources */,
 				2C7ACB2123F9EF6D00AE4E42 /* 046.txt in Resources */,
 				2C7ACB0A23F9EF6D00AE4E42 /* 096.txt in Resources */,
+				2CEB11F6279A132700951038 /* 204-kopia.txt in Resources */,
 				2C7ACAC023F9EF6D00AE4E42 /* 049.txt in Resources */,
 				2C7ACB1323F9EF6D00AE4E42 /* 097.txt in Resources */,
 				2C7ACADB23F9EF6D00AE4E42 /* 105.txt in Resources */,
@@ -871,6 +885,7 @@
 				2C7ACAD123F9EF6D00AE4E42 /* 112.txt in Resources */,
 				2C7ACAED23F9EF6D00AE4E42 /* 005.txt in Resources */,
 				2C7ACAFD23F9EF6D00AE4E42 /* 020.txt in Resources */,
+				2CEB11FC279A48CF00951038 /* 888.txt in Resources */,
 				2C7ACAD323F9EF6D00AE4E42 /* 107.txt in Resources */,
 				2C7ACB2523F9EF6D00AE4E42 /* 087.txt in Resources */,
 				2C7ACB1923F9EF6D00AE4E42 /* 043.txt in Resources */,
@@ -896,6 +911,7 @@
 				2C7ACABC23F9EF6D00AE4E42 /* 114.txt in Resources */,
 				2C7ACB2D23F9EF6D00AE4E42 /* 092.txt in Resources */,
 				2C7ACAFE23F9EF6D00AE4E42 /* 034.txt in Resources */,
+				2CEB11F8279A133500951038 /* newFile.txt in Resources */,
 				2C7ACABA23F9EF6D00AE4E42 /* 074.txt in Resources */,
 				2C2FD3BC270270B300434C03 /* Speaking.bundle in Resources */,
 				2C7ACAD823F9EF6D00AE4E42 /* 065.txt in Resources */,
