@@ -157,50 +157,101 @@ class Testownik: DataOperations {
         return texts
     }
     func checkCodePage(fileName: String, encodingSystem encoding: String.Encoding = .ascii) -> [String] {
-        let encodingList: [String.Encoding] = [String.Encoding.utf8, .windowsCP1250, .windowsCP1251, .windowsCP1252, .windowsCP1253, .windowsCP1254, .isoLatin2, .isoLatin1, .ascii, .unicode,.macOSRoman]
+        let encodingList: [String.Encoding] = [String.Encoding.utf8, .windowsCP1250, .windowsCP1251, .windowsCP1252, .windowsCP1253, .windowsCP1254, .isoLatin2, .isoLatin1, .ascii, .nonLossyASCII, .unicode, .macOSRoman, .utf16 ]
         var encodingType: String.Encoding = encoding
         var texts: [String] = ["brak danych"]
-        var notFoundEncoding = true
         
         print("first encoding:\(encodingType.description),\(encodingType.rawValue)")
         if let path = Bundle.main.path(forResource: fileName, ofType: "txt") {
-            do {
-                
-                let str = try String(contentsOfFile: path ,usedEncoding: &encodingType)
-                print(("encoding:\(encodingType.rawValue),\(encodingType.description)\nstr:\(str)\n"))
-                
-                let str1 = try String(contentsOfFile: path ,encoding: encodingType)
-                let myStrings = str1.components(separatedBy: .newlines)
-                texts = myStrings
-                notFoundEncoding = false
-                print("text-Cs:\(texts)")
+                if let codePae = checkCodePageId(path: path) {
+                    do {
+                        let str1 = try String(contentsOfFile: path ,encoding: codePae)
+                        let myStrings = str1.components(separatedBy: .newlines)
+                        texts = myStrings
+                        print("text-Cs A:\(codePae.description)")
+                        print("\n,\(texts)")
+                    }
+                    catch {
+                        for i in 0..<encodingList.count {
+                            if let str2 = giveCodepaeText(contentsOfFile: path, encoding: encodingList[i]) {
+                                texts = str2.components(separatedBy: .newlines)
+                                print("text-Cs B:\(encodingList[i].description)")
+                                print("\n,\(texts)")
+                                break
+                            }
+                        }
+                    }
             }
-            catch {
+            else {
                 for i in 0..<encodingList.count {
                     if let str2 = giveCodepaeText(contentsOfFile: path, encoding: encodingList[i]) {
                         texts = str2.components(separatedBy: .newlines)
-                        notFoundEncoding = false
+                        print("text-Cs C:\(encodingList[i].description)")
+                        print("\n,\(texts)")
                         break
                     }
                 }
             }
-            if notFoundEncoding {
-                do {
-                    let str3 = try String(contentsOfFile: path)
-                    texts = str3.components(separatedBy: .newlines)
-                }
-                catch {
-                    texts.removeAll()
-                }
-             }
         }
         else {
+            print("removeAll")
             texts.removeAll()
         }        
     return  texts
+    }    
+    func checkCodePageId(path: String )  -> String.Encoding? {
+        var encodingType: String.Encoding = .utf8
+        
+        do {
+            let str = try String(contentsOfFile: path ,usedEncoding: &encodingType)
+            print(("encoding:\(encodingType.rawValue),\(encodingType.description)\nstr:\(str)\n"))
+            
+            print("encoding Type:\(encodingType.description),\(encodingType.rawValue)")
+            return encodingType
+        }
+        catch {
+            return nil
+        }
     }
+    func testOtherCodePageFile() {
+        var texts: [String] = ["brak danych"]
+        var xxx: String.Encoding = .iso2022JP
+        
+        print("\npoczatek A:\(xxx.rawValue),(xxx)")
+        xxx = .windowsCP1250
+        print("\npoczatek B:\(xxx.rawValue),(xxx)")
+        
+        for i in 1..<15 {
+            xxx.rawValue = UInt(i)
+            print("\n\(i):\(xxx.description)")
+        }
+        if let path = Bundle.main.path(forResource: "newFile", ofType: "txt") {
+            for i in 0..<65000 {
+                xxx.rawValue = UInt(i)
+                if let str = giveCodepaeText(contentsOfFile: path, encoding: xxx) {
+                    texts = str.components(separatedBy: .newlines)
+                    print("text-Cs B:\(xxx.rawValue),\(texts)")
+                    //break
+                }
+            }
+        }
+    }
+    func giveCodepaeText(contentsOfFile: String ,encoding: String.Encoding) -> String? {
+        //var retVal: String?
 
-            //            catch {
+        do {
+            let str = try String(contentsOfFile: contentsOfFile ,encoding: encoding)
+            print(("encoding:\(encoding.rawValue),file:\(contentsOfFile),\(encoding.description)\nstr:\(str)\n"))
+            return str
+        }
+        catch {
+//            print(error.localizedDescription)
+//            print("blad:\(contentsOfFile)")
+//            print("KKKK")
+              return nil
+        }
+    }
+    //            catch {
 //                print("ENCODE:\(encodingType),\(encodingType.rawValue)")
 //                print(error.localizedDescription)
 //                do {
@@ -218,32 +269,8 @@ class Testownik: DataOperations {
 //                    }
 //                }
 //            }
-    func giveCodepaeText(contentsOfFile: String ,encoding: String.Encoding) -> String? {
-        var retVal: String?
-        let xxx = "/Users/slawek/Library/Developer/CoreSimulator/Devices/0ADA8F52-B81D-4FAD-A0D5-D1839A86029E/data/Containers/Bundle/Application/C734D989-BA8C-41C1-B29B-9E43179F4DB0/Testownik.app/newFile.txt"
-        if contentsOfFile == xxx {
-            do {
-                let string = try String(contentsOfFile: contentsOfFile ,encoding: encoding)
-                return string
-            }
-            catch {
-                print("AAAABBB CCC")
-            }
-            
-        }
-        do {
-            let str = try String(contentsOfFile: contentsOfFile ,encoding: encoding)
-            print(("file:\(contentsOfFile),encoding:\(encoding.rawValue),\(encoding.description)\nstr:\(str)\n"))
-            retVal = str
-        }
-        catch {
-//            print(error.localizedDescription)
-//            print("blad:\(contentsOfFile)")
-            print("CCCC")
-            retVal = nil
-        }
-        return retVal
-    }
+
+    
 //        var encodingType: String.Encoding = .utf8
 //        let file = "001.txt"
 //        //var str = ""

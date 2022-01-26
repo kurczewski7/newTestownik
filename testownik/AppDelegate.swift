@@ -26,14 +26,47 @@ let speech = Speech()
         let testownik99 = Testownik()
         //testownik99.checkCodePage(fileName: "203")
         //testownik99.checkCodePage(fileName: "074.txt")
-        testownik99.checkCodePage(fileName: "203",encodingSystem: .utf8)
-        testownik99.checkCodePage(fileName: "074",encodingSystem: .windowsCP1250)
-        testownik99.checkCodePage(fileName: "060")
-        testownik99.checkCodePage(fileName: "201")
+        let yyyy = testownik99.testOtherCodePageFile()
+        
+        //testownik99.
+        
+//        testownik99.checkCodePage(fileName: "203",encodingSystem: .utf8)
+//        testownik99.checkCodePage(fileName: "074",encodingSystem: .windowsCP1250)
+//        testownik99.checkCodePage(fileName: "060")
+//        testownik99.checkCodePage(fileName: "201")
+        
         testownik99.checkCodePage(fileName: "newFile")
-        testownik99.checkCodePage(fileName: "204-kopia")
-        testownik99.checkCodePage(fileName: "999")
-        testownik99.checkCodePage(fileName: "888")
+        
+        testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .windowsCP1250)
+        testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf16)
+        testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf8)
+        
+        if let path0 = Bundle.main.path(forResource: "074", ofType: "txt") {
+            let aa0 = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(15)))
+            print("aa0=\(aa0)")
+            let aa1 = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(4)))
+            print("aa1=\(aa1)")
+            var val: String.Encoding.RawValue = 0
+            let aa3 = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
+            print("aa3=\(aa3)")
+            val = 1
+            let bb = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
+            print("bb=\(bb)")
+            val = 14
+            let cc = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
+            print("cc=\(cc)")
+        }
+print("TESTING")
+//        for j in 4..<85 {
+//            //testownik99.giveCodepaeText(contentsOfFile: "060", encoding: String.Encoding(rawValue: UInt(j))) //newFile
+//            if let path = Bundle.main.path(forResource: "newFile", ofType: "txt"), let strrr2 = testownik99.giveCodepaeText(contentsOfFile: path, encoding: String.Encoding(rawValue: UInt(j))) {
+//                print("j=\(j):\(strrr2)")
+//            }
+//        }
+        print("END TESTING")
+//        testownik99.checkCodePage(fileName: "204-kopia")
+//        testownik99.checkCodePage(fileName: "999")
+//        testownik99.checkCodePage(fileName: "888")
 
         let ratings = Ratings()
         ratings.xxxxxx()
