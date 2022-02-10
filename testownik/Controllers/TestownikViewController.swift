@@ -365,10 +365,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         
         askLabel.layer.cornerRadius = self.cornerRadius
         
-        
         // TODO: POPRAW
         //testownik.fillData(totallQuestionsCount: 117)
-        testownik.fillDataDb()
+ testownik.fillDataDb()
         //testownik.fillDataXXXX()
         refreshView()
     }

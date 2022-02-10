@@ -131,49 +131,66 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
     }
     //--------------------------
     func getText(fromCloudFilePath filePath: URL) -> [String] {
-        let value = getTextEncoding(filePath: filePath)
+        let value = findEncoding(filePath: filePath)
         let myStrings = value.data.components(separatedBy: .newlines)
         return myStrings
     }
-    private func getTextEncoding(filePath path: URL, defaultEncoding: String.Encoding = .windowsCP1250) -> (encoding: String.Encoding, data: String) {
-        var data: String = "brakUJE"
-        let val = tryEncodingFile(filePath: path, encoding: .windowsCP1250)
-        if  val.isOk  {
-            data = val.data
+//    private func getTextEncoding(filePath path: URL, defaultEncoding: String.Encoding = .windowsCP1250) -> (encoding: String.Encoding, data: String) {
+//        var data: String = "brakUJE"
+//
+//        let val = tryEncodingFile(filePath: path, encoding: defaultEncoding)
+//        data = val.isOk ? val.data : "brakUJE"
+//
+//        if data == "brakUJE" {
+//            print("BRAKUJE: \(path)")
+//        }
+//        return  (defaultEncoding, data)
+//    }
+   //########################>
+    private func findEncoding(filePath path: URL) -> (encoding: String.Encoding, data: String) {
+        let encodingType: [String.Encoding] = [String.Encoding.utf8, .windowsCP1250, .windowsCP1251, .windowsCP1252, .windowsCP1253, .windowsCP1254, .isoLatin2, .isoLatin1, .ascii, .nonLossyASCII, .unicode, .macOSRoman, .utf16 ]
+        //  [.utf8, .windowsCP1250, .isoLatin2, .unicode, .ascii]
+        let data: String = "Nie znaleziono"
+        var encoding: String.Encoding = .utf8
+        
+        if let encodId = checkCodePageId(path: path.absoluteString) {
+            if let value0 = tryEncodingFile(filePath: path, encoding: encodId) {
+                encoding = encodId
+                return  (encoding, value0)
+            }
         }
-        else {
-            data = val.data
+        for i in 0..<encodingType.count {
+            if let value1 = tryEncodingFile(filePath: path, encoding: encodingType[i]) {
+                  return (encodingType[i], value1)
+            }
         }
-        if data == "brakUJE" {
-            print("BRAKUJE: \(path)")
-        }
-        return  (.windowsCP1250, data)
+        return  (.utf8, data)
     }
-    private func tryEncodingFile(filePath path: URL, encoding: String.Encoding)  -> (isOk: Bool, data: String) {
+    func checkCodePageId(path: String )  -> String.Encoding? {
+        var encodingType: String.Encoding = .utf8
+        
+        do {
+            let str = try String(contentsOfFile: path ,usedEncoding: &encodingType)
+            print(("encoding:\(encodingType.rawValue),\(encodingType.description)\nstr:\(str)\n"))
+            
+            print("encoding Type:\(encodingType.description),\(encodingType.rawValue)")
+            return encodingType
+        }
+        catch {
+            return nil
+        }
+    }
+    private func tryEncodingFile(filePath path: URL, encoding: String.Encoding)  -> String? {
         do {
             //let fff = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let data = try String(contentsOf: path, encoding: encoding)
             //print("DATA!!,encoding\(encoding):\(data)")
-            return (isOk: true, data: data)
+            return  data
         }
         catch let error {
             print("NIE ZDEKODOWANO STRINGA:\(encoding),error:\(error)")
-            return (isOk: false, data: "Error:\(error)")
+            return nil
         }
-    }
-    private func findEncoding(filePath path: URL) -> (encoding: String.Encoding, data: String) {
-        let encodingType: [String.Encoding] = [.utf8, .windowsCP1250, .isoLatin2, .unicode, .ascii]
-        var data: String = "Nie znaleziono"
-        var encoding: String.Encoding = .windowsCP1250
-        for i in 0..<encodingType.count {
-            let value = tryEncodingFile(filePath: path, encoding: encodingType[i])
-            if value.isOk {
-                data = value.data
-                encoding = encodingType[i]
-                break
-            }
-        }
-        return  (encoding, data)
     }
     func unzip(document: CloudPicker.Document, tmpFolder: String = "Testownik_tmp") -> [Document] {
         let emptyDocs = [Document]()
@@ -183,6 +200,7 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
         let destPath = pathTmp.appendingPathComponent(tmpFolder, isDirectory: true).relativePath
         let zipFileNames = document.fileURL.lastPathComponent.components(separatedBy: ".")
         var zipName = ""
+        
         if zipFileNames.count > 0 {
             for i in 0..<zipFileNames.count-1 {
                 zipName += zipFileNames[i]
@@ -560,3 +578,33 @@ extension URL {
         return (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory
     }
 }
+
+//-------->
+//    private func tryEncodingFile999(filePath path: URL, encoding: String.Encoding)  -> (isOk: Bool, data: String) {
+//        var texts: [String] = ["brak danych"]
+//        var encodingType: String.Encoding = .isoLatin2
+//
+////        if let path = Bundle.main.path(forResource: fileName, ofType: "txt") {
+//
+//            do {
+//                let yy = "DDDD"
+//                let xxx = try String(contentsOfFile: path.absoluteString, usedEncoding: &encodingType)
+//                print(("encoding:\(encodingType.rawValue)"))
+//
+//
+//                let data = try String(contentsOf: path, encoding: encoding)
+//                //let data = try String(contentsOfFile: path.absoluteString ,encoding: encoding)
+//
+//                //let myData = data.components(separatedBy: .newlines)
+//                //texts = myData
+//                print("text-Cs:\(texts)")
+//                return (isOk: true, data: data)
+//            }
+//            catch let error {
+//                print("ENCODE:\(encodingType)")
+//                print(error.localizedDescription)
+//                return (isOk: false, data: "Error:\(error)")
+//            }
+// //       }
+//
+//    }

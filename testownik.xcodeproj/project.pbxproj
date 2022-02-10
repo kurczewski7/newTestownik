@@ -143,6 +143,8 @@
 		2C7ACB2D23F9EF6D00AE4E42 /* 092.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C7ACAB723F9EF6D00AE4E42 /* 092.txt */; };
 		2C7ACB2E23F9EF6D00AE4E42 /* 086.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C7ACAB823F9EF6D00AE4E42 /* 086.txt */; };
 		2C7DFF39271E17660087784E /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7DFF38271E17660087784E /* UIView+Ext.swift */; };
+		2C7E2E0E27A199A60020D02D /* 544.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C7E2E0D27A199A60020D02D /* 544.txt */; };
+		2C7E2E1027A19B1C0020D02D /* 543.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C7E2E0F27A19B1C0020D02D /* 543.txt */; };
 		2C80431C27061BE4006D9BAE /* Speech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C80431B27061BE3006D9BAE /* Speech.swift */; };
 		2C812E1C26F15629004A248D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C812E1B26F15629004A248D /* Settings.bundle */; };
 		2C82DE8C24393DA0002CDA10 /* FavoriteTestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C82DE8B24393DA0002CDA10 /* FavoriteTestsViewController.swift */; };
@@ -155,6 +157,7 @@
 		2C9A0975242C1F2900A1DC4E /* DetailSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A0974242C1F2900A1DC4E /* DetailSectionHeaderView.swift */; };
 		2CA8229F240411DB000941E1 /* 204.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CA8229E240411DB000941E1 /* 204.txt */; };
 		2CB4841827850E2F001F58C5 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4841727850E2F001F58C5 /* Database.swift */; };
+		2CBD79AC27A1C9FF0036F35C /* 333.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBD79AB27A1C9FF0036F35C /* 333.txt */; };
 		2CDB1DF62407C08800361884 /* DataOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1DF52407C08800361884 /* DataOperations.swift */; };
 		2CDB1DF82407C98500361884 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1DF72407C98500361884 /* Test.swift */; };
 		2CE1477923F6901800C834F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE1477823F6901800C834F4 /* AppDelegate.swift */; };
@@ -343,6 +346,8 @@
 		2C7ACAB723F9EF6D00AE4E42 /* 092.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 092.txt; sourceTree = "<group>"; };
 		2C7ACAB823F9EF6D00AE4E42 /* 086.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 086.txt; sourceTree = "<group>"; };
 		2C7DFF38271E17660087784E /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		2C7E2E0D27A199A60020D02D /* 544.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 544.txt; sourceTree = "<group>"; };
+		2C7E2E0F27A19B1C0020D02D /* 543.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 543.txt; sourceTree = "<group>"; };
 		2C80431B27061BE3006D9BAE /* Speech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speech.swift; sourceTree = "<group>"; };
 		2C812E1B26F15629004A248D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		2C82DE8B24393DA0002CDA10 /* FavoriteTestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteTestsViewController.swift; path = testownik/Controllers/FavoriteTestsViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -355,6 +360,7 @@
 		2C9A0974242C1F2900A1DC4E /* DetailSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSectionHeaderView.swift; sourceTree = "<group>"; };
 		2CA8229E240411DB000941E1 /* 204.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 204.txt; sourceTree = "<group>"; };
 		2CB4841727850E2F001F58C5 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		2CBD79AB27A1C9FF0036F35C /* 333.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 333.txt; sourceTree = "<group>"; };
 		2CDB1DF52407C08800361884 /* DataOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOperations.swift; sourceTree = "<group>"; };
 		2CDB1DF72407C98500361884 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		2CE1477523F6901800C834F4 /* Testownik.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Testownik.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -439,6 +445,7 @@
 				2C7ACA4923F9EF6C00AE4E42 /* 115.txt */,
 				2C7ACA4A23F9EF6C00AE4E42 /* 049.txt */,
 				2C7ACA4B23F9EF6C00AE4E42 /* 075.txt */,
+				2CBD79AB27A1C9FF0036F35C /* 333.txt */,
 				2C7ACA4C23F9EF6C00AE4E42 /* 061.txt */,
 				2C7ACA4D23F9EF6C00AE4E42 /* 088.txt */,
 				2C7ACA4E23F9EF6C00AE4E42 /* 077.txt */,
@@ -561,6 +568,8 @@
 				2C99AE9624001A6700FF28F5 /* 202.txt */,
 				2C99AE9724001A6700FF28F5 /* 203.txt */,
 				2CA8229E240411DB000941E1 /* 204.txt */,
+				2C7E2E0F27A19B1C0020D02D /* 543.txt */,
+				2C7E2E0D27A199A60020D02D /* 544.txt */,
 				2CEB11F5279A132700951038 /* 204-kopia.txt */,
 				2CEB11F7279A133500951038 /* newFile.txt */,
 			);
@@ -868,6 +877,7 @@
 				2C7ACB2323F9EF6D00AE4E42 /* 085.txt in Resources */,
 				2C7ACB1A23F9EF6D00AE4E42 /* 057.txt in Resources */,
 				2C7ACB2123F9EF6D00AE4E42 /* 046.txt in Resources */,
+				2C7E2E0E27A199A60020D02D /* 544.txt in Resources */,
 				2C7ACB0A23F9EF6D00AE4E42 /* 096.txt in Resources */,
 				2CEB11F6279A132700951038 /* 204-kopia.txt in Resources */,
 				2C7ACAC023F9EF6D00AE4E42 /* 049.txt in Resources */,
@@ -893,6 +903,7 @@
 				2C7ACAD723F9EF6D00AE4E42 /* 059.txt in Resources */,
 				2C7ACAE523F9EF6D00AE4E42 /* 100.png in Resources */,
 				2C7ACB0F23F9EF6D00AE4E42 /* 108.txt in Resources */,
+				2CBD79AC27A1C9FF0036F35C /* 333.txt in Resources */,
 				2C7ACB0023F9EF6D00AE4E42 /* 030.txt in Resources */,
 				2C7ACB2923F9EF6D00AE4E42 /* 050.txt in Resources */,
 				2C7ACAE223F9EF6D00AE4E42 /* 017.txt in Resources */,
@@ -906,6 +917,7 @@
 				2C7ACB2223F9EF6D00AE4E42 /* 052.txt in Resources */,
 				2C7ACAF523F9EF6D00AE4E42 /* 022.txt in Resources */,
 				2C7ACAE323F9EF6D00AE4E42 /* 016.txt in Resources */,
+				2C7E2E1027A19B1C0020D02D /* 543.txt in Resources */,
 				2C7ACABB23F9EF6D00AE4E42 /* 048.txt in Resources */,
 				2C7ACACF23F9EF6D00AE4E42 /* 066.txt in Resources */,
 				2C7ACABC23F9EF6D00AE4E42 /* 114.txt in Resources */,
