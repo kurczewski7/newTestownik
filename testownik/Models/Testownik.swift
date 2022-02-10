@@ -75,6 +75,7 @@ class Testownik: DataOperations {
         database.testDescriptionTable.forEach { (index, testRecord) in
             if let txt = testRecord?.text, !txt.isEmpty {
                 titles.removeAll()
+                //=========>
                 textLines = getTextDb666(pathTxt: txt)
                 guard textLines.count > 2 else {    return     }
                 for i in 2..<textLines.count {

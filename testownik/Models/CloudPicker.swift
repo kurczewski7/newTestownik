@@ -135,17 +135,6 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
         let myStrings = value.data.components(separatedBy: .newlines)
         return myStrings
     }
-//    private func getTextEncoding(filePath path: URL, defaultEncoding: String.Encoding = .windowsCP1250) -> (encoding: String.Encoding, data: String) {
-//        var data: String = "brakUJE"
-//
-//        let val = tryEncodingFile(filePath: path, encoding: defaultEncoding)
-//        data = val.isOk ? val.data : "brakUJE"
-//
-//        if data == "brakUJE" {
-//            print("BRAKUJE: \(path)")
-//        }
-//        return  (defaultEncoding, data)
-//    }
    //########################>
     private func findEncoding(filePath path: URL) -> (encoding: String.Encoding, data: String) {
         let encodingType: [String.Encoding] = [String.Encoding.utf8, .windowsCP1250, .windowsCP1251, .windowsCP1252, .windowsCP1253, .windowsCP1254, .isoLatin2, .isoLatin1, .ascii, .nonLossyASCII, .unicode, .macOSRoman, .utf16 ]
@@ -307,26 +296,6 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
                 }
         }
     }
-    //--------
-    
-//    class func image(for url: URL, completionHandler: @escaping(_ image: UIImage?) -> ()) {
-//      DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
-//        if let data = self.cache.object(forKey: url.absoluteString as NSString) {
-//          DispatchQueue.main.async { completionHandler(UIImage(data: data as Data)) }
-//          return
-//        }
-//
-//        guard let data = NSData(contentsOf: url) else {
-//          DispatchQueue.main.async { completionHandler(nil) }
-//          return
-//        }
-//
-//        self.cache.setObject(data, forKey: url.absoluteString as NSString)
-//        DispatchQueue.main.async { completionHandler(UIImage(data: data as Data)) }
-//      }
-//    }
-
-    //--------
     deinit {
         print("DEINIT")
     }
@@ -578,6 +547,41 @@ extension URL {
         return (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory
     }
 }
+
+//--------
+
+//    class func image(for url: URL, completionHandler: @escaping(_ image: UIImage?) -> ()) {
+//      DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
+//        if let data = self.cache.object(forKey: url.absoluteString as NSString) {
+//          DispatchQueue.main.async { completionHandler(UIImage(data: data as Data)) }
+//          return
+//        }
+//
+//        guard let data = NSData(contentsOf: url) else {
+//          DispatchQueue.main.async { completionHandler(nil) }
+//          return
+//        }
+//
+//        self.cache.setObject(data, forKey: url.absoluteString as NSString)
+//        DispatchQueue.main.async { completionHandler(UIImage(data: data as Data)) }
+//      }
+//    }
+
+//--------
+
+
+//    private func getTextEncoding(filePath path: URL, defaultEncoding: String.Encoding = .windowsCP1250) -> (encoding: String.Encoding, data: String) {
+//        var data: String = "brakUJE"
+//
+//        let val = tryEncodingFile(filePath: path, encoding: defaultEncoding)
+//        data = val.isOk ? val.data : "brakUJE"
+//
+//        if data == "brakUJE" {
+//            print("BRAKUJE: \(path)")
+//        }
+//        return  (defaultEncoding, data)
+//    }
+
 
 //-------->
 //    private func tryEncodingFile999(filePath path: URL, encoding: String.Encoding)  -> (isOk: Bool, data: String) {
