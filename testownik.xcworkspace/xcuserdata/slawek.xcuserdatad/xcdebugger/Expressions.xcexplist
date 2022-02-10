@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "CloudPicker.getTextEncoding(filePath:defaultEncoding:):CloudPicker.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sss">
+            </PersistentString>
+            <PersistentString
+               value = "val">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Testownik.fillDataDb():Testownik.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CloudPicker.getText(fromCloudFilePath:):CloudPicker.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Testownik.getCodePgTxt(path:encodingSystem:):Testownik.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sss">
+            </PersistentString>
+            <PersistentString
+               value = "ssf">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CloudPicker.tryEncodingFile(filePath:encoding:):CloudPicker.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
