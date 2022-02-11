@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="AllTestEntity" representedClassName="AllTestEntity" syncable="YES" codeGenerationType="class">
         <attribute name="auto_name" optional="YES" attributeType="String"/>
         <attribute name="category" optional="YES" attributeType="String"/>
@@ -44,6 +44,7 @@
         <relationship name="toAllRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AllTestEntity" inverseName="toSelectedRelationship" inverseEntity="AllTestEntity"/>
     </entity>
     <entity name="TestDescriptionEntity" representedClassName="TestDescriptionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="code_page" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="file_name" optional="YES" attributeType="String"/>
         <attribute name="file_url" optional="YES" attributeType="String"/>
         <attribute name="picture" optional="YES" attributeType="Binary"/>
@@ -64,7 +65,7 @@
         <element name="CategoriesEntity" positionX="431.65625" positionY="-10905.859375" width="128" height="88"/>
         <element name="RatingsEntity" positionX="45" positionY="-10953" width="128" height="164"/>
         <element name="SelectedTestEntity" positionX="-154.8046875" positionY="-11101.62890625" width="128" height="134"/>
-        <element name="TestDescriptionEntity" positionX="430.66015625" positionY="-10795.6171875" width="128" height="148"/>
+        <element name="TestDescriptionEntity" positionX="430.66015625" positionY="-10795.6171875" width="128" height="149"/>
         <element name="TestListEntity" positionX="54" positionY="-10944" width="128" height="104"/>
     </elements>
 </model>

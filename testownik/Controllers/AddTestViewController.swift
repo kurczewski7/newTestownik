@@ -79,6 +79,8 @@ class AddTestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         allTestRecord.uuId = uuid
         allTestRecord.folder_url = folderUrlValue
         
+        //allTestRecord.
+        
         // FIXME: comment here
         // TODO:  comment here
         // MARK:  do zrobienia
@@ -90,6 +92,7 @@ class AddTestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             record.file_url = documentsValue[i].fileURL.absoluteString
             record.file_name = documentsValue[i].fileURL.lastPathComponent
             record.text =  documentsValue[i].myTexts
+            record.code_page = Int16(documentsValue[i].myCodepage.rawValue)
             print("documentsValue[\(i)].myTexts: \(documentsValue[i].myTexts)")
 
             // TODO: Maybe error

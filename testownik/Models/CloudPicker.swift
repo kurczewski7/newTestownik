@@ -30,6 +30,7 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
     class Document: UIDocument {
         var data: Data?
         var myTexts = ""
+        var myCodepage = String.Encoding.utf8
         var myPictureData: Data? = nil
         
         override func contents(forType typeName: String) throws -> Any {
@@ -130,10 +131,12 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
         self.presentationController?.present(alertController, animated: true)
     }
     //--------------------------
-    func getText(fromCloudFilePath filePath: URL) -> [String] {
+    func getText(fromCloudFilePath filePath: URL) -> (texts: [String], encoding: String.Encoding){
         let value = findEncoding(filePath: filePath)
         let myStrings = value.data.components(separatedBy: .newlines)
-        return myStrings
+        print("CODE:\(value.encoding.description),\(value.encoding.rawValue)")
+        
+        return (myStrings, value.encoding)
     }
    //########################>
     private func findEncoding(filePath path: URL) -> (encoding: String.Encoding, data: String) {
@@ -142,7 +145,7 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
         let data: String = "Nie znaleziono"
         var encoding: String.Encoding = .utf8
         
-        if let encodId = checkCodePageId(path: path.absoluteString) {
+        if let encodId = checkCodePageId(path: path) {
             if let value0 = tryEncodingFile(filePath: path, encoding: encodId) {
                 encoding = encodId
                 return  (encoding, value0)
@@ -155,11 +158,11 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
         }
         return  (.utf8, data)
     }
-    func checkCodePageId(path: String )  -> String.Encoding? {
+    func checkCodePageId(path: URL)  -> String.Encoding? {
         var encodingType: String.Encoding = .utf8
         
         do {
-            let str = try String(contentsOfFile: path ,usedEncoding: &encodingType)
+            let str = try String(contentsOfFile: path.absoluteString ,usedEncoding: &encodingType)
             print(("encoding:\(encodingType.rawValue),\(encodingType.description)\nstr:\(str)\n"))
             
             print("encoding Type:\(encodingType.description),\(encodingType.rawValue)")
@@ -469,9 +472,11 @@ extension CloudPicker: UIDocumentPickerDelegate {
         let fileExt = fileSplitName.fileExt
         if fileExt.uppercased() == "TXT" {
             print("to jest TXT")
-            let txts = getText(fromCloudFilePath: url)
+            let val = getText(fromCloudFilePath: url)
+            let txts = val.texts
             let txt = mergeText(forStrings: txts)
             document.myTexts = txt
+            document.myCodepage = val.encoding
         }
         if fileExt.uppercased() == "PNG" {
             print("to jest PNG")
