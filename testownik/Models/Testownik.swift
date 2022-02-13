@@ -142,7 +142,9 @@ class Testownik: DataOperations {
         let prefLang = lang.rawValue.prefix(2).lowercased()
         for i in 801..<813 {
             let name = prefLang + String(format: "%03d", i)
-            let txt = getText(fileName: "pl807.txt")
+            let txt1 = getText(fileName: "pl201")
+            let txt2 = getText(fileName: "pl801")
+            let txt3 = getText(fileName: "pl807")
             let textLines = getText(fileName: name)
             //let path = Bundle.main.path(forResource: name, ofType: "txt")
             print("textLines:\(textLines)")
@@ -167,6 +169,9 @@ class Testownik: DataOperations {
                 print(error.localizedDescription)
             }
         }
+         else {
+             print("Error path")
+         }
         return texts
     }
     func testOtherCodePageFile() {
