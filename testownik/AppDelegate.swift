@@ -61,7 +61,7 @@ let testownik99 = Testownik()
 //            print("\nC iiDD:\(codeId)")
 //        }
 
-        
+        testownik99.teeest()
         testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .windowsCP1250)
         testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf16)
         testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf8)

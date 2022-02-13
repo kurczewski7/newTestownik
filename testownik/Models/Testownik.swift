@@ -130,10 +130,28 @@ class Testownik: DataOperations {
         }
         return found
     }
+    func teeest() {
+        loadStartedTest(forLanguage: .english_GB)
+        loadStartedTest(forLanguage: .polish)
+        
+        loadStartedTest(forLanguage: .spanish)
+        loadStartedTest(forLanguage: .french)
+        loadStartedTest(forLanguage: .german)
+    }
+    func loadStartedTest(forLanguage lang: Setup.LanguaesList) {
+        let prefLang = lang.rawValue.prefix(2).lowercased()
+        for i in 801..<813 {
+            let name = prefLang + String(format: "%03d", i)
+            let txt = getText(fileName: "pl807.txt")
+            let textLines = getText(fileName: name)
+            //let path = Bundle.main.path(forResource: name, ofType: "txt")
+            print("textLines:\(textLines)")
+        }
+    }
 //=================================                     3###################       ========================
      func getText(fileName: String, encodingSystem encoding: String.Encoding = .utf8) -> [String] {  //windowsCP1250
         var texts: [String] = ["brak danych"]
-        var encodingType: String.Encoding = .isoLatin2
+        var encodingType: String.Encoding = .utf8
         if let path = Bundle.main.path(forResource: fileName, ofType: "txt") {
             do {
                 let yy = "DDDD"

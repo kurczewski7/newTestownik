@@ -155,6 +155,8 @@
 		2C99AE9B24001A6700FF28F5 /* 203.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C99AE9724001A6700FF28F5 /* 203.txt */; };
 		2C9A0973242C1EEB00A1DC4E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A0972242C1EEB00A1DC4E /* File.swift */; };
 		2C9A0975242C1F2900A1DC4E /* DetailSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A0974242C1F2900A1DC4E /* DetailSectionHeaderView.swift */; };
+		2CA81A4127B94C5700F1CACC /* EN in Resources */ = {isa = PBXBuildFile; fileRef = 2CA81A4027B94C5700F1CACC /* EN */; };
+		2CA81A4327B94C6200F1CACC /* PL in Resources */ = {isa = PBXBuildFile; fileRef = 2CA81A4227B94C6200F1CACC /* PL */; };
 		2CA8229F240411DB000941E1 /* 204.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CA8229E240411DB000941E1 /* 204.txt */; };
 		2CB4841827850E2F001F58C5 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4841727850E2F001F58C5 /* Database.swift */; };
 		2CBD79AC27A1C9FF0036F35C /* 333.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBD79AB27A1C9FF0036F35C /* 333.txt */; };
@@ -358,6 +360,8 @@
 		2C99AE9724001A6700FF28F5 /* 203.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 203.txt; sourceTree = "<group>"; };
 		2C9A0972242C1EEB00A1DC4E /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		2C9A0974242C1F2900A1DC4E /* DetailSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSectionHeaderView.swift; sourceTree = "<group>"; };
+		2CA81A4027B94C5700F1CACC /* EN */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EN; sourceTree = "<group>"; };
+		2CA81A4227B94C6200F1CACC /* PL */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PL; sourceTree = "<group>"; };
 		2CA8229E240411DB000941E1 /* 204.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 204.txt; sourceTree = "<group>"; };
 		2CB4841727850E2F001F58C5 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		2CBD79AB27A1C9FF0036F35C /* 333.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 333.txt; sourceTree = "<group>"; };
@@ -576,6 +580,15 @@
 			path = baza2;
 			sourceTree = "<group>";
 		};
+		2CA81A3F27B94BD400F1CACC /* ExempleTest */ = {
+			isa = PBXGroup;
+			children = (
+				2CA81A4227B94C6200F1CACC /* PL */,
+				2CA81A4027B94C5700F1CACC /* EN */,
+			);
+			path = ExempleTest;
+			sourceTree = "<group>";
+		};
 		2CDB1DF22407BE0400361884 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -662,6 +675,7 @@
 		2CE1477723F6901800C834F4 /* testownik */ = {
 			isa = PBXGroup;
 			children = (
+				2CA81A3F27B94BD400F1CACC /* ExempleTest */,
 				2CE1478923F6901C00C834F4 /* Info.plist */,
 				2CE1477823F6901800C834F4 /* AppDelegate.swift */,
 				2CE1477A23F6901900C834F4 /* SceneDelegate.swift */,
@@ -845,6 +859,7 @@
 				2C7ACAEE23F9EF6D00AE4E42 /* 004.txt in Resources */,
 				2C7ACB2B23F9EF6D00AE4E42 /* 045.txt in Resources */,
 				2CE1478823F6901C00C834F4 /* LaunchScreen.storyboard in Resources */,
+				2CA81A4327B94C6200F1CACC /* PL in Resources */,
 				2C7ACB2423F9EF6D00AE4E42 /* 091.txt in Resources */,
 				2C7ACAC623F9EF6D00AE4E42 /* 103.txt in Resources */,
 				2C7ACB0D23F9EF6D00AE4E42 /* 069.txt in Resources */,
@@ -862,6 +877,7 @@
 				2C7ACAFB23F9EF6D00AE4E42 /* 009.txt in Resources */,
 				2C7ACB1423F9EF6D00AE4E42 /* 083.txt in Resources */,
 				2CE2F38C242A4CE800D1B731 /* Default-568h@2x.png in Resources */,
+				2CA81A4127B94C5700F1CACC /* EN in Resources */,
 				2C7ACB0E23F9EF6D00AE4E42 /* 109.txt in Resources */,
 				2C7ACAF223F9EF6D00AE4E42 /* 012.txt in Resources */,
 				2C7ACB0323F9EF6D00AE4E42 /* 031.txt in Resources */,
