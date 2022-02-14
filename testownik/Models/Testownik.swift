@@ -143,8 +143,12 @@ class Testownik: DataOperations {
         for i in 801..<813 {
             let name = prefLang + String(format: "%03d", i)
             let txt1 = getText(fileName: "pl201")
+            let txt7 = getText(fileName: "pl814")
             let txt2 = getText(fileName: "pl801")
             let txt3 = getText(fileName: "pl807")
+            let txt4 = getText(fileName: "pl811")
+            let txt5 = getText(fileName: "en811")
+            let txt6 = getText(fileName: "204")
             let textLines = getText(fileName: name)
             //let path = Bundle.main.path(forResource: name, ofType: "txt")
             print("textLines:\(textLines)")
@@ -170,7 +174,7 @@ class Testownik: DataOperations {
             }
         }
          else {
-             print("Error path")
+             print("Error path:\(fileName)")
          }
         return texts
     }
