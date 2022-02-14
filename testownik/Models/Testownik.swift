@@ -140,18 +140,18 @@ class Testownik: DataOperations {
     }
     func loadStartedTest(forLanguage lang: Setup.LanguaesList) {
         let prefLang = lang.rawValue.prefix(2).lowercased()
-        for i in 801..<813 {
+        for i in 801...812 {
             let name = prefLang + String(format: "%03d", i)
-            let txt1 = getText(fileName: "pl201")
-            let txt7 = getText(fileName: "pl814")
-            let txt2 = getText(fileName: "pl801")
-            let txt3 = getText(fileName: "pl807")
-            let txt4 = getText(fileName: "pl811")
-            let txt5 = getText(fileName: "en811")
-            let txt6 = getText(fileName: "204")
+//            let txt1 = getText(fileName: "pl201")
+//            let txt7 = getText(fileName: "pl814")
+//            let txt2 = getText(fileName: "pl801")
+//            let txt3 = getText(fileName: "pl807")
+//            let txt4 = getText(fileName: "pl811")
+//            let txt5 = getText(fileName: "en811")
+//            let txt6 = getText(fileName: "204")
             let textLines = getText(fileName: name)
             //let path = Bundle.main.path(forResource: name, ofType: "txt")
-            print("textLines:\(textLines)")
+            print("textLines,\(lang.rawValue):\(textLines)")
         }
     }
 //=================================                     3###################       ========================
