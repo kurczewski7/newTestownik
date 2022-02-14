@@ -38,6 +38,21 @@ class Setup {
     static let askNumber = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"]
     static var tempStr: String  = ""
     static var currentLanguage: LanguaesList = .german
+    static var manualName: String {
+        get {
+            switch currentLanguage {
+            case .enlish     : tempStr = "Introduction to the program."
+            case .english_US : tempStr = "Introduction to the program."
+            case .english_GB : tempStr = "Introduction to the program."
+            case .polish     : tempStr = "Wprowadzenie do programu."
+            case .german     : tempStr = "Einführung in das Programm."
+            case .french     : tempStr = "Présentation du programme."
+            case .spanish    : tempStr = "Introducción al programa."
+            }
+        return tempStr
+        }
+    }
+    
     static var placeHolderButtons: String { get {
         switch currentLanguage {
             case .enlish     : tempStr = "Question"
