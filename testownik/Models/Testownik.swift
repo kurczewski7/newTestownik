@@ -44,30 +44,32 @@ class Testownik: DataOperations {
         didSet {     delegate?.refreshTabbarUI(visableLevel: visableLevel)    }
     }
     // method depreciated ===> to deleted
-    func fillData(totallQuestionsCount: Int) {
-        var titles = [String]()
-        var textLines = [String]()
-        for i in 201...204 { //117
-            titles = []
-            let name = String(format: "%03d", i)
-            print("name:\(name)")
-            textLines=getText(fileName: name)
-            if textLines[textLines.count-1].isEmpty {    textLines.remove(at: textLines.count-1) }
-            for i in 2..<textLines.count {
-                if !textLines[i].isEmpty  {    titles.append(textLines[i])      }
-            }
-            print("i:\(i), textLines: \(textLines)")
-            let order = [99,5,7]
-            let isOk = getAnswer(textLines[0])
-            let answerOptions = fillOneTestAnswers(isOk: isOk, titles: titles)
-            let sortedAnswerOptions = changeOrder(forAnswerOptions: answerOptions)
-            let test = Test(code: textLines[0], ask: textLines[1], pict: nil, answerOptions: sortedAnswerOptions, order: order, youAnswers5: [], fileName: name)
-            testList.append(test)
-            print(test)
-            print("\r\n")
-        }
+//    func fillData(totallQuestionsCount: Int) {
+//        var titles = [String]()
+//        var textLines = [String]()
+//        for i in 201...204 { //117
+//            titles = []
+//            let name = String(format: "%03d", i)
+//            print("name:\(name)")
+//            textLines=getText(fileName: name)
+//            if textLines[textLines.count-1].isEmpty {    textLines.remove(at: textLines.count-1) }
+//            for i in 2..<textLines.count {
+//                if !textLines[i].isEmpty  {    titles.append(textLines[i])      }
+//            }
+//            print("i:\(i), textLines: \(textLines)")
+//            let order = [99,5,7]
+//            let isOk = getAnswer(textLines[0])
+//            let answerOptions = fillOneTestAnswers(isOk: isOk, titles: titles)
+//            let sortedAnswerOptions = changeOrder(forAnswerOptions: answerOptions)
+//            let test = Test(code: textLines[0], ask: textLines[1], pict: nil, answerOptions: sortedAnswerOptions, order: order, youAnswers5: [], fileName: name)
+//            testList.append(test)
+//            print(test)
+//            print("\r\n")
+//        }
+//    }
+    func fillDemoData() {
+        
     }
-    
     func fillDataDb() {
         var titles = [String]()
         var textLines = [String]()
@@ -138,21 +140,96 @@ class Testownik: DataOperations {
         loadStartedTest(forLanguage: .french)
         loadStartedTest(forLanguage: .german)
     }
-    func loadStartedTest(forLanguage lang: Setup.LanguaesList) {
+    func loadStartedTest(forLanguage lang: Setup.LanguaesList = Setup.currentLanguage) {
+   //     guard database.allTestsTable.count > 2 else {   return    }
+        let uuid = UUID()
+        saveHeaderDB(uuid: uuid)
+        saveDecriptionsDB(parentUUID: uuid, forLanguage: lang)
+//        let prefLang = lang.rawValue.prefix(2).lowercased()
+//        for i in 801...812 {
+//            let name = prefLang + String(format: "%03d", i)
+//            let textLines = getText(fileName: name)
+//            print("textLines,\(lang.rawValue):\(textLines)")
+//        }
+    }
+    func saveHeaderDB(uuid: UUID) {
+        
+        //let context = database.context
+        let allTestRecord = AllTestEntity(context: database.context)
+        allTestRecord.auto_name = "Test  2022/02/15  00:10:04"
+        allTestRecord.user_name = "START MANUAL"   //"Nazwa 1"
+        allTestRecord.user_description  = Setup.manualName// "nazwa2"
+        allTestRecord.category = "I N N E"
+        allTestRecord.create_date = Date()
+        allTestRecord.is_favorite = true
+        allTestRecord.uuId = uuid
+        allTestRecord.folder_url = "HOME"
+        
+        database.allTestsTable.append(allTestRecord)
+        database.allTestsTable.save()
+    }
+    func saveDecriptionsDB(parentUUID: UUID, forLanguage lang: Setup.LanguaesList) {
+        var text = ""
         let prefLang = lang.rawValue.prefix(2).lowercased()
         for i in 801...812 {
+            let record = TestDescriptionEntity(context: database.context)
+            
+            record.file_url = "Home"
+            record.file_name = "Name\(i)"
             let name = prefLang + String(format: "%03d", i)
-//            let txt1 = getText(fileName: "pl201")
-//            let txt7 = getText(fileName: "pl814")
-//            let txt2 = getText(fileName: "pl801")
-//            let txt3 = getText(fileName: "pl807")
-//            let txt4 = getText(fileName: "pl811")
-//            let txt5 = getText(fileName: "en811")
-//            let txt6 = getText(fileName: "204")
             let textLines = getText(fileName: name)
-            //let path = Bundle.main.path(forResource: name, ofType: "txt")
-            print("textLines,\(lang.rawValue):\(textLines)")
+            for tmp in textLines {
+                text += tmp
+            }
+            record.text =  text
+            record.code_page = 4
+            print("textLines:\(textLines)")
+
+            record.picture = nil
+            record.uuid_parent = parentUUID
+            record.uuId = UUID()
+            database.testDescriptionTable.append(record)
+            database.testDescriptionTable.save()
         }
+    }
+    func saveData() {
+        //database.allTestsTable.deleteAll()
+        //database.testDescriptionTable.deleteAll()
+        let uuid = UUID()
+        let context = database.context
+        let allTestRecord = AllTestEntity(context: context)
+//        allTestRecord.auto_name = label.text
+//        allTestRecord.user_name = textField1.text
+//        allTestRecord.user_description  = textField2.text
+//        allTestRecord.category = selectedCategory
+//        allTestRecord.create_date = Date()
+//        allTestRecord.is_favorite = true
+//        allTestRecord.uuId = uuid
+//        allTestRecord.folder_url = folderUrlValue
+        
+        //allTestRecord.
+        
+        // FIXME: comment here
+        // TODO:  comment here
+        // MARK:  do zrobienia
+        
+//        database.allTestsTable.append(allTestRecord)
+//        database.allTestsTable.save()
+//        for i in 0..<documentsValue.count {
+//            let record = TestDescriptionEntity(context: context)
+//            record.file_url = documentsValue[i].fileURL.absoluteString
+//            record.file_name = documentsValue[i].fileURL.lastPathComponent
+//            record.text =  documentsValue[i].myTexts
+//            record.code_page = Int16(documentsValue[i].myCodepage.rawValue)
+//            print("documentsValue[\(i)].myTexts: \(documentsValue[i].myTexts)")
+//
+//            // TODO: Maybe error
+//            record.picture = documentsValue[i].myPictureData
+//            record.uuid_parent = uuid
+//            record.uuId = UUID()
+//            database.testDescriptionTable.append(record)
+//            database.testDescriptionTable.save()
+//        }
     }
 //=================================                     3###################       ========================
      func getText(fileName: String, encodingSystem encoding: String.Encoding = .utf8) -> [String] {  //windowsCP1250
@@ -280,10 +357,11 @@ class Testownik: DataOperations {
                 let txtVal = getTextDb666(pathTxt: database.testDescriptionTable[0]?.text ?? " ")
                 if  txtVal.count < 3 {
                     print("Pusty rekord")
-                    self.clearData()  }
+//                    self.clearData()
+                }
                 else    {
                     print("Pełny rekord")
-                    fillDataDb()
+//                    fillDataDb()
                 }
             }
         }

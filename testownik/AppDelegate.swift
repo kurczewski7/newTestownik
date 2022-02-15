@@ -61,10 +61,11 @@ let testownik99 = Testownik()
 //            print("\nC iiDD:\(codeId)")
 //        }
 
-        testownik99.teeest()
-        testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .windowsCP1250)
-        testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf16)
-        testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf8)
+        //testownik99.teeest()
+        
+        //testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .windowsCP1250)
+        //testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf16)
+        //testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf8)
         
         if let path0 = Bundle.main.path(forResource: "543", ofType: "txt") {
             let aa0 = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(15)))
