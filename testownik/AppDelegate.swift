@@ -10,6 +10,12 @@ import UIKit
 import CoreData
 import CoreMedia
 
+
+// FIXME: comment here
+// TODO:  comment here
+// MARK:  do zrobienia
+
+
 let speech = Speech()
 
 let testownik99 = Testownik()
@@ -38,7 +44,7 @@ let testownik99 = Testownik()
 //        print("ttt=\(ttt3)")
 
         
-        let yyyy = testownik99.testOtherCodePageFile()
+//        let yyyy = testownik99.testOtherCodePageFile()
         
         //testownik99.
         
@@ -82,14 +88,14 @@ let testownik99 = Testownik()
             let cc = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
             print("cc=\(cc)")
         }
-print("TESTING")
+//  print("TESTING")
 //        for j in 4..<85 {
 //            //testownik99.giveCodepaeText(contentsOfFile: "060", encoding: String.Encoding(rawValue: UInt(j))) //newFile
 //            if let path = Bundle.main.path(forResource: "newFile", ofType: "txt"), let strrr2 = testownik99.giveCodepaeText(contentsOfFile: path, encoding: String.Encoding(rawValue: UInt(j))) {
 //                print("j=\(j):\(strrr2)")
 //            }
 //        }
-        print("END TESTING")
+//        print("END TESTING")
 //        testownik99.checkCodePage(fileName: "204-kopia")
 //        testownik99.checkCodePage(fileName: "999")
 //        testownik99.checkCodePage(fileName: "888")
@@ -158,7 +164,7 @@ print("TESTING")
         speech.startSpeak()
         
         let fullHomePath = NSHomeDirectory()
-        print("fullHomePath = file:///\(fullHomePath)")
+        print("\n=========\nfullHomePath = file:///\(fullHomePath)")
         //database.allTestsTable.loadData(fieldName: "user_name", fieldValue: "trzeci")
         database.allTestsTable.loadData()
         database.selectedTestTable.loadData()
@@ -190,6 +196,18 @@ print("TESTING")
         Settings.shared.setValue(forKey: .code_page_key, newStringValue: newVal.rawValue)
         Settings.shared.setValue(forKey: .dark_thema_key, newBoolValue: true)
         Settings.shared.setValue(forKey: .repeating_key, newStringValue: Settings.RepeatingEnum.repeating_c.rawValue)
+        
+//        database.allTestsTable.deleteAll()
+//        database.allTestsTable.save()
+//        database.testDescriptionTable.deleteAll()
+//        database.testDescriptionTable.save()
+//        database.selectedTestTable.deleteAll()
+//        database.selectedTestTable.save()
+//        database.testListTable.deleteAll()
+//        database.testListTable.save()
+//        database.ratingsTable.deleteAll()
+//        database.ratingsTable.save()
+        
         if database.selectedTestTable.count == 0 {
             let selTest = SelectedTestEntity(context: database.context)
             selTest.uuId = UUID()

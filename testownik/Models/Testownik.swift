@@ -145,21 +145,33 @@ class Testownik: DataOperations {
         let uuid = UUID()
         saveHeaderDB(uuid: uuid)
         saveDecriptionsDB(parentUUID: uuid, forLanguage: lang)
-//        let prefLang = lang.rawValue.prefix(2).lowercased()
-//        for i in 801...812 {
-//            let name = prefLang + String(format: "%03d", i)
-//            let textLines = getText(fileName: name)
-//            print("textLines,\(lang.rawValue):\(textLines)")
-//        }
+//        let selectedTest = SelectedTestEntity(context: database.context)
+//        selectedTest.uuId = uuid
+        if database.selectedTestTable.count > 0 {
+            database.selectedTestTable[0]?.uuId = uuid
+            database.selectedTestTable.save()
+        }
+        
     }
     func saveHeaderDB(uuid: UUID) {
+//        let currentDateTime = Date()
+//         let formatter = DateFormatter()
+//         formatter.dateFormat = "yyyy/MM/dd  HH:mm:ss"
+//         return "Test  "+formatter.string(from: currentDateTime)
+
         
         //let context = database.context
-        let allTestRecord = AllTestEntity(context: database.context)
-        allTestRecord.auto_name = "Test  2022/02/15  00:10:04"
+   let allTestRecord = AllTestEntity(context: database.context)
+        if #available(iOS 14.0, *) {
+            let dataFormater = DateFormatter()
+            dataFormater.dateFormat = "yyyy/MM/dd  HH:mm:ss"
+            allTestRecord.auto_name = "Demo test "+dataFormater.string(from: Date())
+        } else {
+            allTestRecord.auto_name = "Demo test"
+        }
         allTestRecord.user_name = "START MANUAL"   //"Nazwa 1"
         allTestRecord.user_description  = Setup.manualName// "nazwa2"
-        allTestRecord.category = "I N N E"
+        allTestRecord.category = "D E M O"
         allTestRecord.create_date = Date()
         allTestRecord.is_favorite = true
         allTestRecord.uuId = uuid
@@ -169,11 +181,16 @@ class Testownik: DataOperations {
         database.allTestsTable.save()
     }
     func saveDecriptionsDB(parentUUID: UUID, forLanguage lang: Setup.LanguaesList) {
+        let nameRange = 801...812
         var text = ""
         let prefLang = lang.rawValue.prefix(2).lowercased()
-        for i in 801...812 {
+        for i in nameRange {
+            text = ""
             let record = TestDescriptionEntity(context: database.context)
-            
+            record.picture = nil
+            record.code_page = 4
+            record.uuId = UUID()
+            record.uuid_parent = parentUUID
             record.file_url = "Home"
             record.file_name = "Name\(i)"
             let name = prefLang + String(format: "%03d", i)
@@ -182,12 +199,8 @@ class Testownik: DataOperations {
                 text += tmp
             }
             record.text =  text
-            record.code_page = 4
             print("textLines:\(textLines)")
 
-            record.picture = nil
-            record.uuid_parent = parentUUID
-            record.uuId = UUID()
             database.testDescriptionTable.append(record)
             database.testDescriptionTable.save()
         }
@@ -198,40 +211,9 @@ class Testownik: DataOperations {
         let uuid = UUID()
         let context = database.context
         let allTestRecord = AllTestEntity(context: context)
-//        allTestRecord.auto_name = label.text
-//        allTestRecord.user_name = textField1.text
-//        allTestRecord.user_description  = textField2.text
-//        allTestRecord.category = selectedCategory
-//        allTestRecord.create_date = Date()
-//        allTestRecord.is_favorite = true
-//        allTestRecord.uuId = uuid
-//        allTestRecord.folder_url = folderUrlValue
-        
-        //allTestRecord.
-        
-        // FIXME: comment here
-        // TODO:  comment here
-        // MARK:  do zrobienia
-        
-//        database.allTestsTable.append(allTestRecord)
-//        database.allTestsTable.save()
-//        for i in 0..<documentsValue.count {
-//            let record = TestDescriptionEntity(context: context)
-//            record.file_url = documentsValue[i].fileURL.absoluteString
-//            record.file_name = documentsValue[i].fileURL.lastPathComponent
-//            record.text =  documentsValue[i].myTexts
-//            record.code_page = Int16(documentsValue[i].myCodepage.rawValue)
-//            print("documentsValue[\(i)].myTexts: \(documentsValue[i].myTexts)")
-//
-//            // TODO: Maybe error
-//            record.picture = documentsValue[i].myPictureData
-//            record.uuid_parent = uuid
-//            record.uuId = UUID()
-//            database.testDescriptionTable.append(record)
-//            database.testDescriptionTable.save()
-//        }
     }
-//=================================                     3###################       ========================
+    
+ 
      func getText(fileName: String, encodingSystem encoding: String.Encoding = .utf8) -> [String] {  //windowsCP1250
         var texts: [String] = ["brak danych"]
         var encodingType: String.Encoding = .utf8
@@ -357,11 +339,11 @@ class Testownik: DataOperations {
                 let txtVal = getTextDb666(pathTxt: database.testDescriptionTable[0]?.text ?? " ")
                 if  txtVal.count < 3 {
                     print("Pusty rekord")
-//                    self.clearData()
+                    self.clearData()
                 }
                 else    {
                     print("Pełny rekord")
-//                    fillDataDb()
+                    fillDataDb()
                 }
             }
         }
