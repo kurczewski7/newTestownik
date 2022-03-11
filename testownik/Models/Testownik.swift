@@ -78,7 +78,7 @@ class Testownik: DataOperations {
             if let txt = testRecord?.text, !txt.isEmpty {
                 titles.removeAll()
                 //=========>
-                textLines = getTextDb666(pathTxt: txt)
+                textLines = getTextDb666(txt: txt)
                 guard textLines.count > 2 else {    return     }
                 for i in 2..<textLines.count {
                     if !textLines[i].isEmpty  {    titles.append(textLines[i])      }
@@ -141,7 +141,7 @@ class Testownik: DataOperations {
         loadStartedTest(forLanguage: .german)
     }
     func loadStartedTest(forLanguage lang: Setup.LanguaesList = Setup.currentLanguage) {
-   //     guard database.allTestsTable.count > 2 else {   return    }
+        guard database.allTestsTable.count < 1 else {   return    }
         let uuid = UUID()
         saveHeaderDB(uuid: uuid)
         saveDecriptionsDB(parentUUID: uuid, forLanguage: lang)
@@ -196,7 +196,7 @@ class Testownik: DataOperations {
             let name = prefLang + String(format: "%03d", i)
             let textLines = getText(fileName: name)
             for tmp in textLines {
-                text += tmp
+                text += tmp + "\n"
             }
             record.text =  text
             print("textLines:\(textLines)")
@@ -283,20 +283,23 @@ class Testownik: DataOperations {
     }
 
         
-    func getTextDb666(pathTxt: String, encodingSystem encoding: String.Encoding = .utf8) -> [String]  {
+    func getTextDb666(txt: String, encodingSystem encoding: String.Encoding = .utf8) -> [String]  {
         var texts: [String] = ["brak danych"]
         
+        //let str = String(decoding: data, as: UTF8.self)
+        texts = txt.components(separatedBy: .newlines)
+       // texts.append(contentsOf: txt)
+        texts.append(contentsOf: ["AAA"])
+        texts.append(contentsOf: ["BBB"])
+        print("texts:\(texts)")
+
 //        let xxx = String.Encoding.windowsCP1250
-        
-        do {
-            let data = try String(contentsOfFile: pathTxt ,encoding: encoding)
-            let myStrings = data.components(separatedBy: .newlines)
-            texts = myStrings
-            print("texts:\(texts)")
-        }
-        catch {
-            print(error.localizedDescription)
-        }
+//        do {
+//            let str = String(decoding: data, as: UTF8.self)
+//        }
+//        catch {
+//            print(error.localizedDescription)
+//        }
         return texts
     }
 
@@ -336,7 +339,7 @@ class Testownik: DataOperations {
                 print("TEXT:\(String(describing: database.testDescriptionTable[0]?.text))")
                 
                 // TODO: clear data
-                let txtVal = getTextDb666(pathTxt: database.testDescriptionTable[0]?.text ?? " ")
+                let txtVal = getTextDb666(txt: database.testDescriptionTable[0]?.text ?? " ")
                 if  txtVal.count < 3 {
                     print("Pusty rekord")
                     self.clearData()
