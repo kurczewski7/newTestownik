@@ -83,7 +83,7 @@ class Testownik: DataOperations {
                 for i in 2..<textLines.count {
                     if !textLines[i].isEmpty  {    titles.append(textLines[i])      }
                 }
-                // TODO: order
+                // TODO: order = [99,5,7]  ???
                 let order = [99,5,7]
                 let isOk = getAnswer(textLines[0])
                 let answerOptions = fillOneTestAnswers(isOk: isOk, titles: titles)
@@ -145,13 +145,10 @@ class Testownik: DataOperations {
         let uuid = UUID()
         saveHeaderDB(uuid: uuid)
         saveDecriptionsDB(parentUUID: uuid, forLanguage: lang)
-//        let selectedTest = SelectedTestEntity(context: database.context)
-//        selectedTest.uuId = uuid
         if database.selectedTestTable.count > 0 {
             database.selectedTestTable[0]?.uuId = uuid
             database.selectedTestTable.save()
-        }
-        
+        }        
     }
     func saveHeaderDB(uuid: UUID) {
 //        let currentDateTime = Date()
@@ -285,21 +282,10 @@ class Testownik: DataOperations {
         
     func getTextDb666(txt: String, encodingSystem encoding: String.Encoding = .utf8) -> [String]  {
         var texts: [String] = ["brak danych"]
-        
+    
         //let str = String(decoding: data, as: UTF8.self)
         texts = txt.components(separatedBy: .newlines)
-       // texts.append(contentsOf: txt)
-        texts.append(contentsOf: ["AAA"])
-        texts.append(contentsOf: ["BBB"])
         print("texts:\(texts)")
-
-//        let xxx = String.Encoding.windowsCP1250
-//        do {
-//            let str = String(decoding: data, as: UTF8.self)
-//        }
-//        catch {
-//            print(error.localizedDescription)
-//        }
         return texts
     }
 
@@ -332,7 +318,8 @@ class Testownik: DataOperations {
         database.selectedTestTable.loadData()
         //print("\nselectedTestTable.coun = \(database.selectedTestTable.count)")
         guard database.selectedTestTable.count > 0 else {   return     }
-        if  let selectedUuid = database.selectedTestTable[0]?.toAllRelationship?.uuId {
+        //if  let selectedUuid = database.selectedTestTable[0]?.toAllRelationship?.uuId {
+        if  let selectedUuid = database.selectedTestTable[0]?.uuId {
             database.testDescriptionTable.loadData(forUuid: "uuid_parent", fieldValue: selectedUuid)
             if database.testDescriptionTable.count > 0 {
                 print("file_name:\(String(describing: database.testDescriptionTable[0]?.file_name))")

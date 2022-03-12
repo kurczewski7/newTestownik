@@ -368,7 +368,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         // TODO: POPRAW
         //testownik.fillData(totallQuestionsCount: 117)
         testownik.loadStartedTest()
- testownik.fillDataDb()
+// testownik.fillDataDb()
+testownik.loadTestFromDatabase()
         //testownik.fillDataXXXX()
         refreshView()
     }
