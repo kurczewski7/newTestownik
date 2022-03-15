@@ -366,26 +366,26 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         askLabel.layer.cornerRadius = self.cornerRadius
         
         // TODO: POPRAW
-        //testownik.fillData(totallQuestionsCount: 117)
         testownik.loadStartedTest()
-// testownik.fillDataDb()
-testownik.loadTestFromDatabase()
-        //testownik.fillDataXXXX()
-        refreshView()
+//testownik.loadTestFromDatabase()
+//testownik.fillDataXXXX()
+//        refreshView()
     }
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear viewWillAppear")
         Settings.shared.readCurrentLanguae()
         
         print("Test name 3:\(database.selectedTestTable[0]?.toAllRelationship?.user_name ?? "brak")")
-        print("Testownik count: \(testownik.count)")
+       
 //        if database.testToUpgrade {
             print("testToUpgrade NOW")
+            print("Testownik count A: \(testownik.count)")
             testownik.loadTestFromDatabase()
-            testownik.currentTest = 0
-        
             clearView()
+        
+            testownik.currentTest = 0
             refreshView()
+            print("Testownik count B: \(testownik.count)")
 //            database.testToUpgrade.toggle()
 //        }
         self.view.setNeedsUpdateConstraints()

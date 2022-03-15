@@ -74,6 +74,7 @@ class Testownik: DataOperations {
         var titles = [String]()
         var textLines = [String]()
         print("database.testDescriptionTable.count fillDataDb:\(database.testDescriptionTable.count)")
+        self.testList.removeAll()
         database.testDescriptionTable.forEach { (index, testRecord) in
             if let txt = testRecord?.text, !txt.isEmpty {
                 titles.removeAll()
@@ -84,12 +85,12 @@ class Testownik: DataOperations {
                     if !textLines[i].isEmpty  {    titles.append(textLines[i])      }
                 }
                 // TODO: order = [99,5,7]  ???
-                let order = [99,5,7]
+                //let order = [99,5,7]
                 let isOk = getAnswer(textLines[0])
                 let answerOptions = fillOneTestAnswers(isOk: isOk, titles: titles)
                 let sortedAnswerOptions = changeOrder(forAnswerOptions: answerOptions)
                 let fileName = testRecord?.file_name?.components(separatedBy: ".")[0] ?? ""
-                let test = Test(code: textLines[0], ask: textLines[1], pict: nil, answerOptions: sortedAnswerOptions, order: order, youAnswers5: [], fileName: fileName)
+                let test = Test(code: textLines[0], ask: textLines[1], pict: nil, answerOptions: sortedAnswerOptions, youAnswers5: [], fileName: fileName)
                 self.testList.append(test)
             }
         }
@@ -168,7 +169,8 @@ class Testownik: DataOperations {
         }
         allTestRecord.user_name = "START MANUAL"   //"Nazwa 1"
         allTestRecord.user_description  = Setup.manualName// "nazwa2"
-        allTestRecord.category = "D E M O"
+        allTestRecord.category = "⏪ 👈  D E M O  👉 ⏩"
+        
         allTestRecord.create_date = Date()
         allTestRecord.is_favorite = true
         allTestRecord.uuId = uuid
