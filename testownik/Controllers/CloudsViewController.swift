@@ -66,7 +66,7 @@ class CloudViewController: UIViewController, CloudPickerDelegate  {
  
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("------\nsegue: \(String(describing: segue.identifier))")
+        //print("------\nsegue: \(String(describing: segue.identifier))")
          if segue.identifier == "showSave" {
             if let nextViewController = segue.destination as? AddTestViewController {
                 // TODO: ERROR

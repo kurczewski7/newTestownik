@@ -169,7 +169,7 @@ class Testownik: DataOperations {
         }
         allTestRecord.user_name = "START MANUAL"   //"Nazwa 1"
         allTestRecord.user_description  = Setup.manualName// "nazwa2"
-        allTestRecord.category = "⏪ 👈  D E M O  👉 ⏩"
+        allTestRecord.category = "⏪ 👈     D E M O     👉 ⏩"
         
         allTestRecord.create_date = Date()
         allTestRecord.is_favorite = true
@@ -317,7 +317,7 @@ class Testownik: DataOperations {
     
     // MARK: Methods for Testownik database
     func loadTestFromDatabase() {
-        database.selectedTestTable.loadData()
+    //    database.selectedTestTable.loadData()
         //print("\nselectedTestTable.coun = \(database.selectedTestTable.count)")
         guard database.selectedTestTable.count > 0 else {   return     }
         //if  let selectedUuid = database.selectedTestTable[0]?.toAllRelationship?.uuId {

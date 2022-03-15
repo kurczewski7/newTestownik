@@ -134,7 +134,7 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
     func getText(fromCloudFilePath filePath: URL) -> (texts: [String], encoding: String.Encoding){
         let value = findEncoding(filePath: filePath)
         let myStrings = value.data.components(separatedBy: .newlines)
-        print("CODE:\(value.encoding.description),\(value.encoding.rawValue)")
+        //print("CODE:\(value.encoding.description),\(value.encoding.rawValue)")
         
         return (myStrings, value.encoding)
     }
