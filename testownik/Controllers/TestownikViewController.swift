@@ -100,34 +100,36 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     }
     //======================
     func longPressRefreshUI(sender: UILongPressGestureRecognizer) {
-        let buttons = stackView.arrangedSubviews as! [UIButton]
         if let nr = sender.view?.tag {
-            if let txtLabel = buttons[nr].titleLabel?.text {
-                print("BUTTON \(nr):\(txtLabel)")
                 if nr>=0 && nr < 10 {
                     print("Tag:\(nr)")
-                    gestures.disabledOtherGestures = true
-                    Setup.popUpBlink(context: self, msg: txtLabel, numberLines: 8, height: 150)
-                   
+                    if let button = sender.view as? UIButton, let txtLabel = button.titleLabel?.text {
+                        print("BUTTON \(nr):\(txtLabel)")
+                        gestures.disabledOtherGestures = true
+                        Setup.popUpBlink(context: self, msg: txtLabel, numberLines: 5, height: 150)
+                    }
                 }
                 if nr == 2021 {
                      print("TAG:\(nr)")
                  }
-            }
             //buttons[nr].titleLabel?.scrollLeft()
         }
         print("longPressRefreshUI End:\(sender.view?.tag ?? 0),")
     }
     //==================
     func forcePressRefreshUI(sender: ForcePressGestureRecognizer) {
-        //Setup.displayToast(forView: self.view, message: loremIpsum, seconds: 10)
-        gestures.disabledOtherGestures = true
-        let label = Setup.popUpStrong(context: self, msg: loremIpsum, numberLines: 8, height: 250)
-        //Setup.animationEnded = false
-        
-        
-        gestures.addTapGestureToView(forView: label, touchNumber: 1)
-        print("forcePressRefreshUI,\(sender.numberOfTouches),\(sender.view?.tag ?? 0)")
+        if let nr = sender.view?.tag {
+            if nr >= 0 && nr < 10 {
+                print("Tag:\(nr)")
+                gestures.disabledOtherGestures = true
+                if let button = sender.view as? UIButton, let txtLabel = button.titleLabel?.text {
+                    print("Label:\(txtLabel)")
+                    let label = Setup.popUpStrong(context: self, msg: txtLabel, numberLines: 5, height: 150)
+                    gestures.addTapGestureToView(forView: label, touchNumber: 1)
+                }
+            }
+            print("forcePressRefreshUI,\(sender.numberOfTouches),\(sender.view?.tag ?? 0)")
+        }
     }
     func swipeRefreshUI(direction: UISwipeGestureRecognizer.Direction) {
         print("=====\nA currentTest: \(testownik.currentTest)")
