@@ -102,15 +102,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     func longPressRefreshUI(sender: UILongPressGestureRecognizer) {
         let buttons = stackView.arrangedSubviews as! [UIButton]
         if let nr = sender.view?.tag {
-            print("BUTTON \(nr):\(buttons[nr].fillLevel)")
-            if nr == 2021 {
-                print("TAG:\(nr)")
-            }
-            if nr>=0 && nr < 10 {
-                print("Tag:\(nr)")
-                gestures.disabledOtherGestures = true
-                Setup.popUpBlink(context: self, msg: loremIpsum, numberLines: 8, height: 250)
-               
+            if let txtLabel = buttons[nr].titleLabel?.text {
+                print("BUTTON \(nr):\(txtLabel)")
+                if nr>=0 && nr < 10 {
+                    print("Tag:\(nr)")
+                    gestures.disabledOtherGestures = true
+                    Setup.popUpBlink(context: self, msg: txtLabel, numberLines: 8, height: 150)
+                   
+                }
+                if nr == 2021 {
+                     print("TAG:\(nr)")
+                 }
             }
             //buttons[nr].titleLabel?.scrollLeft()
         }
