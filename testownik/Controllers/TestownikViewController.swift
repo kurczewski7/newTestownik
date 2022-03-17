@@ -25,6 +25,11 @@ class TestownikViewController: UIViewController, GesturesDelegate, TestownikDele
     //  MARK: variable
     var cornerRadius: CGFloat = 10
     let initalStackSpacing: CGFloat = 30.0
+    
+    var lastButtonTag = 999
+    var lastButtonColor = UIColor.black
+    var lastBackgroundColor = UIColor.yellow
+    
     var tabHigh: [NSLayoutConstraint] = [NSLayoutConstraint]()
     var loremIpsum = """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
@@ -71,22 +76,52 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         //gestures.addLongPressGesture()
         //gestures.addForcePressGesture()
     }
-    
+    //Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(startMe), userInfo: nil, repeats: false)
     // MARK: GesturesDelegate  protocol metods
     func tapRefreshUI(sender: UITapGestureRecognizer) {
         if Setup.animationEnded {
             gestures.disabledOtherGestures = false
-        } 
-        if sender.view?.tag == 2021 {
-            sender.view?.window?.rootViewController?.dismiss(animated: true, completion: {
-                Setup.animationEnded = true
-                self.gestures.disabledOtherGestures = false
-                sender.view?.removeFromSuperview()
-                print("TO JUZ JEST  KONIEC")
-                //Setup.setTextColor(forToastType: .toast, backgroundColor: UIColor.brown)
-            })
         }
-        print("tapRefreshUI NOWY zz:\(sender.view?.tag ?? 0)")
+        if let nr = sender.view?.tag {
+            if nr == 2021 {
+                sender.view?.window?.rootViewController?.dismiss(animated: true, completion: {
+                    Setup.animationEnded = true
+                    self.gestures.disabledOtherGestures = false
+                    sender.view?.removeFromSuperview()
+                    print("TO JUZ JEST  KONIEC")
+                    //print("NR 0:\(self.lastButtonTag)")
+                    if  (0...9).contains(self.lastButtonTag) {
+                        if let oldButton = self.stackView.arrangedSubviews[self.lastButtonTag] as? UIButton {
+                            
+//                            UIView.animate(withDuration: 2.5, delay: 0.3, options: []) {
+//                                oldButton.tintColor = self.lastButtonColor
+//                            }, completion: nil)
+                            UIView.animate(withDuration: 2.0, delay: 0.2, options: []) {
+                                oldButton.tintColor = self.lastButtonColor
+                                oldButton.backgroundColor = self.lastBackgroundColor
+                            }
+
+                        }
+                        print("NR 1:\(self.lastButtonTag)")
+                    }
+                    //Setup.setTextColor(forToastType: .toast, backgroundColor: UIColor.brown)
+                })
+           }
+            if (0...9).contains(nr) {
+                if let button = sender.view as? UIButton {
+                    // let txtLabel = button.titleLabel?.text
+//                    self.lastButtonTag = nr
+//                    self.lastButtonColor = button.tintColor
+                    //let currTest = testownik[testownik.currentTest]
+                    //button.tintColor = UIColor.purple
+                    button.layer.borderWidth = button.layer.borderWidth == 1 ? 3 : 1
+                    //currTest.answerOptions[nr].isOK ? 3 : 1
+                    button.layer.borderColor = button.layer.borderColor == UIColor.brown.cgColor ? UIColor.systemYellow.cgColor : UIColor.brown.cgColor
+                    //currTest.answerOptions[nr].isOK ? UIColor.systemGreen.cgColor : UIColor.brown.cgColor
+                }
+            }
+            print("tapRefreshUI NOWY zz:\(sender.view?.tag ?? 0)")
+        }
     }
     func pinchRefreshUI(sender: UIPinchGestureRecognizer) {
         print("Pinch touches:\(sender.numberOfTouches),\(sender.scale) ")
@@ -101,10 +136,15 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     //======================
     func longPressRefreshUI(sender: UILongPressGestureRecognizer) {
         if let nr = sender.view?.tag {
-                if nr>=0 && nr < 10 {
+            if (0...9).contains(nr) {
+                    self.lastButtonTag = nr
                     print("Tag:\(nr)")
                     if let button = sender.view as? UIButton, let txtLabel = button.titleLabel?.text {
                         print("BUTTON \(nr):\(txtLabel)")
+                        self.lastButtonColor = button.tintColor
+                        self.lastBackgroundColor = button.backgroundColor ?? .orange
+                        button.tintColor = UIColor.purple
+                        button.backgroundColor = .yellow
                         gestures.disabledOtherGestures = true
                         Setup.popUpBlink(context: self, msg: txtLabel, numberLines: 5, height: 150)
                     }
@@ -119,11 +159,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     //==================
     func forcePressRefreshUI(sender: ForcePressGestureRecognizer) {
         if let nr = sender.view?.tag {
-            if nr >= 0 && nr < 10 {
+            if (0...9).contains(nr) {
                 print("Tag:\(nr)")
                 gestures.disabledOtherGestures = true
                 if let button = sender.view as? UIButton, let txtLabel = button.titleLabel?.text {
                     print("Label:\(txtLabel)")
+                    self.lastButtonTag = nr
+                    self.lastButtonColor = button.tintColor
+                    self.lastBackgroundColor = button.backgroundColor ?? .orange
+                    button.tintColor = .purple
+                    button.backgroundColor = .yellow
                     let label = Setup.popUpStrong(context: self, msg: txtLabel, numberLines: 5, height: 150)
                     gestures.addTapGestureToView(forView: label, touchNumber: 1)
                 }
