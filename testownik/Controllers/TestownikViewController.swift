@@ -25,11 +25,12 @@ class TestownikViewController: UIViewController, GesturesDelegate, TestownikDele
     //  MARK: variable
     var cornerRadius: CGFloat = 10
     let initalStackSpacing: CGFloat = 30.0
-    
-    var lastButtonTag = 999
-    var lastButtonColor = UIColor.black
-    var lastBackgroundColor = UIColor.yellow
-    
+    struct ButtonParam {
+        var Tag = 999
+        var Color = UIColor.black
+        var BackgroundColor = UIColor.yellow
+    }
+    var lastButton = ButtonParam()
     var tabHigh: [NSLayoutConstraint] = [NSLayoutConstraint]()
     var loremIpsum = """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
@@ -89,20 +90,20 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                     self.gestures.disabledOtherGestures = false
                     sender.view?.removeFromSuperview()
                     print("TO JUZ JEST  KONIEC")
-                    //print("NR 0:\(self.lastButtonTag)")
-                    if  (0...9).contains(self.lastButtonTag) {
-                        if let oldButton = self.stackView.arrangedSubviews[self.lastButtonTag] as? UIButton {
+                    //print("NR 0:\(self.lastButton.Tag)")
+                    if  (0...9).contains(self.lastButton.Tag) {
+                        if let oldButton = self.stackView.arrangedSubviews[self.lastButton.Tag] as? UIButton {
                             
 //                            UIView.animate(withDuration: 2.5, delay: 0.3, options: []) {
-//                                oldButton.tintColor = self.lastButtonColor
+//                                oldButton.tintColor = self.lastButton.Color
 //                            }, completion: nil)
                             UIView.animate(withDuration: 2.0, delay: 0.2, options: []) {
-                                oldButton.tintColor = self.lastButtonColor
-                                oldButton.backgroundColor = self.lastBackgroundColor
+                                oldButton.tintColor = self.lastButton.Color
+                                oldButton.backgroundColor = self.lastButton.BackgroundColor
                             }
 
                         }
-                        print("NR 1:\(self.lastButtonTag)")
+                        print("NR 1:\(self.lastButton.Tag)")
                     }
                     //Setup.setTextColor(forToastType: .toast, backgroundColor: UIColor.brown)
                 })
@@ -110,8 +111,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             if (0...9).contains(nr) {
                 if let button = sender.view as? UIButton {
                     // let txtLabel = button.titleLabel?.text
-//                    self.lastButtonTag = nr
-//                    self.lastButtonColor = button.tintColor
+//                    self.lastButton.Tag = nr
+//                    self.lastButton.Color = button.tintColor
                     //let currTest = testownik[testownik.currentTest]
                     //button.tintColor = UIColor.purple
                     button.layer.borderWidth = button.layer.borderWidth == 1 ? 3 : 1
@@ -137,18 +138,18 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     func longPressRefreshUI(sender: UILongPressGestureRecognizer) {
         if let nr = sender.view?.tag {
             if (0...9).contains(nr) {
-                    self.lastButtonTag = nr
+                    self.lastButton.Tag = nr
                     print("Tag:\(nr)")
                     if let button = sender.view as? UIButton, let txtLabel = button.titleLabel?.text {
                         print("BUTTON \(nr):\(txtLabel)")
-                        self.lastButtonColor = button.tintColor
-                        self.lastBackgroundColor = button.backgroundColor ?? .orange
+                        self.lastButton.Color = button.tintColor
+                        self.lastButton.BackgroundColor = button.backgroundColor ?? .orange
                         button.tintColor = UIColor.purple
                         button.backgroundColor = .yellow
                         gestures.disabledOtherGestures = true
                         Setup.popUpBlink(context: self, msg: txtLabel, numberLines: 5, height: 150) {
-                            button.tintColor = self.lastButtonColor
-                            button.backgroundColor = self.lastBackgroundColor
+                            button.tintColor = self.lastButton.Color
+                            button.backgroundColor = self.lastButton.BackgroundColor
                             self.gestures.disabledOtherGestures = false
                         }
                         //button.backgroundColor = .magenta
@@ -169,9 +170,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                 gestures.disabledOtherGestures = true
                 if let button = sender.view as? UIButton, let txtLabel = button.titleLabel?.text {
                     print("Label:\(txtLabel)")
-                    self.lastButtonTag = nr
-                    self.lastButtonColor = button.tintColor
-                    self.lastBackgroundColor = button.backgroundColor ?? .orange
+                    self.lastButton.Tag = nr
+                    self.lastButton.Color = button.tintColor
+                    self.lastButton.BackgroundColor = button.backgroundColor ?? .orange
                     button.tintColor = .purple
                     button.backgroundColor = .yellow
                     let label = Setup.popUpStrong(context: self, msg: txtLabel, numberLines: 5, height: 150)
