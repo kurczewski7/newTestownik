@@ -146,7 +146,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                         button.tintColor = UIColor.purple
                         button.backgroundColor = .yellow
                         gestures.disabledOtherGestures = true
-                        Setup.popUpBlink(context: self, msg: txtLabel, numberLines: 5, height: 150)
+                        Setup.popUpBlink(context: self, msg: txtLabel, numberLines: 5, height: 150) {
+                            button.tintColor = self.lastButtonColor
+                            button.backgroundColor = self.lastBackgroundColor
+                            self.gestures.disabledOtherGestures = false
+                        }
+                        //button.backgroundColor = .magenta
                     }
                 }
                 if nr == 2021 {

@@ -193,11 +193,12 @@ class Setup {
         
       return toast
     }
-    class func popUpBlink(context ctx: UIViewController, msg: String, numberLines lines: Int = 6, height: CGFloat = 200) {
+    class func popUpBlink(context ctx: UIViewController, msg: String, numberLines lines: Int = 6, height: CGFloat = 200, completionFinish: @escaping () -> Void) {
         let toast = UILabel(frame:
             CGRect(x: 16, y: ctx.view.frame.size.height / 2,
                    width: ctx.view.frame.size.width - 32, height: height))
 
+        
         toast.backgroundColor =  backgroundColorList[PopViewType.popUpBlink.rawValue]
         toast.textColor =  textColorList[PopViewType.popUpBlink.rawValue]      
         toast.textAlignment = .center;
@@ -215,6 +216,7 @@ class Setup {
             }, completion: {(isCompleted) in
                 animationEnded = true
                 toast.removeFromSuperview()
-        })
+                completionFinish()
+            })
     }
 }
