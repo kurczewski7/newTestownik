@@ -177,13 +177,38 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                     button.backgroundColor = .yellow
                     let label = Setup.popUpStrong(context: self, msg: txtLabel, numberLines: 5, height: 150)
                     gestures.addTapGestureToView(forView: label, touchNumber: 1)
+                    gestures.addSwipeGestureToView(direction: .down, forView: label)
+                    gestures.addSwipeGestureToView(direction: .up, forView: label)
+                    //label.gestureRecognizers?.removeAll()
                 }
             }
             print("forcePressRefreshUI,\(sender.numberOfTouches),\(sender.view?.tag ?? 0)")
         }
     }
+    func swipeRefreshLabel(sender: UISwipeGestureRecognizer, directions: [UISwipeGestureRecognizer.Direction]) {        
+        if let tag = sender.view?.tag, tag == 2021 {
+            if directions.count == 2 && (directions[0] == .down || directions[0] == .up ){
+                var frame = sender.view?.frame
+                if sender.direction == .up {
+                    print("MOVE UP:\(sender.location(in: sender.view))")
+                    frame?.origin.y -= 10.0
+                }
+                else if sender.direction == .down {
+                    print("MOVE DOWN:\(sender.location(in: sender.view))")
+                    frame?.origin.y += 10.0
+                }
+                UIView.animate(withDuration: 0.5) {
+                    sender.view?.frame = frame!
+                }
+
+            }
+            print("swipeRefreshLabel:\(tag),\(sender.direction.rawValue)")            
+        }
+        
+    }
     func swipeRefreshUI(direction: UISwipeGestureRecognizer.Direction) {
         print("=====\nA currentTest: \(testownik.currentTest)")
+        //if let tag =
         switch direction {
             case .right:
                 //if testownik.count > 1 {

@@ -12,6 +12,8 @@ class DetailViewController: UIViewController, GesturesDelegate {
     func addAllRequiredGestures(sender: Gestures) {
         sender.addCustomGesture(.tap, forView: self.view)
     }
+    func swipeRefreshLabel(sender: UISwipeGestureRecognizer, directions: [UISwipeGestureRecognizer.Direction]) {
+    }
     func tapRefreshUI(sender: UITapGestureRecognizer) {
     }
     func forcePressRefreshUI(sender: ForcePressGestureRecognizer) {    

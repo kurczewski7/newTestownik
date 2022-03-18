@@ -9,14 +9,15 @@
 import UIKit
 
 protocol GesturesDelegate {
-    func eadgePanRefreshUI()
-    func pinchRefreshUI(sender: UIPinchGestureRecognizer)
-    func tapRefreshUI(sender: UITapGestureRecognizer)
-    func longPressRefreshUI(sender: UILongPressGestureRecognizer)
-    func forcePressRefreshUI(sender: ForcePressGestureRecognizer)
-    func swipeRefreshUI(direction: UISwipeGestureRecognizer.Direction)
-
-    func addAllRequiredGestures(sender: Gestures)
+     func eadgePanRefreshUI()
+     func pinchRefreshUI(sender: UIPinchGestureRecognizer)
+     func tapRefreshUI(sender: UITapGestureRecognizer)
+     func longPressRefreshUI(sender: UILongPressGestureRecognizer)
+     func forcePressRefreshUI(sender: ForcePressGestureRecognizer)
+     func swipeRefreshUI(direction: UISwipeGestureRecognizer.Direction)
+    
+     func swipeRefreshLabel(sender: UISwipeGestureRecognizer, directions: [UISwipeGestureRecognizer.Direction])
+     func addAllRequiredGestures(sender: Gestures)
 }
 class Gestures {
     enum GesteresList: Int {
@@ -136,7 +137,9 @@ class Gestures {
             delegate?.tapRefreshUI(sender: sender)
         }
     }
-     @objc func swipeAction(sender: UISwipeGestureRecognizer) {
+    @objc func swipeAction(sender: UISwipeGestureRecognizer) {
+         print("swipeAction:\(sender.view?.tag))")
+         delegate?.swipeRefreshLabel(sender: sender, directions: [.down, .up])
          if  !self.disabledOtherGestures {
              delegate?.swipeRefreshUI(direction: sender.direction)
          }
