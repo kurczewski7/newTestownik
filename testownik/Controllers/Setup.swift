@@ -26,12 +26,20 @@ class Setup {
         case popUpStrong = 2
         case popUpBlink  = 3
     }
+    struct PopupStrongParams {
+        var tag = 2021
+        var lines: Int = 6
+        var height: CGFloat = 200
+        var font = UIFont.systemFont(ofSize: 20)
+        var frame: CGRect? = nil
+    }
     // MARK: variables
     private static let backgroundColorsDefault: [UIColor] = [UIColor.systemYellow.withAlphaComponent(0.6), UIColor.lightGray, UIColor.systemBlue, UIColor.systemGreen]
     private static let textColorsDefault: [UIColor] = [.white, .white, .white, .black]
     private static var backgroundColorList =  backgroundColorsDefault
     private static var textColorList = textColorsDefault
     
+    static var popUpStrong: PopupStrongParams = PopupStrongParams()
     static var cloudPicker: CloudPicker!
     static var animationEnded = true
     static var isNumericQuestions = false
@@ -149,10 +157,7 @@ class Setup {
             })
     }
     class func popUp(context ctx: UIViewController, msg: String, height: CGFloat = 100) {
-        let toast = UILabel(frame:
-            CGRect(x: 16, y: ctx.view.frame.size.height / 2,
-                   width: ctx.view.frame.size.width - 32, height: height))
-        
+        let toast = UILabel(frame:  CGRect(x: 16, y: ctx.view.frame.size.height / 2, width: ctx.view.frame.size.width - 32, height: height))
         toast.backgroundColor =  backgroundColorList[PopViewType.popUp.rawValue]
         toast.textColor =  textColorList[PopViewType.popUp.rawValue]
         toast.textAlignment = .center;
@@ -172,20 +177,22 @@ class Setup {
                 toast.removeFromSuperview()
         })
     }
-    class func popUpStrong(context ctx: UIViewController, msg: String, numberLines lines: Int = 6, height: CGFloat = 200)  -> UILabel   {
-        let toast = UILabel(frame:
-            CGRect(x: 16, y: ctx.view.frame.size.height / 2,
-                   width: ctx.view.frame.size.width - 32, height: height))
+    class func popUpStrong(context ctx: UIViewController, msg: String, numberLines lines: Int = popUpStrong.lines, height: CGFloat = popUpStrong.height)  -> UILabel   {
+        let frame = CGRect(x: 16, y: ctx.view.frame.size.height / 2, width: ctx.view.frame.size.width - 32, height: height)
+        if Setup.popUpStrong.frame == nil {
+            Setup.popUpStrong.frame = frame
+        }
+        let toast = UILabel(frame: Setup.popUpStrong.frame!)
 
         toast.backgroundColor = backgroundColorList[PopViewType.popUpStrong.rawValue]
         toast.textColor = textColorList[PopViewType.popUpStrong.rawValue]
         toast.textAlignment = .center;
         toast.numberOfLines = lines
-        toast.font = UIFont.systemFont(ofSize: 20)
+        toast.font = popUpStrong.font
         toast.layer.cornerRadius = 12;
         toast.clipsToBounds  =  true
         toast.isUserInteractionEnabled = true
-        toast.tag = 2021
+        toast.tag = popUpStrong.tag
         ctx.view.addSubview(toast)
         toast.text = msg
         animationEnded = false

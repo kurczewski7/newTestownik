@@ -97,6 +97,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 //                            UIView.animate(withDuration: 2.5, delay: 0.3, options: []) {
 //                                oldButton.tintColor = self.lastButton.Color
 //                            }, completion: nil)
+                            Setup.popUpStrong.frame = sender.view?.frame
                             UIView.animate(withDuration: 2.0, delay: 0.2, options: []) {
                                 oldButton.tintColor = self.lastButton.Color
                                 oldButton.backgroundColor = self.lastButton.BackgroundColor
@@ -175,7 +176,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                     self.lastButton.BackgroundColor = button.backgroundColor ?? .orange
                     button.tintColor = .purple
                     button.backgroundColor = .yellow
+                    
                     let label = Setup.popUpStrong(context: self, msg: txtLabel, numberLines: 5, height: 150)
+                    label.frame = Setup.popUpStrong.frame!
+                    //Setup.popUpStrong.frame = label.frame
                     gestures.addTapGestureToView(forView: label, touchNumber: 1)
                     gestures.addSwipeGestureToView(direction: .down, forView: label)
                     gestures.addSwipeGestureToView(direction: .up, forView: label)
@@ -200,6 +204,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                 UIView.animate(withDuration: 0.5) {
                     sender.view?.frame = frame!
                 }
+                //Setup.popUpStrong.frame = frame!
 
             }
             print("swipeRefreshLabel:\(tag),\(sender.direction.rawValue)")            
