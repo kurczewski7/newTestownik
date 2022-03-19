@@ -194,14 +194,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             if directions.count == 2 && (directions[0] == .down || directions[0] == .up ){
                 var frame = sender.view?.frame
                 if sender.direction == .up {
-                    print("MOVE UP:\(sender.location(in: sender.view))")
-                    frame?.origin.y -= 10.0
+                    print("MOVE UP:\(sender.location(in: sender.view).y)")
+                    frame?.origin.y -= sender.location(in: sender.view).y
                 }
                 else if sender.direction == .down {
-                    print("MOVE DOWN:\(sender.location(in: sender.view))")
-                    frame?.origin.y += 10.0
+                    print("MOVE DOWN:\(sender.location(in: sender.view).y)")
+                    frame?.origin.y += sender.location(in: sender.view).y
                 }
-                UIView.animate(withDuration: 0.5) {
+                UIView.animate(withDuration: 0.15) {
                     sender.view?.frame = frame!
                 }
                 //Setup.popUpStrong.frame = frame!
