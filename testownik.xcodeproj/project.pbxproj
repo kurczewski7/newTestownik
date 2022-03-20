@@ -221,6 +221,11 @@
 		2CA8229F240411DB000941E1 /* 204.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CA8229E240411DB000941E1 /* 204.txt */; };
 		2CB4841827850E2F001F58C5 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4841727850E2F001F58C5 /* Database.swift */; };
 		2CBD79AC27A1C9FF0036F35C /* 333.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBD79AB27A1C9FF0036F35C /* 333.txt */; };
+		2CC148B727E78E31005B043B /* 002.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC148B627E78E31005B043B /* 002.png */; };
+		2CC148B927E78E53005B043B /* 001.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC148B827E78E53005B043B /* 001.png */; };
+		2CC148BB27E78EB3005B043B /* 003.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC148BA27E78EB3005B043B /* 003.png */; };
+		2CC148BD27E78ED6005B043B /* 004.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC148BC27E78ED6005B043B /* 004.png */; };
+		2CC148BF27E78EE3005B043B /* 005.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC148BE27E78EE3005B043B /* 005.png */; };
 		2CDB1DF62407C08800361884 /* DataOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1DF52407C08800361884 /* DataOperations.swift */; };
 		2CDB1DF82407C98500361884 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1DF72407C98500361884 /* Test.swift */; };
 		2CE1477923F6901800C834F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE1477823F6901800C834F4 /* AppDelegate.swift */; };
@@ -487,6 +492,11 @@
 		2CA8229E240411DB000941E1 /* 204.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 204.txt; sourceTree = "<group>"; };
 		2CB4841727850E2F001F58C5 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		2CBD79AB27A1C9FF0036F35C /* 333.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 333.txt; sourceTree = "<group>"; };
+		2CC148B627E78E31005B043B /* 002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 002.png; sourceTree = "<group>"; };
+		2CC148B827E78E53005B043B /* 001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 001.png; sourceTree = "<group>"; };
+		2CC148BA27E78EB3005B043B /* 003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 003.png; sourceTree = "<group>"; };
+		2CC148BC27E78ED6005B043B /* 004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 004.png; sourceTree = "<group>"; };
+		2CC148BE27E78EE3005B043B /* 005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 005.png; sourceTree = "<group>"; };
 		2CDB1DF52407C08800361884 /* DataOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOperations.swift; sourceTree = "<group>"; };
 		2CDB1DF72407C98500361884 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		2CE1477523F6901800C834F4 /* Testownik.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Testownik.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -866,6 +876,11 @@
 				2CDB1DF32407BE1700361884 /* Models */,
 				2CDB1DF22407BE0400361884 /* Controllers */,
 				2CE1478423F6901C00C834F4 /* Assets.xcassets */,
+				2CC148B827E78E53005B043B /* 001.png */,
+				2CC148B627E78E31005B043B /* 002.png */,
+				2CC148BA27E78EB3005B043B /* 003.png */,
+				2CC148BC27E78ED6005B043B /* 004.png */,
+				2CC148BE27E78EE3005B043B /* 005.png */,
 				2C99AE9424001A6700FF28F5 /* baza2 */,
 				2C7ACA4323F9EF6C00AE4E42 /* 060.txt */,
 				2C7ACA4223F9EF6C00AE4E42 /* baza */,
@@ -1080,6 +1095,7 @@
 				2C7ACAFB23F9EF6D00AE4E42 /* 009.txt in Resources */,
 				2C7ACB1423F9EF6D00AE4E42 /* 083.txt in Resources */,
 				2C857A1B27BAAA3000C6F77F /* pl807.txt in Resources */,
+				2CC148B727E78E31005B043B /* 002.png in Resources */,
 				2C857A7627BADD5800C6F77F /* fr809.txt in Resources */,
 				2C857A7A27BADD5800C6F77F /* fr803.txt in Resources */,
 				2CE2F38C242A4CE800D1B731 /* Default-568h@2x.png in Resources */,
@@ -1101,6 +1117,7 @@
 				2CE1478523F6901C00C834F4 /* Assets.xcassets in Resources */,
 				2C7ACAFF23F9EF6D00AE4E42 /* 018.txt in Resources */,
 				2C7ACADD23F9EF6D00AE4E42 /* 110.txt in Resources */,
+				2CC148BF27E78EE3005B043B /* 005.png in Resources */,
 				2CE1478023F6901900C834F4 /* Main.storyboard in Resources */,
 				2C857A1E27BAAA3000C6F77F /* pl805.txt in Resources */,
 				2C857A3627BAAE4400C6F77F /* en807.txt in Resources */,
@@ -1140,6 +1157,8 @@
 				2C857A3727BAAE4400C6F77F /* en812.txt in Resources */,
 				2C857A6227BADD4200C6F77F /* es809.txt in Resources */,
 				2C857A1A27BAAA3000C6F77F /* pl803.txt in Resources */,
+				2CC148BD27E78ED6005B043B /* 004.png in Resources */,
+				2CC148B927E78E53005B043B /* 001.png in Resources */,
 				2CEB11FC279A48CF00951038 /* 888.txt in Resources */,
 				2C7ACAD323F9EF6D00AE4E42 /* 107.txt in Resources */,
 				2C7ACB2523F9EF6D00AE4E42 /* 087.txt in Resources */,
@@ -1176,6 +1195,7 @@
 				2C7ACAFE23F9EF6D00AE4E42 /* 034.txt in Resources */,
 				2CEB11F8279A133500951038 /* newFile.txt in Resources */,
 				2C7ACABA23F9EF6D00AE4E42 /* 074.txt in Resources */,
+				2CC148BB27E78EB3005B043B /* 003.png in Resources */,
 				2C857A6827BADD4200C6F77F /* es803.txt in Resources */,
 				2C2FD3BC270270B300434C03 /* Speaking.bundle in Resources */,
 				2C7ACAD823F9EF6D00AE4E42 /* 065.txt in Resources */,

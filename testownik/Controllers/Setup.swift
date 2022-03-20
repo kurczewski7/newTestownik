@@ -224,6 +224,8 @@ class Setup {
         toast.layer.cornerRadius = 12;
         toast.clipsToBounds  =  true
         toast.text = msg
+        
+        //gestures.addTapGestureToView(forView: toast, touchNumber: 1)
         animationEnded = false
         ctx.view.addSubview(toast)
         
