@@ -286,8 +286,8 @@
             filePath = "testownik/Controllers/Setup.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "popUpStrong(context:msg:numberLines:height:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -302,8 +302,8 @@
             filePath = "testownik/Controllers/Setup.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "PopupStrongParams"
             landmarkType = "14">
          </BreakpointContent>
@@ -321,6 +321,22 @@
             startingLineNumber = "195"
             endingLineNumber = "195"
             landmarkName = "swipeRefreshLabel(sender:directions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1BFC2E98-98D7-4FFD-A9C9-D432BE2ECD47"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "testownik/Controllers/Setup.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "popUpBlink(context:msg:numberLines:height:completionFinish:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -33,6 +33,15 @@ class Setup {
         var font = UIFont.systemFont(ofSize: 20)
         var frame: CGRect? = nil
     }
+    struct PopUpBlinkParams {
+        var tag = 2022
+        var lines: Int = 6
+        var height: CGFloat = 200
+        var duration = 4.0
+        var delay = 8.0
+        var font = UIFont.systemFont(ofSize: 20)
+        var frame: CGRect? = nil
+    }
     // MARK: variables
     private static let backgroundColorsDefault: [UIColor] = [UIColor.systemYellow.withAlphaComponent(0.6), UIColor.lightGray, UIColor.systemBlue, UIColor.systemGreen]
     private static let textColorsDefault: [UIColor] = [.white, .white, .white, .black]
@@ -40,6 +49,7 @@ class Setup {
     private static var textColorList = textColorsDefault
     
     static var popUpStrong: PopupStrongParams = PopupStrongParams()
+    static var popUpBlink: PopUpBlinkParams = PopUpBlinkParams()
     static var cloudPicker: CloudPicker!
     static var animationEnded = true
     static var isNumericQuestions = false
@@ -200,7 +210,7 @@ class Setup {
         
       return toast
     }
-    class func popUpBlink(context ctx: UIViewController, msg: String, numberLines lines: Int = 6, height: CGFloat = 200, completionFinish: @escaping () -> Void) {
+    class func popUpBlink(context ctx: UIViewController, msg: String, numberLines lines: Int =  popUpBlink.lines, height: CGFloat = popUpBlink.height, completionFinish: @escaping () -> Void) {
         let toast = UILabel(frame:
             CGRect(x: 16, y: ctx.view.frame.size.height / 2,
                    width: ctx.view.frame.size.width - 32, height: height))
@@ -210,14 +220,14 @@ class Setup {
         toast.textColor =  textColorList[PopViewType.popUpBlink.rawValue]      
         toast.textAlignment = .center;
         toast.numberOfLines = lines
-        toast.font = UIFont.systemFont(ofSize: 20)
+        toast.font = popUpBlink.font  //UIFont.systemFont(ofSize: 20)
         toast.layer.cornerRadius = 12;
         toast.clipsToBounds  =  true
         toast.text = msg
         animationEnded = false
         ctx.view.addSubview(toast)
         
-        UIView.animate(withDuration: 4.0, delay: 8.0,
+        UIView.animate(withDuration: popUpBlink.duration, delay: popUpBlink.delay,
             options: .curveEaseOut,  animations: {
             toast.alpha = 0.0
             }, completion: {(isCompleted) in
