@@ -63,6 +63,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     @IBOutlet weak var highButton8: NSLayoutConstraint!
     @IBOutlet weak var highButton9: NSLayoutConstraint!
     @IBOutlet weak var highButton10: NSLayoutConstraint!
+    
+    var pictureSwitch: Bool = false {
+        didSet {
+            if self.pictureSwitch == true {
+                askLabel.isHidden = true
+            }
+            else {
+                askLabel.isHidden = false
+            }
+        }
+    }
    
     // MARK: addAllRequiredestures
     func addAllRequiredGestures(sender: Gestures) {

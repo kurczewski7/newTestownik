@@ -43,6 +43,7 @@ class Testownik: DataOperations {
     var visableLevel: Int = 4 {
         didSet {     delegate?.refreshTabbarUI(visableLevel: visableLevel)    }
     }
+
     // method depreciated ===> to deleted
 //    func fillData(totallQuestionsCount: Int) {
 //        var titles = [String]()
@@ -84,8 +85,6 @@ class Testownik: DataOperations {
                 for i in 2..<textLines.count {
                     if !textLines[i].isEmpty  {    titles.append(textLines[i])      }
                 }
-                // TODO: order = [99,5,7]  ???
-                //let order = [99,5,7]
                 let isOk = getAnswer(textLines[0])
                 let answerOptions = fillOneTestAnswers(isOk: isOk, titles: titles)
                 let sortedAnswerOptions = changeOrder(forAnswerOptions: answerOptions)
@@ -284,13 +283,17 @@ class Testownik: DataOperations {
         
     func getTextDb666(txt: String, encodingSystem encoding: String.Encoding = .utf8) -> [String]  {
         var texts: [String] = ["brak danych"]
-    
-        //let str = String(decoding: data, as: UTF8.self)
-        texts = txt.components(separatedBy: .newlines)
-        print("texts:\(texts)")
-        return texts
+        var outputTxt: [String] = [String]()
+        outputTxt.removeAll()
+        texts = txt.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: .newlines)
+        //print("texts:\(texts)")
+        for i in 0..<texts.count  {
+            if !texts[i].isEmpty {
+                outputTxt.append(texts[i].trimmingCharacters(in: .whitespacesAndNewlines))
+            }
+        }
+        return outputTxt
     }
-
 
     func getAnswer(_ codeAnswer: String) -> [Bool] {
         var answer = [Bool]()

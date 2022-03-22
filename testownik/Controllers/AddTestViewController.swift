@@ -64,6 +64,30 @@ class AddTestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         formatter.dateFormat = "yyyy/MM/dd  HH:mm:ss"
         return "Test  "+formatter.string(from: currentDateTime)
     }
+    func getHeaderPicture(uuidParent: UUID, uuidPict: UUID, text: String) -> UIImage? {
+        var image: UIImage? = nil
+        
+        //let line = text
+        let lines = text.components(separatedBy: .newlines)
+        if lines.count > 2 {
+            let line1 = lines[1].trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            if line1.hasPrefix("[img]")  {
+                let startIndex = line1.index(line1.startIndex, offsetBy: 5)
+                let endIndex = line1.index(line1.endIndex, offsetBy: -6)
+                //let range = startIndex..<endIndex
+                let picName = String(line1[startIndex..<endIndex])
+                print("picName:\(picName)")
+                image = UIImage(named: picName)
+                //let data = image?.pngData()
+            }
+        }
+//        if let data = document.myPictureData {
+//           self.picture?.image = UIImage(data:  data)
+//        }
+        //image = UIImage(named: picName)
+        return image
+        
+    }
     func saveData() {
         //database.allTestsTable.deleteAll()
         //database.testDescriptionTable.deleteAll()
@@ -97,8 +121,13 @@ class AddTestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 
             // TODO: Maybe error
             record.picture = documentsValue[i].myPictureData
+           
             record.uuid_parent = uuid
             record.uuId = UUID()
+            //-----------------------
+            let pict = getHeaderPicture(uuidParent: record.uuid_parent!, uuidPict: record.uuId!, text: record.text!)
+            record.picture = pict?.pngData()
+            
             database.testDescriptionTable.append(record)
             database.testDescriptionTable.save()
         }
