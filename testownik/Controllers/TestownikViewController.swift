@@ -255,6 +255,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     
     // MARK: TestownikDelegate protocol "refreshUI" metods
     func refreshButtonUI(forFilePosition filePosition: Testownik.FilePosition) {
+        
         if filePosition == .first {
             hideButton(forButtonNumber: 0)
             hideButton(forButtonNumber: 1)

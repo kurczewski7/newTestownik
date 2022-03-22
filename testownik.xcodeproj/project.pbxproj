@@ -216,6 +216,7 @@
 		2C99AE9B24001A6700FF28F5 /* 203.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C99AE9724001A6700FF28F5 /* 203.txt */; };
 		2C9A0973242C1EEB00A1DC4E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A0972242C1EEB00A1DC4E /* File.swift */; };
 		2C9A0975242C1F2900A1DC4E /* DetailSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A0974242C1F2900A1DC4E /* DetailSectionHeaderView.swift */; };
+		2CA459DE27EA285900FE71C3 /* PictureLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA459DD27EA285900FE71C3 /* PictureLibrary.swift */; };
 		2CA81A4127B94C5700F1CACC /* EN in Resources */ = {isa = PBXBuildFile; fileRef = 2CA81A4027B94C5700F1CACC /* EN */; };
 		2CA81A4327B94C6200F1CACC /* PL in Resources */ = {isa = PBXBuildFile; fileRef = 2CA81A4227B94C6200F1CACC /* PL */; };
 		2CA8229F240411DB000941E1 /* 204.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CA8229E240411DB000941E1 /* 204.txt */; };
@@ -487,6 +488,7 @@
 		2C99AE9724001A6700FF28F5 /* 203.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 203.txt; sourceTree = "<group>"; };
 		2C9A0972242C1EEB00A1DC4E /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		2C9A0974242C1F2900A1DC4E /* DetailSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSectionHeaderView.swift; sourceTree = "<group>"; };
+		2CA459DD27EA285900FE71C3 /* PictureLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureLibrary.swift; sourceTree = "<group>"; };
 		2CA81A4027B94C5700F1CACC /* EN */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EN; sourceTree = "<group>"; };
 		2CA81A4227B94C6200F1CACC /* PL */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PL; sourceTree = "<group>"; };
 		2CA8229E240411DB000941E1 /* 204.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 204.txt; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 				2C625DF8244372FA00EE29A0 /* DatabaseTableGeneric.swift */,
 				2CDB1DF52407C08800361884 /* DataOperations.swift */,
 				2C6538DC2407282A004B1FC8 /* Testownik.swift */,
+				2CA459DD27EA285900FE71C3 /* PictureLibrary.swift */,
 				2CE2F397242A5B1B00D1B731 /* Setup.swift */,
 				2C652AFA24087DCC00284ADF /* CloudPicker.swift */,
 				2CE2F399242A5B9200D1B731 /* Colors.swift */,
@@ -1307,6 +1310,7 @@
 				2C625DFB2443A68800EE29A0 /* AddTestViewController.swift in Sources */,
 				2CE2F390242A574100D1B731 /* ZipSectionHeaderView.swift in Sources */,
 				2C6538DD2407282A004B1FC8 /* Testownik.swift in Sources */,
+				2CA459DE27EA285900FE71C3 /* PictureLibrary.swift in Sources */,
 				2CE2F39C242A5BEF00D1B731 /* Extensions.swift in Sources */,
 				2CE2F38E242A56CF00D1B731 /* ZipViewController.swift in Sources */,
 				2C1409BC240EDA6D001611F0 /* XXDocument.swift in Sources */,
