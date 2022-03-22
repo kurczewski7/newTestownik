@@ -19,6 +19,8 @@ import CoreMedia
 let speech = Speech()
 
 let testownik99 = Testownik()
+let pictureLibrary = PictureLibrary()
+//pictureLibrary.giveAsImage("003.png")
 
 //let coreData = CoreDataStack()
 //let database = Database(context: coreData.persistentContainer.viewContext)
@@ -28,50 +30,6 @@ let testownik99 = Testownik()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("S T A R T\n")
-        
-        
-        
-        
-        //testownik99.checkCodePage(fileName: "203")
-        //testownik99.checkCodePage(fileName: "074.txt")
-        
-//
-//        let ttt1 = testownik99.getCodePageText(fileName: "203")
-//        print("ttt=\(ttt1)")
-//        let ttt2 = testownik99.getCodePageText(fileName: "333")
-//        print("ttt=\(ttt2)")
-//        let ttt3 = testownik99.getCodePageText(fileName: "newFile")
-//        print("ttt=\(ttt3)")
-
-        
-//        let yyyy = testownik99.testOtherCodePageFile()
-        
-        //testownik99.
-        
-//        testownik99.checkCodePage(fileName: "203",encodingSystem: .utf8)
-//        testownik99.checkCodePage(fileName: "074",encodingSystem: .windowsCP1250)
-//        testownik99.checkCodePage(fileName: "060")
-//        testownik99.checkCodePage(fileName: "201")
-        
-        //let codeId = testownik99.checkCodePageId(path: <#T##String#>)
-//        if let path = Bundle.main.path(forResource: "newFile", ofType: "txt") {
-//            let codeId = testownik99.checkCodePageId(path: path)
-//            print("\n A iiDD:\(codeId)")
-//        }
-//        if let path = Bundle.main.path(forResource: "074", ofType: "txt") {
-//            let codeId = testownik99.checkCodePageId(path: path)
-//            print("\nB iiDD:\(codeId)")
-//        }
-//        if let path = Bundle.main.path(forResource: "203", ofType: "txt") {
-//            let codeId = testownik99.checkCodePageId(path: path)
-//            print("\nC iiDD:\(codeId)")
-//        }
-
-        //testownik99.teeest()
-        
-        //testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .windowsCP1250)
-        //testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf16)
-        //testownik99.giveCodepaeText(contentsOfFile: "newFile", encoding: .utf8)
         
         if let path0 = Bundle.main.path(forResource: "543", ofType: "txt") {
             let aa0 = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(15)))
@@ -88,18 +46,6 @@ let testownik99 = Testownik()
             let cc = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
             print("cc=\(cc)")
         }
-//  print("TESTING")
-//        for j in 4..<85 {
-//            //testownik99.giveCodepaeText(contentsOfFile: "060", encoding: String.Encoding(rawValue: UInt(j))) //newFile
-//            if let path = Bundle.main.path(forResource: "newFile", ofType: "txt"), let strrr2 = testownik99.giveCodepaeText(contentsOfFile: path, encoding: String.Encoding(rawValue: UInt(j))) {
-//                print("j=\(j):\(strrr2)")
-//            }
-//        }
-//        print("END TESTING")
-//        testownik99.checkCodePage(fileName: "204-kopia")
-//        testownik99.checkCodePage(fileName: "999")
-//        testownik99.checkCodePage(fileName: "888")
-
         let ratings = Ratings()
         ratings.xxxxxx()
         let rr = ratings[2]

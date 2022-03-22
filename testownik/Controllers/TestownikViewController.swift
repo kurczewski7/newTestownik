@@ -661,6 +661,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         let totalQuest = testownik[testownik.currentTest].answerOptions.count
         testownik[testownik.currentTest].youAnswers5 = []
         askLabel.text = testownik[testownik.currentTest].ask
+        //askPicture.image = testownik[testownik.currentTest].pict
+        //testownik[testownik.currentTest].pict = UIImage(named: "004.png")
+        if  let currPict = testownik[testownik.currentTest].pict {
+            askPicture.image = currPict
+            pictureSwitchOn = true
+        }
+        else {
+            pictureSwitchOn = false
+        }
+        
         for curButt in stackView.arrangedSubviews     {
             if let butt = curButt as? UIButton {
                 butt.contentHorizontalAlignment =  (Setup.isNumericQuestions ? .left : .center)

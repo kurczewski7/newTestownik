@@ -44,41 +44,24 @@ class Testownik: DataOperations {
         didSet {     delegate?.refreshTabbarUI(visableLevel: visableLevel)    }
     }
 
-    // method depreciated ===> to deleted
-//    func fillData(totallQuestionsCount: Int) {
-//        var titles = [String]()
-//        var textLines = [String]()
-//        for i in 201...204 { //117
-//            titles = []
-//            let name = String(format: "%03d", i)
-//            print("name:\(name)")
-//            textLines=getText(fileName: name)
-//            if textLines[textLines.count-1].isEmpty {    textLines.remove(at: textLines.count-1) }
-//            for i in 2..<textLines.count {
-//                if !textLines[i].isEmpty  {    titles.append(textLines[i])      }
-//            }
-//            print("i:\(i), textLines: \(textLines)")
-//            let order = [99,5,7]
-//            let isOk = getAnswer(textLines[0])
-//            let answerOptions = fillOneTestAnswers(isOk: isOk, titles: titles)
-//            let sortedAnswerOptions = changeOrder(forAnswerOptions: answerOptions)
-//            let test = Test(code: textLines[0], ask: textLines[1], pict: nil, answerOptions: sortedAnswerOptions, order: order, youAnswers5: [], fileName: name)
-//            testList.append(test)
-//            print(test)
-//            print("\r\n")
-//        }
-//    }
     func fillDemoData() {
         
+    }
+    func readPicture() -> UIImage {
+        let list = ["001.png","002.png","003.png","004.png"]
+        let position = randomOrder(toMax: 3)
+        return UIImage(named: list[position])!
     }
     func fillDataDb() {
         var titles = [String]()
         var textLines = [String]()
+        var pict: UIImage? = nil
         print("database.testDescriptionTable.count fillDataDb:\(database.testDescriptionTable.count)")
         self.testList.removeAll()
         database.testDescriptionTable.forEach { (index, testRecord) in
             if let txt = testRecord?.text, !txt.isEmpty {
                 titles.removeAll()
+                pict = nil
                 //=========>
                 textLines = getTextDb666(txt: txt)
                 guard textLines.count > 2 else {    return     }
@@ -89,12 +72,15 @@ class Testownik: DataOperations {
                 let answerOptions = fillOneTestAnswers(isOk: isOk, titles: titles)
                 let sortedAnswerOptions = changeOrder(forAnswerOptions: answerOptions)
                 let fileName = testRecord?.file_name?.components(separatedBy: ".")[0] ?? ""
-                let test = Test(code: textLines[0], ask: textLines[1], pict: nil, answerOptions: sortedAnswerOptions, youAnswers5: [], fileName: fileName)
+                testRecord?.picture
+                if let pictData = testRecord?.picture {
+                    pict = UIImage(data: pictData)
+                }
+                let test = Test(code: textLines[0], ask: textLines[1], pict: pict, answerOptions: sortedAnswerOptions, youAnswers5: [], fileName: fileName)
                 self.testList.append(test)
             }
         }
      }
-    
     func changeOrder(forAnswerOptions answerOptions: [Answer]) -> [Answer] {
         var position = 0
         var sortedAnswerOptions = [Answer]()
