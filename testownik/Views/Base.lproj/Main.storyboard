@@ -281,6 +281,7 @@
                     <connections>
                         <outlet property="actionsButtonStackView" destination="sUd-SH-WPt" id="FTP-n3-1rv"/>
                         <outlet property="askLabel" destination="tFz-9g-NIy" id="EzE-iT-6mZ"/>
+                        <outlet property="askPicture" destination="f2y-iM-qRf" id="d9X-oV-b8D"/>
                         <outlet property="highButton1" destination="tII-1g-dSj" id="zDY-WD-ufV"/>
                         <outlet property="highButton10" destination="3xA-m9-I4w" id="7nc-6v-4BI"/>
                         <outlet property="highButton2" destination="xWU-I0-R7A" id="X6F-nt-wnL"/>

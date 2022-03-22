@@ -13,7 +13,6 @@ class TestownikViewController: UIViewController, GesturesDelegate, TestownikDele
 //    }
     
     func addCustomGesture(_ gestureType: Gestures.GesteresList, forView aView: UIView?, _ touchNumber: Int) {
-        
     }
         
     // MARK: other classes
@@ -46,6 +45,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     
     //  MARK: IBOutlets
     @IBOutlet weak var askLabel: UILabel!
+    @IBOutlet weak var askPicture: UIImageView!
     
     @IBOutlet weak var listeningText: UILabel!
     @IBOutlet weak var stackView: UIStackView!
@@ -64,13 +64,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     @IBOutlet weak var highButton9: NSLayoutConstraint!
     @IBOutlet weak var highButton10: NSLayoutConstraint!
     
-    var pictureSwitch: Bool = false {
+   
+    var pictureSwitchOn: Bool = false {
         didSet {
-            if self.pictureSwitch == true {
+            if self.pictureSwitchOn == true {
                 askLabel.isHidden = true
+                askPicture.isHidden = false
             }
             else {
                 askLabel.isHidden = false
+                askPicture.isHidden = true
             }
         }
     }
