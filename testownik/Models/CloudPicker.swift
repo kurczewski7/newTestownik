@@ -443,12 +443,15 @@ extension CloudPicker: UIDocumentPickerDelegate {
                 pickedURL.stopAccessingSecurityScopedResource()
             }
         }
+        pictureLibrary.removeAll()
         NSFileCoordinator().coordinate(readingItemAt: pickedURL, error: NSErrorPointer.none) { (folderURL) in
                 do {
+                    
                     let keys: [URLResourceKey] = [.nameKey, .isDirectoryKey] //isDirectoryKey isRegularFileKey
                     let fileList = FileManager.default.enumerator(at: pickedURL, includingPropertiesForKeys: keys)
                     print("Folder_URL:\(folderURL.absoluteString)")
-                        for case let fileURL as URL in fileList! {
+                    
+                        for case let fileURL as URL in fileList!    {
                             if !fileURL.isDirectory {
                                 var document = Document(fileURL: fileURL)
                                 if isFileUnhided(fileURL: fileURL, folderURL: folderURL, sourceType: .folder) {
@@ -463,18 +466,19 @@ extension CloudPicker: UIDocumentPickerDelegate {
                             else {
                                 print("ERROR: NO DIRECTORY: File_Zip_URL:\(fileURL.absoluteString)")
                             }
-                        }
-                    }
+                        }  }
+            
             }
             documents_tmp.sort {
                 $0.fileURL.lastPathComponent < $1.fileURL.lastPathComponent
             }
-
+            pictureLibrary.removeAll()
         return documents_tmp
     }
  
     func fillDocument(forUrl url: URL, document: inout Document) {
-        let fileSplitName = splitFilenameAndExtension(fullFileName: url.lastPathComponent)
+        let tmpName = url.lastPathComponent
+        let fileSplitName = splitFilenameAndExtension(fullFileName: tmpName)
         //let fileName = fileSplitName.fileName
         let fileExt = fileSplitName.fileExt
         if fileExt.uppercased() == "TXT" {
@@ -491,7 +495,7 @@ extension CloudPicker: UIDocumentPickerDelegate {
             print("PNG url:\(url)")
             guard let data = try? Data(contentsOf: url) else { return }
             document.myPictureData = data
-            let tmpName = url.lastPathComponent
+            
             if !tmpName.isEmpty {
                 pictureLibrary.addData(forName: tmpName, value: data)
             }
