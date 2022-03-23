@@ -490,6 +490,8 @@ extension CloudPicker: UIDocumentPickerDelegate {
             print("PNG url:\(url)")
             guard let data = try? Data(contentsOf: url) else { return }
             document.myPictureData = data
+            pictureLibrary.addData(forName: "000.png", value: data)
+            print("COUNT PNG:\(pictureLibrary.count)")
         }
         if fileExt.uppercased() == "JPG" {
             print("to jest JPG")

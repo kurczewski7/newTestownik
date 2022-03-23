@@ -77,8 +77,8 @@ class AddTestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                 //let range = startIndex..<endIndex
                 let picName = String(line1[startIndex..<endIndex])
                 print("picName:\(picName)")
-                image = UIImage(named: picName)
-                //let data = image?.pngData()
+                image = pictureLibrary.giveAsImage(picName)
+               // image = UIImage(named: picName)
             }
         }
 //        if let data = document.myPictureData {

@@ -10,35 +10,40 @@ import Foundation
 import UIKit
 
 class PictureLibrary {
-    typealias PictType = [String : Int]
+    typealias PictType = [String : Data]
     
-    var pictureList: [PictType]? = nil
+    var pictureList: PictType = [:]
     var count: Int {
-        get {      return pictureList?.count ?? 0            }
+        get {      return pictureList.count         }
     }
-    func add( _ pictElem: PictType.Value) {
-        
-        let xx: PictType.Value = 55
-        print("xx:\(xx)")
-        //for (key, value) in pictureList?.enumerated()
-        //capitalCity["Japan"] = "Tokyo"
-        //capitalCity["Japan"] = "Tokyo"
-        //pictureList?.enumerated()
-        
+    private func add(forName key: PictType.Key, value: PictType.Value) {
+        pictureList[key] = value
+    }
+    func addData(forName key: String, value: Data?) {
+        if let val = value {
+            add(forName: key, value: val)
+        }
+    }
+    func addUImage(forName key: String, value: UIImage?) {
+        if let val = value, let data = val.pngData() {
+            add(forName: key, value: data)
+        }
+    }
+    func removeAll() {
+        pictureList.removeAll()
     }
     func giveAsData(_ name: String)  -> Data? {
-        let dataTmp = UIImage(named: name) //PictType.Value()
-        return dataTmp?.pngData()
+        return pictureList[name]
     }
     func giveAsImage(_ name: String)  -> UIImage? {
         let dataTmp = UIImage(named: name)
         return dataTmp
     }
+    func give(forName key: PictType.Key) -> PictType.Value? {
+        return pictureList[key]
+    }
     
     func wwww() {
         let pic1 = UIImage(named: "001.png")
-        //var
-        //add(<#T##pictElem: PictType##PictType#>)
-        let  a = giveAsData("aaa")
     }
 }

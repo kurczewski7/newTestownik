@@ -72,7 +72,6 @@ class Testownik: DataOperations {
                 let answerOptions = fillOneTestAnswers(isOk: isOk, titles: titles)
                 let sortedAnswerOptions = changeOrder(forAnswerOptions: answerOptions)
                 let fileName = testRecord?.file_name?.components(separatedBy: ".")[0] ?? ""
-                testRecord?.picture
                 if let pictData = testRecord?.picture {
                     pict = UIImage(data: pictData)
                 }

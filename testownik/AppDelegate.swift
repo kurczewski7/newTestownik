@@ -20,7 +20,7 @@ let speech = Speech()
 
 let testownik99 = Testownik()
 let pictureLibrary = PictureLibrary()
-//pictureLibrary.giveAsImage("003.png")
+
 
 //let coreData = CoreDataStack()
 //let database = Database(context: coreData.persistentContainer.viewContext)
@@ -30,6 +30,13 @@ let pictureLibrary = PictureLibrary()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("S T A R T\n")
+        pictureLibrary.addUImage(forName: "001.png", value: UIImage(named: "001.png"))
+        pictureLibrary.addUImage(forName: "002.png", value: UIImage(named: "002.png"))
+        pictureLibrary.addUImage(forName: "003.png", value: UIImage(named: "003.png"))
+        pictureLibrary.addUImage(forName: "004.png", value: UIImage(named: "004.png"))
+        pictureLibrary.addUImage(forName: "005.png", value: UIImage(named: "005.png"))
+        let x = pictureLibrary.give(forName: "003.png")
+        //print("x:\(x)")
         
         if let path0 = Bundle.main.path(forResource: "543", ofType: "txt") {
             let aa0 = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(15)))
