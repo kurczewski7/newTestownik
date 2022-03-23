@@ -486,11 +486,15 @@ extension CloudPicker: UIDocumentPickerDelegate {
             document.myCodepage = val.encoding
         }
         if fileExt.uppercased() == "PNG" {
+            //document.
             print("to jest PNG")
             print("PNG url:\(url)")
             guard let data = try? Data(contentsOf: url) else { return }
             document.myPictureData = data
-            pictureLibrary.addData(forName: "000.png", value: data)
+            let tmpName = url.lastPathComponent
+            if !tmpName.isEmpty {
+                pictureLibrary.addData(forName: tmpName, value: data)
+            }
             print("COUNT PNG:\(pictureLibrary.count)")
         }
         if fileExt.uppercased() == "JPG" {
