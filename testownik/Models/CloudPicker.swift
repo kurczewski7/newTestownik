@@ -443,7 +443,7 @@ extension CloudPicker: UIDocumentPickerDelegate {
                 pickedURL.stopAccessingSecurityScopedResource()
             }
         }
-        pictureLibrary.removeAll()
+        //pictureLibrary.removeAll()
         NSFileCoordinator().coordinate(readingItemAt: pickedURL, error: NSErrorPointer.none) { (folderURL) in
                 do {
                     
@@ -457,6 +457,7 @@ extension CloudPicker: UIDocumentPickerDelegate {
                                 if isFileUnhided(fileURL: fileURL, folderURL: folderURL, sourceType: .folder) {
                                     fillDocument(forUrl: fileURL, document: &document)
                                     documents_tmp.append(document)
+                                    //documents_tmp.appenpid(document)
                                     print("File_Zip_URL:\(fileURL.absoluteString)")
                                 }
                                 else {
@@ -472,7 +473,7 @@ extension CloudPicker: UIDocumentPickerDelegate {
             documents_tmp.sort {
                 $0.fileURL.lastPathComponent < $1.fileURL.lastPathComponent
             }
-            pictureLibrary.removeAll()
+            //pictureLibrary.removeAll()
         return documents_tmp
     }
  

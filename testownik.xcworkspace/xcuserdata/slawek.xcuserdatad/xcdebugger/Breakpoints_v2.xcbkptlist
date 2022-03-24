@@ -206,9 +206,9 @@
             filePath = "testownik/Models/PictureLibrary.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "wwww()"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "giveDemoImage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -254,8 +254,8 @@
             filePath = "testownik/Models/CloudPicker.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
+            startingLineNumber = "495"
+            endingLineNumber = "495"
             landmarkName = "fillDocument(forUrl:document:)"
             landmarkType = "7">
          </BreakpointContent>

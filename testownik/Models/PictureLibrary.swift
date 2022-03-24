@@ -26,7 +26,7 @@ class PictureLibrary {
     }
     func addUImage(forName key: String, value: UIImage?) {
         if let val = value, let data = val.pngData() {
-            add(forName: key, value: data)
+            add(forName: key.lowercased(), value: data)
         }
     }
     func removeAll() {
@@ -36,14 +36,16 @@ class PictureLibrary {
         return pictureList[name]
     }
     func giveAsImage(_ name: String)  -> UIImage? {
-        let dataTmp = UIImage(named: name)
-        return dataTmp
+        var image: UIImage? = nil
+        if let tmpData = pictureList[name.lowercased()] {
+            image = UIImage(data: tmpData)
+        }
+        return  image
     }
     func give(forName key: PictType.Key) -> PictType.Value? {
-        return pictureList[key]
-    }
-    
-    func wwww() {
-        let pic1 = UIImage(named: "001.png")
+        return pictureList[key.lowercased()]
+    }    
+    func giveDemoImage(_ name: String = "001.png") -> UIImage? {
+        return  UIImage(named: name)
     }
 }
