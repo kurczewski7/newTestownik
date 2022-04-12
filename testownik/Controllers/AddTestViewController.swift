@@ -112,9 +112,24 @@ class AddTestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         database.allTestsTable.append(allTestRecord)
         database.allTestsTable.save()
         for i in 0..<documentsValue.count {
+            
+            let currDoc = documentsValue[i]
+            print("FFF \(i):\(currDoc.fileURL.lastPathComponent)")
+            if let pict = currDoc.myPictureData {
+                let pictName = currDoc.fileURL.lastPathComponent
+                let pict = currDoc.myPictureData
+                print("\nNEW PICTURE:\(pictName)")
+                pictureLibrary.addData(forName: pictName, value: pict)
+            }
+            print("PICTUSES:\(pictureLibrary.count)")
+        }
+        
+        for i in 0..<documentsValue.count {
             let record = TestDescriptionEntity(context: context)
             record.file_url = documentsValue[i].fileURL.absoluteString
             record.file_name = documentsValue[i].fileURL.lastPathComponent
+            
+            print("FILE NAME:\(record.file_name)")
             record.text =  documentsValue[i].myTexts
             record.code_page = Int16(documentsValue[i].myCodepage.rawValue)
             print("documentsValue[\(i)].myTexts: \(documentsValue[i].myTexts)")

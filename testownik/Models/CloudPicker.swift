@@ -275,6 +275,19 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
         self.documents.removeAll()
         self.hiddenFiles = 0
     }
+    func isPictureDataOk(values: [Substring]) -> Bool {
+        var retVal = false
+        
+        if values.count == 2 {
+            switch String(values[1]).uppercased() {
+                case "PNG": retVal = false
+                case "JPG": retVal = false
+                case "BMP": retVal = false
+                default:    retVal = false
+            }
+        }
+        return retVal
+    }
     func isTextDataOk(values: [Substring])  -> Bool{
         let fileName = values[0]
         var stringNumber = ""
@@ -284,6 +297,8 @@ class CloudPicker: NSObject, UINavigationControllerDelegate, SSZipArchiveDelegat
             }
             else { break }
         }
+        return true
+        // MARK: hire change
         if let numberLong = Int(stringNumber), numberLong >= 0 {     return true             }
         else {       return false             }
     }
@@ -399,37 +414,46 @@ extension CloudPicker: UIDocumentPickerDelegate {
         }
     }
     private func documentsFromLocalURL(pickedURL url: URL)  ->  [Document] {
+        //let pictType: Set = ["PNG", "JPG", "BMP"]
         var docs = [Document]()
-        
+        //var fileNameAndExt = ["",""]
         let shouldStopAccessing = url.startAccessingSecurityScopedResource()
         defer {
             if shouldStopAccessing {
                 url.stopAccessingSecurityScopedResource()
             }
         }
+        //pictureLibrary.removeAll()
         NSFileCoordinator().coordinate(readingItemAt: url, error: NSErrorPointer.none) { (folderURL) in
             do {
                 let keys: [URLResourceKey] = [.nameKey, .isDirectoryKey] //isDirectoryKey isRegularFileKey
                 let fileList = FileManager.default.enumerator(at: url, includingPropertiesForKeys: keys)
-
                 for case let fileURL as URL in fileList! {
                     if !fileURL.isDirectory {
                         var document = Document(fileURL: fileURL)
-//                        if isFileUnhided(fileURL: fileURL, folderURL: folderURL, sourceType: .folder) {
-                            if isTextDataOk(values: fileURL.lastPathComponent.split(separator: ".")) {
+                        let fileNameAndExt = fileURL.lastPathComponent.split(separator: ".")
+                        guard !fileURL.lastPathComponent.hasPrefix(".") else {      continue       }
+                        if isTextDataOk(values: fileNameAndExt) {
+                            //fileURL.lastPathComponent.split(separator: "."))
+                            fillDocument(forUrl: fileURL, document: &document)
+                            let subfolderPath = document.fileURL.deletingLastPathComponent()
+                            self.unzipedPathDir = subfolderPath.absoluteString
+                            print("subfolderPath=\(subfolderPath)")
+                           docs.append(document)
+                        }
+                        else  if isPictureDataOk(values: fileNameAndExt) {
                                 fillDocument(forUrl: fileURL, document: &document)
-                                let subfolderPath = document.fileURL.deletingLastPathComponent()
-                                self.unzipedPathDir = subfolderPath.absoluteString
-                                print("subfolderPath=\(subfolderPath)")
-                               docs.append(document)
-                            }
+                                docs.append(document)
+                        }
+                        
                             print("File_URL:\(fileURL.absoluteString)")
-//                        }
-                    }
+                        }
+
                 }
 
              }
         }
+        print("DOCS:\(docs.count)")
         docs.sort {
             $0.fileURL.lastPathComponent < $1.fileURL.lastPathComponent
         }
