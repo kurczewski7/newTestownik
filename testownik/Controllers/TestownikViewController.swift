@@ -77,7 +77,21 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             }
         }
     }
-   
+    func dddddd() {
+         let frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let label = UILabel(frame: frame)
+        let button = UIButton(frame: frame)
+        button.contentHorizontalAlignment = .center
+        let image = UIImage(named: "001.png")
+        let uiImageView = UIImageView()
+        uiImageView.image = image
+        uiImageView.alignmentRect(forFrame: frame)
+        
+        button.setImage(image, for: .normal)
+        button.setBackgroundImage(image, for: .normal)
+        button.contentHorizontalAlignment = .center
+        button.backgroundImage(for: .normal)
+    }
     // MARK: addAllRequiredestures
     func addAllRequiredGestures(sender: Gestures) {
         guard  gestures.view != nil  else { return   }
@@ -680,7 +694,19 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                 butt.layer.borderColor = UIColor.brown.cgColor
                 let isSelect = testownik[testownik.currentTest].youAnswer2.contains(i)
                 butt.layer.backgroundColor = isSelect ? selectedColor.cgColor: unSelectedColor.cgColor
+                if i == 1 {
+                    butt.setTitle("", for: .normal)
+                    butt.setImage(UIImage(named: "003.png"), for: .normal)
+                    butt.contentHorizontalAlignment = .center
+                    butt.alpha = 1.00
+                    butt.backgroundColor?.withAlphaComponent(0.1)
+                    
+                }
                 i += 1
+                // MARK: ggggg ffffff
+                
+                
+                
             }
         }
         actionsButtonStackView.arrangedSubviews[0].isHidden = (testownik.filePosition == .first)

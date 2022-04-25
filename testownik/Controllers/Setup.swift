@@ -52,7 +52,7 @@ class Setup {
     static var popUpBlink: PopUpBlinkParams = PopUpBlinkParams()
     static var cloudPicker: CloudPicker!
     static var animationEnded = true
-    static var isNumericQuestions = false
+    static var isNumericQuestions = true
     static let askNumber = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"]
     static var tempStr: String  = ""
     static var currentLanguage: LanguaesList = .german
