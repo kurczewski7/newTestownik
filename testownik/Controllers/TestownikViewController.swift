@@ -665,6 +665,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     }
     func refreshView() {
         var i = 0
+        let image = UIImage(named: "002.png")
+        let set = Set([0,1,2,3,5])
         guard testownik.currentTest < testownik.count else {
             print("JEST \(testownik.count)  TESTOW")
             return            
@@ -694,20 +696,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                 butt.layer.borderColor = UIColor.brown.cgColor
                 let isSelect = testownik[testownik.currentTest].youAnswer2.contains(i)
                 butt.layer.backgroundColor = isSelect ? selectedColor.cgColor: unSelectedColor.cgColor
-                if i == 1 {
-                    butt.setTitle("", for: .normal)
-                    butt.setImage(UIImage(named: "003.png"), for: .normal)
-                    butt.contentHorizontalAlignment = .center
-                    butt.alpha = 1.00
-                    butt.backgroundColor?.withAlphaComponent(0.1)
-                    
-                }
-                i += 1
                 // MARK: ggggg ffffff
-                
-                
-                
+                if set.contains(i)  {
+                    butt.setTitle(" \(i+1)", for: .normal)
+                    butt.setImage(image, for: .normal)
+                    butt.contentHorizontalAlignment = Setup.currentAligmentButton
+                    //butt.alpha = 0.60
+                    //butt.backgroundColor?.withAlphaComponent(0.1)
+                }
             }
+            i += 1
         }
         actionsButtonStackView.arrangedSubviews[0].isHidden = (testownik.filePosition == .first)
         actionsButtonStackView.arrangedSubviews[1].isHidden = (testownik.filePosition == .first)

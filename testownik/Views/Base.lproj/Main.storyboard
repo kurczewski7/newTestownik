@@ -37,7 +37,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="xWU-I0-R7A"/>
                                         </constraints>
-                                        <state key="normal" title="Pytanie 2"/>
+                                        <state key="normal" title="Pytanie 2">
+                                            <color key="titleColor" systemColor="linkColor"/>
+                                        </state>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAH-uf-Asq">
                                         <rect key="frame" x="0.0" y="120" width="394" height="30"/>
@@ -45,9 +47,11 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Vnh-DB-DLe"/>
                                         </constraints>
-                                        <state key="normal" title="Pytanie 3"/>
+                                        <state key="normal" title="Pytanie 3">
+                                            <color key="titleColor" systemColor="linkColor"/>
+                                        </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Lf-Ox-pmN">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lf-Ox-pmN">
                                         <rect key="frame" x="0.0" y="180" width="394" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
