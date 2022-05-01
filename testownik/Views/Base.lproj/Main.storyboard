@@ -41,31 +41,35 @@
                                             <color key="titleColor" systemColor="linkColor"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAH-uf-Asq">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ky-cf-MUJ">
                                         <rect key="frame" x="0.0" y="120" width="394" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="Vnh-DB-DLe"/>
+                                            <constraint firstAttribute="height" constant="30" id="5TX-es-nR8"/>
                                         </constraints>
                                         <state key="normal" title="Pytanie 3">
                                             <color key="titleColor" systemColor="linkColor"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lf-Ox-pmN">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Eb-mW-kQS">
                                         <rect key="frame" x="0.0" y="180" width="394" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="ers-QY-lPS"/>
+                                            <constraint firstAttribute="height" constant="30" id="nrd-u5-FyO"/>
                                         </constraints>
-                                        <state key="normal" title="Pytanie 4"/>
+                                        <state key="normal" title="Pytanie 4">
+                                            <color key="titleColor" systemColor="linkColor"/>
+                                        </state>
                                     </button>
-                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZi-8t-eM6">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeW-2x-qZb">
                                         <rect key="frame" x="0.0" y="240" width="394" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="LVE-72-AY9"/>
+                                            <constraint firstAttribute="height" constant="30" id="8pi-8F-7TA"/>
                                         </constraints>
-                                        <state key="normal" title="Pytanie 5"/>
+                                        <state key="normal" title="Pytanie 5">
+                                            <color key="titleColor" systemColor="linkColor"/>
+                                        </state>
                                     </button>
                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Npv-Sv-AUR">
                                         <rect key="frame" x="0.0" y="300" width="394" height="30"/>
@@ -289,9 +293,9 @@
                         <outlet property="highButton1" destination="tII-1g-dSj" id="zDY-WD-ufV"/>
                         <outlet property="highButton10" destination="3xA-m9-I4w" id="7nc-6v-4BI"/>
                         <outlet property="highButton2" destination="xWU-I0-R7A" id="X6F-nt-wnL"/>
-                        <outlet property="highButton3" destination="Vnh-DB-DLe" id="IWt-vv-oGW"/>
-                        <outlet property="highButton4" destination="ers-QY-lPS" id="yKd-ya-53R"/>
-                        <outlet property="highButton5" destination="LVE-72-AY9" id="pM5-e8-Fpt"/>
+                        <outlet property="highButton3" destination="5TX-es-nR8" id="VQX-i7-s19"/>
+                        <outlet property="highButton4" destination="nrd-u5-FyO" id="ejg-Nl-nO1"/>
+                        <outlet property="highButton5" destination="8pi-8F-7TA" id="zX7-OX-ECf"/>
                         <outlet property="highButton6" destination="Mhg-gn-89Z" id="eXG-yk-Uxe"/>
                         <outlet property="highButton7" destination="d58-cv-xCi" id="smw-d1-aLU"/>
                         <outlet property="highButton8" destination="lwd-KG-EW0" id="EmD-bw-A3V"/>
