@@ -71,45 +71,55 @@
                                             <color key="titleColor" systemColor="linkColor"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Npv-Sv-AUR">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg4-1e-Khe">
                                         <rect key="frame" x="0.0" y="300" width="394" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="Mhg-gn-89Z"/>
+                                            <constraint firstAttribute="height" constant="30" id="8V3-5V-uVG"/>
                                         </constraints>
-                                        <state key="normal" title="Pytanie 6"/>
+                                        <state key="normal" title="Pytanie 6">
+                                            <color key="titleColor" systemColor="linkColor"/>
+                                        </state>
                                     </button>
-                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hiL-wI-wRa">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fJ-eT-a9q">
                                         <rect key="frame" x="0.0" y="360" width="394" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="d58-cv-xCi"/>
+                                            <constraint firstAttribute="height" constant="30" id="R17-yK-kDc"/>
                                         </constraints>
-                                        <state key="normal" title="Pytanie 7"/>
+                                        <state key="normal" title="Pytanie 7">
+                                            <color key="titleColor" systemColor="linkColor"/>
+                                        </state>
                                     </button>
-                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BCV-aq-hgv">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nnk-zt-BCR">
                                         <rect key="frame" x="0.0" y="420" width="394" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="lwd-KG-EW0"/>
+                                            <constraint firstAttribute="height" constant="30" id="oIH-6L-iub"/>
                                         </constraints>
-                                        <state key="normal" title="Pytanie 8"/>
+                                        <state key="normal" title="Pytanie 8">
+                                            <color key="titleColor" systemColor="linkColor"/>
+                                        </state>
                                     </button>
-                                    <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSr-Qb-s4c" userLabel="Pytanie 9">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CS0-td-Ioc">
                                         <rect key="frame" x="0.0" y="480" width="394" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="edV-Jq-DoQ"/>
+                                            <constraint firstAttribute="height" constant="30" id="AKI-22-yfL"/>
                                         </constraints>
-                                        <state key="normal" title="Pytanie 9"/>
+                                        <state key="normal" title="Pytanie 9">
+                                            <color key="titleColor" systemColor="linkColor"/>
+                                        </state>
                                     </button>
-                                    <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSW-LU-NFZ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XfG-Bg-PIR">
                                         <rect key="frame" x="0.0" y="540" width="394" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="3xA-m9-I4w"/>
+                                            <constraint firstAttribute="height" constant="30" id="0Ul-Lq-2dl"/>
                                         </constraints>
-                                        <state key="normal" title="Pytanie 10"/>
+                                        <state key="normal" title="Pytanie 10">
+                                            <color key="titleColor" systemColor="linkColor"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -291,15 +301,15 @@
                         <outlet property="askLabel" destination="tFz-9g-NIy" id="EzE-iT-6mZ"/>
                         <outlet property="askPicture" destination="f2y-iM-qRf" id="d9X-oV-b8D"/>
                         <outlet property="highButton1" destination="tII-1g-dSj" id="zDY-WD-ufV"/>
-                        <outlet property="highButton10" destination="3xA-m9-I4w" id="7nc-6v-4BI"/>
+                        <outlet property="highButton10" destination="0Ul-Lq-2dl" id="2av-M7-e2r"/>
                         <outlet property="highButton2" destination="xWU-I0-R7A" id="X6F-nt-wnL"/>
                         <outlet property="highButton3" destination="5TX-es-nR8" id="VQX-i7-s19"/>
                         <outlet property="highButton4" destination="nrd-u5-FyO" id="ejg-Nl-nO1"/>
                         <outlet property="highButton5" destination="8pi-8F-7TA" id="zX7-OX-ECf"/>
-                        <outlet property="highButton6" destination="Mhg-gn-89Z" id="eXG-yk-Uxe"/>
-                        <outlet property="highButton7" destination="d58-cv-xCi" id="smw-d1-aLU"/>
-                        <outlet property="highButton8" destination="lwd-KG-EW0" id="EmD-bw-A3V"/>
-                        <outlet property="highButton9" destination="edV-Jq-DoQ" id="CKx-1p-h3P"/>
+                        <outlet property="highButton6" destination="8V3-5V-uVG" id="SnO-9z-QDY"/>
+                        <outlet property="highButton7" destination="R17-yK-kDc" id="D3J-b1-CJe"/>
+                        <outlet property="highButton8" destination="oIH-6L-iub" id="uLh-YD-CLZ"/>
+                        <outlet property="highButton9" destination="AKI-22-yfL" id="ML4-t5-ZmT"/>
                         <outlet property="listeningText" destination="i14-m7-5cl" id="YfH-JV-J8q"/>
                         <outlet property="microphoneButt" destination="1fC-HZ-FvY" id="Wl1-P9-znE"/>
                         <outlet property="stackView" destination="xuO-fW-0nf" id="bzH-2R-PHv"/>
