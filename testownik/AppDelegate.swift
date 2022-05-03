@@ -18,7 +18,8 @@ import CoreMedia
 
 let speech = Speech()
 
-let testownik99 = Testownik()
+//let testownik99 = Testownik()
+let testownik = Testownik()
 let pictureLibrary = PictureLibrary()
 
 
@@ -32,18 +33,18 @@ let pictureLibrary = PictureLibrary()
         print("S T A R T\n")
         
         if let path0 = Bundle.main.path(forResource: "543", ofType: "txt") {
-            let aa0 = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(15)))
+            let aa0 = testownik.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(15)))
             print("aa0=\(aa0)")
-            let aa1 = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(4)))
+            let aa1 = testownik.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(4)))
             print("aa1=\(aa1)")
             var val: String.Encoding.RawValue = 0
-            let aa3 = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
+            let aa3 = testownik.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
             print("aa3=\(aa3)")
             val = 1
-            let bb = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
+            let bb = testownik.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
             print("bb=\(bb)")
             val = 14
-            let cc = testownik99.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
+            let cc = testownik.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
             print("cc=\(cc)")
         }
         let ratings = Ratings()

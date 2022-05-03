@@ -122,8 +122,11 @@ class FavoriteTestsViewController: UIViewController, UITableViewDataSource, UITa
             database.selectedTestTable[0]?.uuId = selectedTest.uuId
             database.selectedTestTable[0]?.toAllRelationship = selectedTest
             database.selectedTestTable.save()
-            database.testToUpgrade = true
+            testownik.refreshData()
             //database.testDescriptionTable.loadData()
+            //database.
+            //database.testToUpgrade = true
+
              print("Testing set")
             exec(true)
         }
@@ -155,7 +158,10 @@ class FavoriteTestsViewController: UIViewController, UITableViewDataSource, UITa
                    let xxx = database.testDescriptionTable[0]?.uuId
                 if let selectUuid = selectedTest.uuId {
                     print("xxx=\(String(describing: xxx)),yyy=\(String(describing: selectUuid))")
+                    //database.testListTable.deleteGroup(uuidDeleteField: "uuid_parent", forValue: selectUuid)
+                    //database.testListTable.save()
                     database.testDescriptionTable.deleteGroup(uuidDeleteField: "uuid_parent", forValue: selectUuid)
+                    database.testDescriptionTable.save()
                     //selectedDescryption[0]."uuid_parent"
                     database.fetch[0].context.delete(selectedTest)
                     database.fetch[0].save()

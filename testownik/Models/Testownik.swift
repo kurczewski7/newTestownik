@@ -25,6 +25,7 @@ class Testownik: DataOperations {
     }
     var delegate: TestownikDelegate?
     var filePosition = FilePosition.first
+    var isChanged = false
     
     //override public var text: String? = "text"
     override var currentTest: Int  {
@@ -42,21 +43,44 @@ class Testownik: DataOperations {
 
     var visableLevel: Int = 4 {
         didSet {     delegate?.refreshTabbarUI(visableLevel: visableLevel)    }
+    }    
+    func refreshData() {
+        self.loadTestFromDatabase()
+        self.fillDataDb()
+        self.currentTest = 0
+        self.isChanged = true
     }
-
-    func fillDemoData() {
-        
-    }
-    func readPicture() -> UIImage {
-        let list = ["001.png","002.png","003.png","004.png"]
-        let position = randomOrder(toMax: 3)
-        return UIImage(named: list[position])!
+    // MARK: Methods for Testownik database
+    func loadTestFromDatabase() {
+    //    database.selectedTestTable.loadData()
+        //print("\nselectedTestTable.coun = \(database.selectedTestTable.count)")
+        guard database.selectedTestTable.count > 0 else {   return     }
+        //if  let selectedUuid = database.selectedTestTable[0]?.toAllRelationship?.uuId {
+        if  let selectedUuid = database.selectedTestTable[0]?.uuId {
+            database.testDescriptionTable.loadData(forUuid: "uuid_parent", fieldValue: selectedUuid)
+            if database.testDescriptionTable.count > 0 {
+                print("file_name:\(String(describing: database.testDescriptionTable[0]?.file_name))")
+                print("TEXT:\(String(describing: database.testDescriptionTable[0]?.text))")
+                
+                // TODO: clear data
+                let txtVal = getTextDb666(txt: database.testDescriptionTable[0]?.text ?? " ")
+                if  txtVal.count < 3 {
+                    print("Pusty rekord")
+                    self.clearData()
+                }
+                else    {
+                    print("Pełny rekord")
+                    fillDataDb()
+                }
+            }
+        }
     }
     func fillDataDb() {
         var titles = [String]()
         var textLines = [String]()
         var pict: UIImage? = nil
         print("database.testDescriptionTable.count fillDataDb:\(database.testDescriptionTable.count)")
+        print("testownik.count befor:\(self.count)")
         self.testList.removeAll()
         database.testDescriptionTable.forEach { (index, testRecord) in
             if let txt = testRecord?.text, !txt.isEmpty {
@@ -79,7 +103,16 @@ class Testownik: DataOperations {
                 self.testList.append(test)
             }
         }
+        print("testownik.count after:\(self.count)")
      }
+    func fillDemoData() {
+        
+    }
+    func readPicture() -> UIImage {
+        let list = ["001.png","002.png","003.png","004.png"]
+        let position = randomOrder(toMax: 3)
+        return UIImage(named: list[position])!
+    }
     func changeOrder(forAnswerOptions answerOptions: [Answer]) -> [Answer] {
         var position = 0
         var sortedAnswerOptions = [Answer]()
@@ -118,14 +151,14 @@ class Testownik: DataOperations {
         return found
     }
     func teeest() {
-        loadStartedTest(forLanguage: .english_GB)
-        loadStartedTest(forLanguage: .polish)
+        createStartedTest(forLanguage: .english_GB)
+        createStartedTest(forLanguage: .polish)
         
-        loadStartedTest(forLanguage: .spanish)
-        loadStartedTest(forLanguage: .french)
-        loadStartedTest(forLanguage: .german)
+        createStartedTest(forLanguage: .spanish)
+        createStartedTest(forLanguage: .french)
+        createStartedTest(forLanguage: .german)
     }
-    func loadStartedTest(forLanguage lang: Setup.LanguaesList = Setup.currentLanguage) {
+    func createStartedTest(forLanguage lang: Setup.LanguaesList = Setup.currentLanguage) {
         guard database.allTestsTable.count < 1 else {   return    }
         let uuid = UUID()
         saveHeaderDB(uuid: uuid)
@@ -303,31 +336,7 @@ class Testownik: DataOperations {
         return nil
     }    
     
-    // MARK: Methods for Testownik database
-    func loadTestFromDatabase() {
-    //    database.selectedTestTable.loadData()
-        //print("\nselectedTestTable.coun = \(database.selectedTestTable.count)")
-        guard database.selectedTestTable.count > 0 else {   return     }
-        //if  let selectedUuid = database.selectedTestTable[0]?.toAllRelationship?.uuId {
-        if  let selectedUuid = database.selectedTestTable[0]?.uuId {
-            database.testDescriptionTable.loadData(forUuid: "uuid_parent", fieldValue: selectedUuid)
-            if database.testDescriptionTable.count > 0 {
-                print("file_name:\(String(describing: database.testDescriptionTable[0]?.file_name))")
-                print("TEXT:\(String(describing: database.testDescriptionTable[0]?.text))")
-                
-                // TODO: clear data
-                let txtVal = getTextDb666(txt: database.testDescriptionTable[0]?.text ?? " ")
-                if  txtVal.count < 3 {
-                    print("Pusty rekord")
-                    self.clearData()
-                }
-                else    {
-                    print("Pełny rekord")
-                    fillDataDb()
-                }
-            }
-        }
-    }
+
 }
 
 

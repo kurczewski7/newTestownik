@@ -51,7 +51,7 @@ class Database {
     //    var xx: RatingsEntity
     //    var TestListEntity
 
-    var testToUpgrade = true
+    //var testToUpgrade = true
     
     init(context: NSManagedObjectContext) {
         self.context = context

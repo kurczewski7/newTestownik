@@ -310,6 +310,7 @@
                         <outlet property="highButton7" destination="R17-yK-kDc" id="D3J-b1-CJe"/>
                         <outlet property="highButton8" destination="oIH-6L-iub" id="uLh-YD-CLZ"/>
                         <outlet property="highButton9" destination="AKI-22-yfL" id="ML4-t5-ZmT"/>
+                        <outlet property="labelLeading" destination="QWf-pj-cYr" id="i7C-9U-lQT"/>
                         <outlet property="listeningText" destination="i14-m7-5cl" id="YfH-JV-J8q"/>
                         <outlet property="microphoneButt" destination="1fC-HZ-FvY" id="Wl1-P9-znE"/>
                         <outlet property="stackView" destination="xuO-fW-0nf" id="bzH-2R-PHv"/>
@@ -995,7 +996,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Bm0-IT-hNY"/>
+        <segue reference="tsm-RE-lKY"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="005.png" width="555.5999755859375" height="31.200000762939453"/>

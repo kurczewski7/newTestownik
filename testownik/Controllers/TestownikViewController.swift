@@ -19,7 +19,7 @@ class TestownikViewController: UIViewController, GesturesDelegate, TestownikDele
     let listening = Listening()
     let command   = Command()
     var gestures  = Gestures()
-    var testownik = Testownik()
+    //var testownik = Testownik()
 
     //  MARK: variable
     var cornerRadius: CGFloat = 10
@@ -409,7 +409,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     //}
     // MARK: viewDidLoad - initial method
     override func viewDidLoad() {
-        print("TestownikViewController viewDidLoad")        
+        super.viewDidLoad()
+        print("TestownikViewController viewDidLoad-testownik.count:\(testownik.count)")        
         Settings.shared.saveTestPreferences()
         
         self.view?.tag = 111
@@ -417,13 +418,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         gesture.numberOfTouchesRequired = 1
         askLabel.isUserInteractionEnabled = true
         askLabel.addGestureRecognizer(gesture)
-        //askLabel.window?.rootViewController?.dismiss(animated: <#T##Bool#>, completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
-        
-        //let gesture = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-        //gesture.numberOfTouchesRequired = touchNumber
-        //addOneGesture(gesture, forView: aView)
-        
-        
         Settings.shared.checkResetRequest(forUIViewController: self)
         
         listening.linkSpeaking = speech.self
@@ -437,11 +431,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         listeningText.userAnimation(12.8, type: .push, subType: .fromLeft, timing: .defaultTiming)
         //listeningText.alpha = alphaLabel
         listening.requestAuth()
-        
-//        Settings.readCurrentLanguae()
-        
         print("Test name 2:\(database.selectedTestTable[0]?.toAllRelationship?.user_name ?? "brak")")
-        super.viewDidLoad()
+        
         var i = 0
         self.title = "Test (001)"
         // MARKT: MAYBY ERROR
@@ -457,9 +448,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                 gestures.addTapGestureToView(forView: butt)
                 gestures.addForcePressGesture(forView: butt)
                 gestures.addLongPressGesture(forView: butt)
-                //let gestureLong = gesture.addGestureRecognizer(<#T##UIGestureRecognizer#>)
-                //butt.addGestureRecognizer(gestures.addLongPressGesture())
-                butt.tag = i
+                 butt.tag = i
                 i += 1
             }
         }
@@ -475,28 +464,26 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         tabHigh.append(highButton9)
         tabHigh.append(highButton10)
         
-        addAllRequiredGestures(sender: gestures)
-        
+        addAllRequiredGestures(sender: gestures)        
         askLabel.layer.cornerRadius = self.cornerRadius
         
         // TODO: POPRAW
-        testownik.loadStartedTest()
-//testownik.loadTestFromDatabase()
-//testownik.fillDataXXXX()
-//        refreshView()
+        testownik.createStartedTest()
+        testownik.refreshData()
     }
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear viewWillAppear")
         Settings.shared.readCurrentLanguae()
         
         print("Test name 3:\(database.selectedTestTable[0]?.toAllRelationship?.user_name ?? "brak")")       
-//        if database.testToUpgrade {
-            testownik.loadTestFromDatabase()
+//       if database.testToUpgrade {
+//            testownik.loadTestFromDatabase()
+//       }
+        if testownik.isChanged {
+            //testownik.refreshData()
             clearView()
-            testownik.currentTest = 0
-            refreshView()
-//            database.testToUpgrade.toggle()
-//        }
+        }
+        refreshView()
         self.view.setNeedsUpdateConstraints()
         super.viewWillAppear(animated)
         Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(startMe), userInfo: nil, repeats: false)
@@ -666,7 +653,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     func refreshView() {
         var i = 0
         let image = UIImage(named: "002.png")
-        let set = Set([0,1,2,3,4,6])
+        let set = Set([2,3,5,6,7,9])
         guard testownik.currentTest < testownik.count else {
             print("JEST \(testownik.count)  TESTOW")
             return            
