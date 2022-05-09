@@ -653,7 +653,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     func refreshView() {
         var i = 0
         let image = UIImage(named: "002.png")
-        let set = Set([2,3,5,6,7,9])
+        let set = Set([6,8,9])
         guard testownik.currentTest < testownik.count else {
             print("JEST \(testownik.count)  TESTOW")
             return            

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A231207E20459815F65BE7C /* Pods_testownik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3CD960258B27FF97A8FBA0C /* Pods_testownik.framework */; };
+		2C0B8198282961490018A372 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0B8197282961490018A372 /* TestResult.swift */; };
 		2C1409BC240EDA6D001611F0 /* XXDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1409BB240EDA6D001611F0 /* XXDocument.swift */; };
 		2C2AC57C27986E780069F8AC /* testownikTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 2CE1478E23F6901C00C834F4 /* testownikTests.xctest */; };
 		2C2AC57D27986E8C0069F8AC /* testownikUITests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 2CE1479923F6901C00C834F4 /* testownikUITests.xctest */; };
@@ -274,6 +275,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C0B8197282961490018A372 /* TestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResult.swift; sourceTree = "<group>"; };
 		2C1409BB240EDA6D001611F0 /* XXDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XXDocument.swift; sourceTree = "<group>"; };
 		2C2FD3AF27024ABD00434C03 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		2C2FD3B027024AC000434C03 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -809,6 +811,7 @@
 			isa = PBXGroup;
 			children = (
 				2CE1478123F6901900C834F4 /* testownik.xcdatamodeld */,
+				2C0B8197282961490018A372 /* TestResult.swift */,
 				2C58BF4627400B8800FE833C /* Ratings.swift */,
 				2CEB3FF4271F08E8003011F3 /* ForcePressGestureRecognizer.swift */,
 				2C625DF424435FD000EE29A0 /* CoreDataStack.swift */,
@@ -1309,6 +1312,7 @@
 				2C9A0973242C1EEB00A1DC4E /* File.swift in Sources */,
 				2C625DFB2443A68800EE29A0 /* AddTestViewController.swift in Sources */,
 				2CE2F390242A574100D1B731 /* ZipSectionHeaderView.swift in Sources */,
+				2C0B8198282961490018A372 /* TestResult.swift in Sources */,
 				2C6538DD2407282A004B1FC8 /* Testownik.swift in Sources */,
 				2CA459DE27EA285900FE71C3 /* PictureLibrary.swift in Sources */,
 				2CE2F39C242A5BEF00D1B731 /* Extensions.swift in Sources */,
