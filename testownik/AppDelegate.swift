@@ -21,6 +21,7 @@ let speech = Speech()
 //let testownik99 = Testownik()
 let testownik = Testownik()
 let pictureLibrary = PictureLibrary()
+let ratings = Ratings()
 
 
 //let coreData = CoreDataStack()
@@ -47,7 +48,6 @@ let pictureLibrary = PictureLibrary()
             let cc = testownik.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: val))
             print("cc=\(cc)")
         }
-        let ratings = Ratings()
         ratings.xxxxxx()
         let rr = ratings[2]
         rr?.correctionsToDo = 1963

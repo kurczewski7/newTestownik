@@ -9,18 +9,20 @@
 import Foundation
 
 class Ratings {
+    struct TestListStruct    {
+        var lp: Int = 0
+        var ratingIndex: Int = 0
+    }
+    var currentTest = 0
     var testList: [Int] = [4,2,4,2,1,7]
     //                     2,1,2,1,0,3
+    var count: Int {
+        get {    return testList.count    }
+    }
     var results = [ TestResult(1, lastAnswer: false),
                     TestResult(2, lastAnswer: false),
                     TestResult(4, lastAnswer: true),
                     TestResult(7, lastAnswer: true)]    //[TestResult]()
-    
-    
-    var currentTest = 0
-    var count: Int {
-        get {    return testList.count    }
-    }
     subscript(index: Int) -> TestResult? {
         get {
             guard index < self.testList.count  else {   return nil  }
@@ -28,7 +30,7 @@ class Ratings {
             return  find(testForValue: self.testList[index])
         }
         set(newValue) {
-            //print("oldValue:\(newValue)")
+            //print("oldValue: \(oldValue), newValue: \(newValue)")
             guard let newValue = newValue, index < self.testList.count   else {   return   }
             guard self.testList.first(where: {  $0 == newValue.fileNumber   }) != nil else { return }
             if let posInResults = find(posForValue: self.testList[index]) {
@@ -36,7 +38,6 @@ class Ratings {
                     self.currentTest = index
                     self.results[posInResults] = newValue
                 }
-                
             }
         }
     }
@@ -71,16 +72,14 @@ class Ratings {
     }
     func xxxxxx() {
         for el in self.testList {
-            print("el:\(el)")
+            //print("el:\(el)")
             let bb = find(testForValue: el)
-            print("bb:\(bb?.fileNumber ?? 0),\(bb?.lastAnswer ?? false)")
+            print("el:\(el),bb:\(bb?.fileNumber ?? 0),\(bb?.lastAnswer ?? false)")
         }
     }
     func printf() {
         print("results:\(results)")
         print("testList:\(testList)")
-        
-        
     }
     func findElem(searchVal: Int) {
         if let val = self.results.first(where: {  $0.fileNumber == searchVal  }) {
@@ -107,7 +106,6 @@ class Ratings {
         guard let uuId = database.selectedTestTable[0]?.uuId, self.results.count > 0 else {   return    }
         
         print("saveRatings, befor del:\(database.ratingsTable.count)")
-        //database.ratingsTable[0]?.uuId_parent
         database.ratingsTable.deleteGroup(uuidDeleteField: "uuid_parent", forValue: uuId)
         database.ratingsTable.save()
         print("saveRatings,ratingsTable after del:\(database.ratingsTable.count)")
@@ -173,12 +171,7 @@ class Ratings {
         }
         print("RRRRR:\(newRatings)")
     }
-    struct TestListStruct
-    {
-        var lp: Int = 0
-        var ratingIndex: Int = 0
-        
-    }
+
     func restoreTestList() {
         //    var testList: [Int] = [4,2,4,2,1,7]
         var newTestList = [TestListStruct]()

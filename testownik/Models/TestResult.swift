@@ -32,7 +32,7 @@ class TestResult {
             }
         }
     }
-
+    // MARK: Init params: fileNumber, lastAnswer
     init(_ fileNumber: Int, lastAnswer: Bool) {
         self.fileNumber = fileNumber
         self.lastAnswer = lastAnswer
