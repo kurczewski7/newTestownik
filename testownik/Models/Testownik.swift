@@ -110,7 +110,7 @@ class Testownik: DataOperations {
     }
     func readPicture() -> UIImage {
         let list = ["001.png","002.png","003.png","004.png"]
-        let position = randomOrder(toMax: 3)
+        let position = Setup.randomOrder(toMax: 3)
         return UIImage(named: list[position])!
     }
     func changeOrder(forAnswerOptions answerOptions: [Answer]) -> [Answer] {
@@ -118,15 +118,12 @@ class Testownik: DataOperations {
         var sortedAnswerOptions = [Answer]()
         var srcAnswerOptions = answerOptions
         for _ in 1...srcAnswerOptions.count {
-            position = randomOrder(toMax: srcAnswerOptions.count-1)
+            position = Setup.randomOrder(toMax: srcAnswerOptions.count-1)
             sortedAnswerOptions.append(srcAnswerOptions[position])
             srcAnswerOptions.remove(at: position)
         }
         return sortedAnswerOptions
         //let elem = srcAnswerOptions[position]
-    }
-    func randomOrder(toMax: Int) -> Int {
-        return Int(arc4random_uniform(UInt32(toMax)))
     }
     func fillOneTestAnswers(isOk: [Bool], titles: [String]) -> [Answer] {
         var answerOptions: [Answer] = []

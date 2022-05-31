@@ -109,6 +109,11 @@ class Setup {
         return tempStr
     }}
     // MARK: Static methods
+    class func randomOrder(toMax: Int) -> Int {
+        // For toMax = 10 get from 0 to 9
+        return Int(arc4random_uniform(UInt32(toMax)))
+    }
+
     class func getNumericPict(number: Int) -> String {
         guard number < 10 else { return ""}
         return (isNumericQuestions ? " "+askNumber[number]+" " : "")
