@@ -32,12 +32,20 @@ let ratings = Ratings()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("S T A R T\n")
-        for i in 0...10 {
-            print("x=\(Setup.randomOrder(toMax: 10))")
+
+        var xxList: [Int] = [Int]()
+        for i in 0..<320 {
+            xxList.append(i+1)
         }
-        let xxList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
         let testToDo = TestToDo(rawTestList: xxList)
-        testToDo.lotteryMainTests(fromFilePosition: 5, arraySize: 10)
+        let xx = testToDo.getElem(numberFrom0: 0)
+        print("x=\(xx)\n==========")
+        for i in 0..<180 {
+            let yy = testToDo.getElem(numberFrom0: i)
+            print("\(i):\(yy)")
+        }
+        
+        
         
         if let path0 = Bundle.main.path(forResource: "543", ofType: "txt") {
             let aa0 = testownik.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(15)))

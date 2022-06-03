@@ -18,20 +18,80 @@ class TestToDo {
     }
     struct RawTest {
         let fileNumber: Int
+        var isExtraTest: Bool
         var checked: Bool = false
     }
+    
+    
+
+    var groups: Int = 0
     var groupSize: Int = 30
-    var reapeadTest: Int = 30
+    var reapeadTest: Int = 5
+    var currentPosition = 0
+   
+    
+    private var mainCount: Int = 0
+    private var extraCount: Int = 0
     private var rawTests: [RawTest] = [RawTest]()
-    private var mainTests: [RawTest] = [RawTest]()
-    private var extraTests: [RawTest] = [RawTest]()
+    private var mainTests: [[RawTest]] = [[RawTest]]()
+    private var extraTests: [[RawTest]] = [[RawTest]]()
     
-    
+    var totalCount: Int {
+        get {
+            return self.mainCount + self.totalCount
+        }
+    }
+    //var twoDimensionArray: [[RawTest]] = [[RawTest]]()
+        
     init(rawTestList: [Int]) {
         for i in 0..<rawTestList.count {
-            let tmpElem = RawTest(fileNumber: rawTestList[i])
+            let tmpElem = RawTest(fileNumber: rawTestList[i], isExtraTest: false)
             self.rawTests.append(tmpElem)
         }
+        groups = Int(rawTests.count / groupSize)
+        groups += (groups * groupSize == rawTests.count ? 0 : 1)
+        fillMainTests()
+        fillExtraTests()
+    }
+    private func fillMainTests() {
+        mainCount = 0
+        for j in 0..<groups {
+            let emptyArray = [RawTest]()
+            mainTests.append(emptyArray)
+            let testsList = lotteryMainTests(fromFilePosition: j*groupSize, arraySize: groupSize)
+            mainTests[j].append(contentsOf: testsList)
+            mainCount += testsList.count
+        }
+    }
+    private func fillExtraTests()   {
+        extraCount = 0
+        //var newTests: [RawTest] = [RawTest]()
+        //newTests.removeAll()
+        for i in 0..<groups {
+            let emptyArray = [RawTest]()
+            extraTests.append(emptyArray)
+            var row = mainTests[i]
+            row = mixTests(inputElements: &row, count: reapeadTest)
+            extraTests[i].append(contentsOf: row)
+            extraCount += row.count
+        }
+    }
+    func getElem(numberFrom0: Int) -> RawTest? {
+        var retVal: RawTest = RawTest(fileNumber: 0, isExtraTest: false)
+        let numberFrom1 = numberFrom0 + 1
+        let fullSize = groupSize + reapeadTest
+        let currentGroup = Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0)
+        guard numberFrom0 < totalCount, currentGroup <= groups else {      return nil   }
+        let positionInGroup = numberFrom1 - ((currentGroup - 1) * fullSize)
+        if positionInGroup <= groupSize {
+            retVal = mainTests[currentGroup - 1][positionInGroup - 1]
+            retVal.isExtraTest = false
+        }
+        else {
+            retVal = extraTests[currentGroup - 1][positionInGroup - groupSize - 1]
+            retVal.isExtraTest = true
+        }
+        return retVal
     }
     func getNext()  -> Int? {
         let retVal = 0
@@ -42,33 +102,31 @@ class TestToDo {
         let retVal = 0
         return retVal
     }
-    func lotteryMainTests(fromFilePosition startPos: Int, arraySize size: Int ) -> [Int]    {
-        mainTests.removeAll()
+    private func lotteryMainTests(fromFilePosition startPos: Int, arraySize size: Int ) -> [RawTest]    {
+        var newTests: [RawTest] = [RawTest]()
+        newTests.removeAll()
         for i in 0..<size {
             if startPos + i == rawTests.count {   break   }
-            mainTests.append(rawTests[startPos + i])
+            newTests.append(rawTests[startPos + i])
         }
-        for el in mainTests {
+        print("befor")
+        for el in newTests {
             print("\(el.fileNumber)")
         }
-        mainTests = mixTests(inputElements: &mainTests)
-        for el in mainTests {
+        newTests = mixTests(inputElements: &newTests)
+        print("after")
+        for el in newTests {
             print("\(el.fileNumber)")
         }
-
-        
-        
-//        let pos = Setup.randomOrder(toMax: size)
-//        guard startPos + pos < rawTests.count  else {   return [Int]()   }
-//        if let elem = rawTests[startPos + pos] {
-//
-//        }
-       return [Int]()
+       return newTests
     }
-    func mixTests(inputElements inputTst: inout [RawTest] ) -> [RawTest] {
+    private func mixTests(inputElements inputTst: inout [RawTest], count: Int = -1) -> [RawTest] {
         var outputTst: [RawTest] = [RawTest]()
         let countElem = inputTst.count
-        for _ in 0..<countElem {
+        for i in 0..<countElem {
+            if i == count {
+                break
+            }
             let pos = Setup.randomOrder(toMax: inputTst.count)
             let elem = inputTst[pos]
             inputTst.remove(at: pos)
@@ -76,8 +134,4 @@ class TestToDo {
         }
         return outputTst
     }
-    func loteyExtraTests() {
-        
-    }
-
 }
