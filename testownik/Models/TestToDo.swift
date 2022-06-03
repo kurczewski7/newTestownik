@@ -21,14 +21,11 @@ class TestToDo {
         var isExtraTest: Bool
         var checked: Bool = false
     }
-    
-    
 
     var groups: Int = 0
     var groupSize: Int = 30
     var reapeadTest: Int = 5
     var currentPosition = 0
-   
     
     private var mainCount: Int = 0
     private var extraCount: Int = 0
@@ -36,9 +33,9 @@ class TestToDo {
     private var mainTests: [[RawTest]] = [[RawTest]]()
     private var extraTests: [[RawTest]] = [[RawTest]]()
     
-    var totalCount: Int {
+    var count: Int {
         get {
-            return self.mainCount + self.totalCount
+            return self.mainCount + self.extraCount
         }
     }
     //var twoDimensionArray: [[RawTest]] = [[RawTest]]()
@@ -52,6 +49,13 @@ class TestToDo {
         groups += (groups * groupSize == rawTests.count ? 0 : 1)
         fillMainTests()
         fillExtraTests()
+    }
+    subscript(index: Int)  -> RawTest? {
+        return getElem(numberFrom0: index)
+    }
+    subscript(group: Int, position: Int) ->  RawTest? {
+        guard   group < self.groups, position < mainTests[group].count else {  return nil  }
+        return mainTests[group][position]
     }
     private func fillMainTests() {
         mainCount = 0
@@ -81,7 +85,7 @@ class TestToDo {
         let numberFrom1 = numberFrom0 + 1
         let fullSize = groupSize + reapeadTest
         let currentGroup = Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0)
-        guard numberFrom0 < totalCount, currentGroup <= groups else {      return nil   }
+        guard numberFrom0 < self.count, currentGroup <= groups else {      return nil   }
         let positionInGroup = numberFrom1 - ((currentGroup - 1) * fullSize)
         if positionInGroup <= groupSize {
             retVal = mainTests[currentGroup - 1][positionInGroup - 1]
@@ -92,6 +96,9 @@ class TestToDo {
             retVal.isExtraTest = true
         }
         return retVal
+    }
+    func getFirst() {
+        
     }
     func getNext()  -> Int? {
         let retVal = 0
