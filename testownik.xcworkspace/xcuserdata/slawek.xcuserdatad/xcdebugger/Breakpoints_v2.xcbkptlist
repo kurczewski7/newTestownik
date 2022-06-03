@@ -430,8 +430,8 @@
             filePath = "testownik/Models/TestToDo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "getElem(numberFrom0:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -446,8 +446,8 @@
             filePath = "testownik/Models/TestToDo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "getElem(numberFrom0:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -462,9 +462,9 @@
             filePath = "testownik/Models/TestToDo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "fillExtraTests()"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "getElem(numberFrom0:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -54,8 +54,35 @@ class TestToDo {
         return getElem(numberFrom0: index)
     }
     subscript(group: Int, position: Int) ->  RawTest? {
-        guard   group < self.groups, position < mainTests[group].count else {  return nil  }
-        return mainTests[group][position]
+    guard   group < self.groups, position < mainTests[group].count else {  return nil  }
+        if position <= self.groupSize {
+            return mainTests[group][position]  }
+        else    {
+            return mainTests[group][position - self.groupSize]  }
+    }
+    func getFirst()  -> RawTest? {
+        currentPosition = 0
+        return getElem(numberFrom0: currentPosition)
+    }
+    func getLast() -> RawTest? {
+        currentPosition = count - 1
+        return getElem(numberFrom0: currentPosition)
+    }
+    func getNext()  -> RawTest? {
+        currentPosition += 1
+        return getElem(numberFrom0: currentPosition)
+    }
+    func getPrev()  -> RawTest? {
+        currentPosition -= 1
+        guard currentPosition >= 0 else {  return nil  }
+        return getElem(numberFrom0: currentPosition)
+    }
+    func addExtra(forNewTest: RawTest) {
+        
+    }
+    func addExtra(forNumerTest number: Int) {
+        //let xx = rawTests.map(<#T##transform: (RawTest) throws -> T##(RawTest) throws -> T#>)
+        
     }
     private func fillMainTests() {
         mainCount = 0
@@ -95,18 +122,6 @@ class TestToDo {
             retVal = extraTests[currentGroup - 1][positionInGroup - groupSize - 1]
             retVal.isExtraTest = true
         }
-        return retVal
-    }
-    func getFirst() {
-        
-    }
-    func getNext()  -> Int? {
-        let retVal = 0
-
-        return retVal
-    }
-    func getPrev()  -> Int? {
-        let retVal = 0
         return retVal
     }
     private func lotteryMainTests(fromFilePosition startPos: Int, arraySize size: Int ) -> [RawTest]    {
