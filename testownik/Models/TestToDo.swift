@@ -81,8 +81,20 @@ class TestToDo {
         
     }
     func addExtra(forNumerTest number: Int) {
-        //let xx = rawTests.map(<#T##transform: (RawTest) throws -> T##(RawTest) throws -> T#>)
-        
+        var foundGroup = -1
+        for i in 0..<self.groups {
+            if mainTests[i].contains(where: {  $0.fileNumber == number  }) {
+                foundGroup = i
+                break
+            }
+        }
+        let isAlredyFound = extraTests[foundGroup].contains {  $0.fileNumber == number  }
+        guard foundGroup >= 0, !isAlredyFound else { return }
+        var tmpRow = extraTests[foundGroup]
+        let oneTest = RawTest(fileNumber: number, isExtraTest: false, checked: true)
+        tmpRow.insert(oneTest, at: 0)
+        tmpRow.remove(at: tmpRow.count - 1)
+        extraTests[foundGroup] = tmpRow
     }
     private func fillMainTests() {
         mainCount = 0
