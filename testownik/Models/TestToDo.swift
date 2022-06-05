@@ -20,8 +20,8 @@ class TestToDo {
         let fileNumber: Int
         var isExtraTest: Bool
         var checked: Bool = false
+        var errorCorrect: Bool = false
     }
-
     var groups: Int = 0
     var groupSize: Int = 30
     var reapeadTest: Int = 5
@@ -94,7 +94,16 @@ class TestToDo {
         let oneTest = RawTest(fileNumber: number, isExtraTest: false, checked: true)
         tmpRow.insert(oneTest, at: 0)
         tmpRow.remove(at: tmpRow.count - 1)
+        swapWhenDupplicate(forRow: &tmpRow, currentGroup: foundGroup)
         extraTests[foundGroup] = tmpRow
+    }
+    func swapWhenDupplicate(forRow row: inout [RawTest],  currentGroup groupNo: Int) {
+        guard groupNo < groups, mainTests[groupNo].count > 0, row.count > 2, mainTests[groupNo][mainTests.count-1].fileNumber == row[0].fileNumber else { return   }
+        //var tmp = extraTests[groupNo]
+        let oneTest = row[1]
+        row.remove(at: 1)
+        row.insert(oneTest, at: 0)
+        extraTests[groupNo] = row
     }
     private func fillMainTests() {
         mainCount = 0
@@ -115,9 +124,11 @@ class TestToDo {
             extraTests.append(emptyArray)
             var row = mainTests[i]
             row = mixTests(inputElements: &row, count: reapeadTest)
+            swapWhenDupplicate(forRow: &row, currentGroup: i)
             extraTests[i].append(contentsOf: row)
             extraCount += row.count
         }
+        
     }
     func getElem(numberFrom0: Int) -> RawTest? {
         var retVal: RawTest = RawTest(fileNumber: 0, isExtraTest: false)
