@@ -44,6 +44,34 @@ let ratings = Ratings()
             let yy = testToDo.getElem(numberFrom0: i)
             print("\(i):\(yy)")
         }
+        var kk = [Int]()    // [5,5,3,4,2,5]
+        for _ in 0...5 {
+            kk.append(Setup.randomOrder(toMax: 5))
+        }
+        //kk = [0,0,2,4,4,4]
+        //kk = [2,1,6,5,3,4]
+        //kk = [1,2,3,4,5,6]
+        var c = 0
+        var row: [TestToDo.RawTest] = [TestToDo.RawTest]()
+        for i in kk {
+            let errCor = (c % 2 == 0  ? false : true)
+            let y = TestToDo.RawTest(fileNumber: i, isExtraTest: true, checked: false, errorCorrect: errCor)
+            row.append(y)
+            c += 1
+        }
+        //print("\(row)")
+        let tt = TestToDo.RawTest(fileNumber: 0, isExtraTest: false, checked: false, errorCorrect: false)
+        //let result = testToDo.isSortingOk(forRow: &row)
+        testToDo.reorganizeExtra(forRow: &row, fileNumber: 4,hawMenyTimes: 9000)
+        //print(("Sort result:\(result)"))
+        
+//        for i in 0..< 10 {
+//            
+//        }
+        
+        //testToDo.reSorting(previousElem: tt, forRow: &row)
+        
+        //testToDo.mixTests(inputElements: &row)
         
         
         
