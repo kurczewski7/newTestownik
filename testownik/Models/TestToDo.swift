@@ -79,22 +79,45 @@ class TestToDo {
         return getElem(numberFrom0: currentPosition)
     }
     func addExtra(forNewTest: RawTest) {
-        
     }
-    func addExtra(forNumerTest number: Int) {
-        var foundGroup = -1
+    func getGroup(forNumerTest number: Int) -> Int? {
+        var retVal: Int? = nil
         for i in 0..<self.groups {
             if mainTests[i].contains(where: {  $0.fileNumber == number  }) {
-                foundGroup = i
+                retVal = i
                 break
             }
         }
-        let isAlredyFound = extraTests[foundGroup].contains {  $0.fileNumber == number  }
-        guard foundGroup >= 0, !isAlredyFound else { return }
+        return retVal
+    }
+    func addExtra(forNumerTest number: Int, errorCorrect: Bool = true) {
+        guard let foundGroup = getGroup(forNumerTest: number) else { return   }
         var tmpRow = extraTests[foundGroup]
-        let oneTest = RawTest(fileNumber: number, isExtraTest: false, checked: true)
-        tmpRow.insert(oneTest, at: 0)
-        tmpRow.remove(at: tmpRow.count - 1)
+        let dupicArray = tmpRow.filter { $0.fileNumber == number && $0.errorCorrect }
+        guard  dupicArray.count == 0 else {
+            var tmpPos = -1
+            for (index, value) in extraTests[foundGroup].enumerated() {
+                if value.fileNumber == number {    tmpPos = index    }
+            }
+            extraTests[foundGroup][tmpPos].errorCorrect = true
+            return
+        }
+        
+        let oneTest = RawTest(fileNumber: number, isExtraTest: true, checked: false, errorCorrect: true)
+        let fileNumbersToDelete = tmpRow.filter { !$0.errorCorrect }
+        if fileNumbersToDelete.count > 0 {
+            var newPosition = -1
+            let delNumber = fileNumbersToDelete[0].fileNumber
+            for (index, value) in tmpRow.enumerated() {
+                if value.fileNumber == delNumber {      newPosition = index      }
+            }
+            tmpRow[newPosition] = oneTest
+        }
+        else {
+            tmpRow.append(oneTest)
+            tmpRow.remove(at: tmpRow.count - 1)
+        }
+
         swapWhenDupplicate(forRow: &tmpRow, currentGroup: foundGroup)
         extraTests[foundGroup] = tmpRow
     }
@@ -130,7 +153,6 @@ class TestToDo {
         if row[0].fileNumber == fileNumber {
             cyclicShift(forRow: &row)
         }
-        
     }
     func isSortingOk(forRow row: inout [RawTest])  -> Bool {
         var retVal = true
