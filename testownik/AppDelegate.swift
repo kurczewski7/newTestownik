@@ -48,9 +48,13 @@ let ratings = Ratings()
         for _ in 0...5 {
             kk.append(Setup.randomOrder(toMax: 5))
         }
+        kk = [5,5,3,4,2,5]
         //kk = [0,0,2,4,4,4]
         //kk = [2,1,6,5,3,4]
         //kk = [1,2,3,4,5,6]
+        
+        
+        
         var spelInt = kk.map { NumberFormatter.localizedString(from: $0 as NSNumber, number: .spellOut) }
         var c = 0
         var row: [TestToDo.RawTest] = [TestToDo.RawTest]()
@@ -61,11 +65,16 @@ let ratings = Ratings()
             c += 1
         }
         //print("\(row)")
-        let tt = TestToDo.RawTest(fileNumber: 0, isExtraTest: true, checked: false, errorCorrect: true)
+        var tt = TestToDo.RawTest(fileNumber: 0, isExtraTest: true, checked: false, errorCorrect: true)
+        
+        
         let result = testToDo.isSortingOk(forRow: &row)
-        testToDo.reorganizeExtra(forRow: &row, fileNumber: 4,hawMenyTimes: 9000)
+        //testToDo.reorganizeExtra(forRow: &row, fileNumber: 4,hawMenyTimes: 9000)
         print(("Sort result:\(result)"))
-        testToDo.addExtra(forNumerTest: 7)
+        //testToDo.addExtra(forRow: tt, fileNumber: 4, errorCorrect: true)
+        testToDo.addExtra(forRow: &row, fileNumber: 4, errorCorrect: true)
+        
+        testToDo.changeQueue(forRow: &row, fileNumber: 2)
         
         
         

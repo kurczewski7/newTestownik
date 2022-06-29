@@ -78,8 +78,6 @@ class TestToDo {
         guard currentPosition >= 0 else {  return nil  }
         return getElem(numberFrom0: currentPosition)
     }
-    func addExtra(forNewTest: RawTest) {
-    }
     func getGroup(forNumerTest number: Int) -> Int? {
         var retVal: Int? = nil
         for i in 0..<self.groups {
@@ -90,36 +88,71 @@ class TestToDo {
         }
         return retVal
     }
-    func addExtra(forNumerTest number: Int, errorCorrect: Bool = true) {
-        guard let foundGroup = getGroup(forNumerTest: number) else { return   }
-        var tmpRow = extraTests[foundGroup]
-        let dupicArray = tmpRow.filter { $0.fileNumber == number && $0.errorCorrect }
-        guard  dupicArray.count == 0 else {
-            var tmpPos = -1
-            for (index, value) in extraTests[foundGroup].enumerated() {
-                if value.fileNumber == number {    tmpPos = index    }
+    //===========
+    func changeQueue(forRow row: inout [RawTest], fileNumber number: Int, errorCorrect: Bool = true) {
+        var newRow: [RawTest] = [RawTest]()
+        var couuntRec = row.count
+        guard row.count > 0 else {   return   }
+        newRow.append(row[0])
+        row.remove(at: 0)
+        couuntRec -= 1
+        var pos = 0
+        for i in 0..<couuntRec {
+            if newRow[newRow.count-1].fileNumber != row[pos].fileNumber {
+                newRow.append(row[pos])
+                row.remove(at: pos)
+                pos = 0
             }
-            extraTests[foundGroup][tmpPos].errorCorrect = true
+            else {
+                pos += 1
+            }
+        }
+        couuntRec = row.count
+        if couuntRec > 0 {
+            for i in 0..<couuntRec {
+                let tmp = row[i]
+                for j in 0..<newRow.count {
+                    guard row.count > 0 && newRow.count > j+1 else {    continue    }
+                    if  newRow[j].fileNumber != tmp.fileNumber && newRow[j+1].fileNumber != tmp.fileNumber {
+                        newRow.append(tmp)
+                        row.remove(at: i)
+                        
+                    }
+                }
+            }
+        }
+        if row.count > 0 {
+            newRow.append(contentsOf: row)
+        }
+        row = newRow
+    }
+    //===========
+    func add(forFileNumber number: Int, errorCorrect: Bool = true) {
+        guard let foundGroup = getGroup(forNumerTest: number) else { return   }
+        var row = extraTests[foundGroup]
+        addExtra(forRow: &row, fileNumber: number, errorCorrect: errorCorrect)
+        swapWhenDupplicate(forRow: &row, currentGroup: foundGroup)
+        extraTests[foundGroup] = row
+    }
+//    func addExtra(forNewTest: RawTest) {
+//    }
+    func addExtra(forRow row: inout [RawTest], fileNumber number: Int, errorCorrect: Bool = true) {
+        let dupicArray = row.filter { $0.fileNumber == number && $0.errorCorrect }
+        guard dupicArray.count == 0 else {
+            if let position = findPosition(forRow: row, fileNumber: number) {   row[position].errorCorrect = true      }
             return
         }
-        
-        let oneTest = RawTest(fileNumber: number, isExtraTest: true, checked: false, errorCorrect: true)
-        let fileNumbersToDelete = tmpRow.filter { !$0.errorCorrect }
+        let oneTest = RawTest(fileNumber: number, isExtraTest: true, checked: false, errorCorrect: errorCorrect)
+        let fileNumbersToDelete = row.filter { !$0.errorCorrect }
         if fileNumbersToDelete.count > 0 {
-            var newPosition = -1
-            let delNumber = fileNumbersToDelete[0].fileNumber
-            for (index, value) in tmpRow.enumerated() {
-                if value.fileNumber == delNumber {      newPosition = index      }
+            if let newPosition = findPosition(forRow: row, fileNumber: fileNumbersToDelete[0].fileNumber) {
+                row[newPosition] = oneTest
             }
-            tmpRow[newPosition] = oneTest
         }
         else {
-            tmpRow.append(oneTest)
-            tmpRow.remove(at: tmpRow.count - 1)
+            row.append(oneTest)
+            row.remove(at: row.count - 1)
         }
-
-        swapWhenDupplicate(forRow: &tmpRow, currentGroup: foundGroup)
-        extraTests[foundGroup] = tmpRow
     }
     func getElem(numberFrom0: Int) -> RawTest? {
         var retVal: RawTest = RawTest(fileNumber: 0, isExtraTest: false)
@@ -167,6 +200,12 @@ class TestToDo {
         return retVal
     }
     // Private methods
+    private func findPosition(forRow row: [RawTest], fileNumber number: Int) -> Int? {
+            for (index, value) in row.enumerated() {
+                if value.fileNumber == number {   return index    }
+            }
+        return nil
+    }
     private func cyclicShift(forRow row: inout [RawTest]) {
         let tmp = row[0]
         row.remove(at: 0)
