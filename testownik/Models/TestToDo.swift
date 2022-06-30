@@ -88,6 +88,29 @@ class TestToDo {
         }
         return retVal
     }
+    func getPositonsToDel(forRow row: [RawTest],  newRow: inout [RawTest]) -> [Int] {
+        //let pos = 0
+        let couuntRec = row.count
+        let tabToDelete = [Int]()
+        var setToDelete = Set(tabToDelete)
+        let xx = setToDelete.sorted {$0 > $1 }
+        for pos in 0..<row.count {
+            let tmp = row[pos]
+            for j in 0..<newRow.count {
+                guard row.count > 0 && newRow.count > j+1 else {    continue    }
+                if j == 0 && newRow[j].fileNumber != tmp.fileNumber {
+                    newRow.insert(tmp, at: j)
+                    setToDelete.insert(pos)
+                    continue
+                }
+                if  newRow[j].fileNumber != tmp.fileNumber && newRow[j+1].fileNumber != tmp.fileNumber {
+                    newRow.insert(tmp, at: j+1)
+                    setToDelete.insert(pos)
+                }
+            }
+        }
+        return setToDelete.sorted {$0 > $1}
+    }
     //===========
     func changeQueue(forRow row: inout [RawTest], fileNumber number: Int, errorCorrect: Bool = true) {
         var newRow: [RawTest] = [RawTest]()
@@ -97,7 +120,7 @@ class TestToDo {
         row.remove(at: 0)
         couuntRec -= 1
         var pos = 0
-        for i in 0..<couuntRec {
+        for _ in 0..<couuntRec {
             if newRow[newRow.count-1].fileNumber != row[pos].fileNumber {
                 newRow.append(row[pos])
                 row.remove(at: pos)
@@ -107,21 +130,11 @@ class TestToDo {
                 pos += 1
             }
         }
-        couuntRec = row.count
-        if couuntRec > 0 {
-            for i in 0..<couuntRec {
-                let tmp = row[i]
-                for j in 0..<newRow.count {
-                    guard row.count > 0 && newRow.count > j+1 else {    continue    }
-                    if  newRow[j].fileNumber != tmp.fileNumber && newRow[j+1].fileNumber != tmp.fileNumber {
-                        newRow.append(tmp)
-                        row.remove(at: i)
-                        
-                    }
-                }
-            }
-        }
-        if row.count > 0 {
+        let xx = getPositonsToDel(forRow: row, newRow: &newRow)
+        for poz in xx {
+            row.remove(at: poz)
+        }        
+        if  row.count > 0 {
             newRow.append(contentsOf: row)
         }
         row = newRow
