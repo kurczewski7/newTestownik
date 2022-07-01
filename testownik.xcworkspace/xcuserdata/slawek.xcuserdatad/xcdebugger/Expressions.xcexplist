@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "GLOBAL">
+         <PersistentStrings>
+            <PersistentString
+               value = "extraCount">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CloudPicker.getTextEncoding(filePath:defaultEncoding:):CloudPicker.swift">
          <PersistentStrings>
             <PersistentString

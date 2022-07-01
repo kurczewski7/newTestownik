@@ -44,8 +44,7 @@ class TestToDo {
             let tmpElem = RawTest(fileNumber: rawTestList[i], isExtraTest: false)
             self.rawTests.append(tmpElem)
         }
-        groups = Int(rawTests.count / groupSize)
-        groups += (groups * groupSize == rawTests.count ? 0 : 1)
+        groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
         fillMainTests()
         fillExtraTests()
     }
@@ -255,7 +254,7 @@ class TestToDo {
         }
     }
     private func fillMainTests() {
-        mainCount = 0
+        self.mainCount = 0
         for j in 0..<groups {
             let emptyArray = [RawTest]()
             mainTests.append(emptyArray)
@@ -265,9 +264,7 @@ class TestToDo {
         }
     }
     private func fillExtraTests()   {
-        extraCount = 0
-        //var newTests: [RawTest] = [RawTest]()
-        //newTests.removeAll()
+        self.extraCount = 0
         for i in 0..<groups {
             let emptyArray = [RawTest]()
             extraTests.append(emptyArray)
