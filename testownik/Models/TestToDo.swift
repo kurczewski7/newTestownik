@@ -33,13 +33,11 @@ class TestToDo {
     
     var mainTests: [[RawTest]] = [[RawTest]]()
     var extraTests: [[RawTest]] = [[RawTest]]()
-    
     var count: Int {
         get {
             return self.mainCount + self.extraCount
         }
     }
-    //var twoDimensionArray: [[RawTest]] = [[RawTest]]()
         
     init(rawTestList: [Int]) {
         for i in 0..<rawTestList.count {
@@ -88,23 +86,6 @@ class TestToDo {
         }
         return retVal
     }
-    
-    func changeQueue(forRow row: inout [RawTest], fileNumber number: Int, errorCorrect: Bool = true) {
-        var newRow: [RawTest] = [RawTest]()
-        guard row.count > 0 else {   return   }
-        newRow.append(row[0])
-        row.remove(at: 0)
-        isertAtEnd(fromRow: &row ,toRow: &newRow)
-        insertBetween(fromRow: &row, toRow: &newRow)
-        if row.count > 0 {
-            insertBetween(fromRow: &row, toRow: &newRow)
-        }
-        if  row.count > 0 {
-            newRow.append(contentsOf: row)
-        }
-        row = newRow
-    }
-    //===========
     func add(forFileNumber number: Int, errorCorrect: Bool = true) {
         guard let foundGroup = getGroup(forNumerTest: number) else { return   }
         var row = extraTests[foundGroup]
@@ -112,8 +93,6 @@ class TestToDo {
         swapWhenDupplicate(forRow: &row, currentGroup: foundGroup)
         extraTests[foundGroup] = row
     }
-//    func addExtra(forNewTest: RawTest) {
-//    }
     func addExtra(forRow row: inout [RawTest], fileNumber number: Int, errorCorrect: Bool = true) {
         let dupicArray = row.filter { $0.fileNumber == number && $0.errorCorrect }
         guard dupicArray.count == 0 else {
@@ -152,14 +131,13 @@ class TestToDo {
     func reorganizeExtra(forRow row: inout [RawTest], fileNumber: Int, hawMenyTimes number: Int = 30) {
         let tt = TestToDo.RawTest(fileNumber: fileNumber, isExtraTest: false, checked: false, errorCorrect: false)
         guard !isSortingOk(forRow: &row) || row[0].fileNumber == fileNumber else {   return     }
-        for i in 0..<number {
+        for _ in 0..<number {
             reSorting(previousElem: tt, forRow: &row)
             if row[0].fileNumber == fileNumber {
                 cyclicShift(forRow: &row)
              }
             if isSortingOk(forRow: &row) && row[0].fileNumber != fileNumber {   break    }
             mixTests(inputElements: &row)
-//            print("\(i)")
         }
         if row[0].fileNumber == fileNumber {
             cyclicShift(forRow: &row)
@@ -168,60 +146,86 @@ class TestToDo {
     func isSortingOk(forRow row: inout [RawTest])  -> Bool {
         var retVal = true
         for i in 0..<row.count - 1 {
-            //print("(\(i), \(i+1))  : (\(row[i].fileNumber), \(row[i+1].fileNumber))")
             if row[i].fileNumber == row[i+1].fileNumber {
                 retVal = false
                 break
             }
-            
         }
         return retVal
     }
-    //===========
+    func changeQueue(forRow row: inout [RawTest], fileNumber number: Int, errorCorrect: Bool = true) {
+        var newRow: [RawTest] = [RawTest]()
+        guard row.count > 0 else {   return   }
+        for i in 0..<row.count {
+            if row[i].fileNumber != number {
+                newRow.append(row[i])
+                row.remove(at: i)
+                break
+            }
+        }
+        isertAtEnd(fromRow: &row ,toRow: &newRow)
+        insertBetween(fromRow: &row, toRow: &newRow, fileNumber: number)
+        if row.count > 0 {
+            for _ in 0..<5 {
+                let oldCount = row.count
+                insertBetween(fromRow: &row, toRow: &newRow, fileNumber: number)
+                if row.count == oldCount || row.count == 0 {
+                    break
+                }
+            }
+        }
+        if  row.count > 0 {
+            newRow.append(contentsOf: row)
+            row.removeAll()
+        }
+        row = newRow
+    }
+    //======================================
     // Private methods
-    private func insertBetween(fromRow row: inout [RawTest], toRow newRow: inout [RawTest]) {
-    var setToDelete = Set([Int]())
-    for pos in 0..<row.count {
-        let tmp = row[pos]
-        for j in 0..<newRow.count {
-            guard row.count > 0 && newRow.count > j+1 else {    continue    }
-            if j == 0 && newRow[j].fileNumber != tmp.fileNumber {
-                newRow.insert(tmp, at: j)
-                setToDelete.insert(pos)
-                break
-            }
-            if j == newRow.count - 1 && newRow[j].fileNumber != tmp.fileNumber {
-                newRow.insert(tmp, at: j)
-                setToDelete.insert(pos)
-                break
-            }
-            if  newRow[j].fileNumber != tmp.fileNumber && newRow[j+1].fileNumber != tmp.fileNumber {
-                newRow.insert(tmp, at: j+1)
-                setToDelete.insert(pos)
-                break
+    private func insertBetween(fromRow row: inout [RawTest], toRow newRow: inout [RawTest], fileNumber number: Int) {
+        var setToDelete = Set([Int]())
+        for pos in 0..<row.count {
+            let tmp = row[pos]
+            for j in 0..<newRow.count {
+                guard row.count > 0 && newRow.count > j else {    continue    }
+                if j == newRow.count - 1 {
+                    if newRow[j].fileNumber != tmp.fileNumber {
+                        newRow.append(tmp)
+                        setToDelete.insert(pos)
+                    }
+                    break
+                }
+                if j == 0  &&  tmp.fileNumber != number  &&  newRow[j].fileNumber != tmp.fileNumber {
+                    newRow.insert(tmp, at: j)
+                    setToDelete.insert(pos)
+                    break
+                }
+                if  newRow[j].fileNumber != tmp.fileNumber && newRow[j+1].fileNumber != tmp.fileNumber {
+                    newRow.insert(tmp, at: j+1)
+                    setToDelete.insert(pos)
+                    break
+                }
             }
         }
-    }
-    let tabToDelete = setToDelete.sorted {$0 > $1}
-    for poz in tabToDelete {
-        row.remove(at: poz)
-    }
-}
-
-private func isertAtEnd(fromRow row: inout [TestToDo.RawTest], toRow newRow: inout [TestToDo.RawTest]) {
-    var setToDelete = Set([Int]())
-    let couuntRec = row.count
-    for pos in 0..<couuntRec {
-        if newRow[newRow.count-1].fileNumber != row[pos].fileNumber {
-            newRow.append(row[pos])
-            setToDelete.insert(pos)
+        let tabToDelete = setToDelete.sorted {$0 > $1}
+        for poz in tabToDelete {
+            row.remove(at: poz)
         }
     }
-    let tabToDelete = setToDelete.sorted {$0 > $1}
-    for pos in tabToDelete {
-        row.remove(at: pos)
+    private func isertAtEnd(fromRow row: inout [TestToDo.RawTest], toRow newRow: inout [TestToDo.RawTest]) {
+        var setToDelete = Set([Int]())
+        let couuntRec = row.count
+        for pos in 0..<couuntRec {
+            if newRow[newRow.count-1].fileNumber != row[pos].fileNumber {
+                newRow.append(row[pos])
+                setToDelete.insert(pos)
+            }
+        }
+        let tabToDelete = setToDelete.sorted {$0 > $1}
+        for pos in tabToDelete {
+            row.remove(at: pos)
+        }
     }
-}
 
     private func findPosition(forRow row: [RawTest], fileNumber number: Int) -> Int? {
             for (index, value) in row.enumerated() {

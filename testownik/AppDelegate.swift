@@ -76,7 +76,7 @@ let ratings = Ratings()
         //testToDo.addExtra(forRow: &row, fileNumber: 4, errorCorrect: true)
         
         //let yy = testToDo.getPositonsToDel(forRow: row, newRow: &row)
-        testToDo.changeQueue(forRow: &row, fileNumber: 2)
+        testToDo.changeQueue(forRow: &row, fileNumber: 3)
         
         
         
