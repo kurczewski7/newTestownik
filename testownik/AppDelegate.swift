@@ -47,9 +47,9 @@ let ratings = Ratings()
         }
         let xx = testToDo.getElem(numberFrom0: 0)
         print("x=\(xx)\n==========")
-        for i in 0..<180 {
+        for i in 0..<450 {
             let yy = testToDo.getElem(numberFrom0: i)
-            print("\(i):\(yy)")
+            print("\(i):\(yy?.fileNumber)")
             if i % 35 == 0 {
                 print("-----")
             }

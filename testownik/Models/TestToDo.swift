@@ -118,7 +118,21 @@ class TestToDo {
         let currentGroup = Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0)
         guard numberFrom0 < self.count, currentGroup <= groups else {      return nil   }
         let positionInGroup = numberFrom1 - ((currentGroup - 1) * fullSize)
-        if positionInGroup <= groupSize {
+        let lastGroupSize = mainTests.last?.count ?? groupSize
+        
+        if currentGroup == groups {
+            if positionInGroup < lastGroupSize {
+                retVal = mainTests[currentGroup - 1][positionInGroup - 1]
+                retVal.isExtraTest = false
+            }
+            else {
+                retVal = extraTests[currentGroup - 1][positionInGroup - lastGroupSize]
+                retVal.isExtraTest = true
+            }
+           return retVal
+        }
+        
+        if   positionInGroup <= groupSize {
             retVal = mainTests[currentGroup - 1][positionInGroup - 1]
             retVal.isExtraTest = false
         }
