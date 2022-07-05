@@ -48,12 +48,12 @@ let ratings = Ratings()
         let xx = testToDo.getElem(numberFrom0: 0)
         print("x=\(xx)\n==========")
         for i in 0..<450 {
-            let yy = testToDo.getElem(numberFrom0: i)
-            print("\(i):\(yy?.fileNumber)")
             if i % 35 == 0 {
                 print("-----")
             }
-        }
+            let yy = testToDo.getElem(numberFrom0: i)
+            //print("\(i):\(yy?.fileNumber)")
+       }
         var kk = [Int]()    // [5,5,3,4,2,5]
         for _ in 0...5 {
             kk.append(Setup.randomOrder(toMax: 5))

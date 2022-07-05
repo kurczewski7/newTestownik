@@ -5,8 +5,11 @@
 //  Created by Sławek K on 10/05/2022.
 //  Copyright © 2022 Slawomir Kurczewski. All rights reserved.
 //
-
 import Foundation
+
+protocol TestToDoDelegate {
+    func allTestDone()
+}
 class TestToDo {
     struct TestInfo {
         let fileNumber: Int
@@ -22,6 +25,7 @@ class TestToDo {
         var checked: Bool = false
         var errorCorrect: Bool = false
     }
+    var delegate: TestToDoDelegate?
     var groups: Int = 0
     var groupSize: Int = 30
     var reapeadTest: Int = 5
@@ -115,32 +119,19 @@ class TestToDo {
         var retVal: RawTest = RawTest(fileNumber: 0, isExtraTest: false)
         let numberFrom1 = numberFrom0 + 1
         let fullSize = groupSize + reapeadTest
-        let currentGroup = Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0)
-        guard numberFrom0 < self.count, currentGroup <= groups else {      return nil   }
-        let positionInGroup = numberFrom1 - ((currentGroup - 1) * fullSize)
-        let lastGroupSize = mainTests.last?.count ?? groupSize
-        
-        if currentGroup == groups {
-            if positionInGroup < lastGroupSize {
-                retVal = mainTests[currentGroup - 1][positionInGroup - 1]
-                retVal.isExtraTest = false
-            }
-            else {
-                retVal = extraTests[currentGroup - 1][positionInGroup - lastGroupSize]
-                retVal.isExtraTest = true
-            }
-           return retVal
-        }
-        
-        if   positionInGroup <= groupSize {
-            retVal = mainTests[currentGroup - 1][positionInGroup - 1]
+        let currentGroup = Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0) - 1
+        guard numberFrom0 < self.count, currentGroup < groups else {      return nil   }        
+        let positionInGroup = numberFrom0 - (currentGroup * fullSize)
+        let currGroupSize = mainTests[currentGroup].count
+        if   positionInGroup < currGroupSize {
+            retVal = mainTests[currentGroup][positionInGroup]
             retVal.isExtraTest = false
         }
         else {
-            retVal = extraTests[currentGroup - 1][positionInGroup - groupSize - 1]
+            retVal = extraTests[currentGroup][positionInGroup - currGroupSize]
             retVal.isExtraTest = true
         }
-        print("retVal:\(retVal.fileNumber)")
+        print("\( positionInGroup < currGroupSize ? " " : "E") \(numberFrom0), \(retVal.fileNumber ?? 0)")
         return retVal
     }
     func reorganizeExtra(forRow row: inout [RawTest], fileNumber: Int, hawMenyTimes number: Int = 30) {
