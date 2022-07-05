@@ -51,7 +51,7 @@ class TestToDo {
     subscript(index: Int)  -> RawTest? {
         return getElem(numberFrom0: index)
     }
-    subscript(group: Int, position: Int) ->  RawTest? {
+    subscript(_ group: Int, _ position: Int) ->  RawTest? {
     guard   group < self.groups, position < mainTests[group].count else {  return nil  }
         if position <= self.groupSize {
             return mainTests[group][position]  }
@@ -89,7 +89,8 @@ class TestToDo {
         guard let foundGroup = getGroup(forNumerTest: number) else { return   }
         var row = extraTests[foundGroup]
         addExtra(forRow: &row, fileNumber: number, errorCorrect: errorCorrect)
-        swapWhenDupplicate(forRow: &row, currentGroup: foundGroup)
+        changeQueue(forRow: &row, fileNumber: number, errorCorrect: errorCorrect)
+        //swapWhenDupplicate(forRow: &row, currentGroup: foundGroup)
         extraTests[foundGroup] = row
     }
     func addExtra(forRow row: inout [RawTest], fileNumber number: Int, errorCorrect: Bool = true) {
@@ -125,6 +126,7 @@ class TestToDo {
             retVal = extraTests[currentGroup - 1][positionInGroup - groupSize - 1]
             retVal.isExtraTest = true
         }
+        print("retVal:\(retVal.fileNumber)")
         return retVal
     }
     func reorganizeExtra(forRow row: inout [RawTest], fileNumber: Int, hawMenyTimes number: Int = 30) {
@@ -237,14 +239,14 @@ class TestToDo {
         row.remove(at: 0)
         row.append(tmp)
     }
-    private func swapWhenDupplicate(forRow row: inout [RawTest],  currentGroup groupNo: Int) {
-        guard groupNo < groups, mainTests[groupNo].count > 0, row.count > 2, mainTests[groupNo][mainTests.count-1].fileNumber == row[0].fileNumber else { return   }
-        //var tmp = extraTests[groupNo]
-        let oneTest = row[1]
-        row.remove(at: 1)
-        row.insert(oneTest, at: 0)
-        extraTests[groupNo] = row
-    }
+//    private func swapWhenDupplicate(forRow row: inout [RawTest],  currentGroup groupNo: Int) {
+//        guard groupNo < groups, mainTests[groupNo].count > 0, row.count > 2, mainTests[groupNo][mainTests.count-1].fileNumber == row[0].fileNumber else { return   }
+//        //var tmp = extraTests[groupNo]
+//        let oneTest = row[1]
+//        row.remove(at: 1)
+//        row.insert(oneTest, at: 0)
+//        extraTests[groupNo] = row
+//    }
     private func reSorting(previousElem: RawTest, forRow row: inout [RawTest]) {
         var errList: [Int] = [Int]()
         row.sort { !$0.errorCorrect  &&  $1.errorCorrect }
@@ -270,10 +272,14 @@ class TestToDo {
             extraTests.append(emptyArray)
             var row = mainTests[i]
             mixTests(inputElements: &row, count: reapeadTest)
-            swapWhenDupplicate(forRow: &row, currentGroup: i)
-            extraTests[i].append(contentsOf: row)
-            extraCount += row.count
-        }        
+            if let number = (i != 0 ? mainTests[i-1].last?.fileNumber : 0) {
+                changeQueue(forRow: &row, fileNumber: number)
+                
+                //swapWhenDupplicate(forRow: &row, currentGroup: i)
+                extraTests[i].append(contentsOf: row)
+                extraCount += row.count
+            }
+        }
     }
     private func lotteryMainTests(fromFilePosition startPos: Int, arraySize size: Int ) -> [RawTest]    {
         var newTests: [RawTest] = [RawTest]()

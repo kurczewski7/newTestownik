@@ -38,11 +38,21 @@ let ratings = Ratings()
             xxList.append(i+1)
         }
         let testToDo = TestToDo(rawTestList: xxList)
+        
+        if let x1 = testToDo[0] {
+            print("X1:\(x1)")
+        }
+        if let x2 = testToDo[1,1] {
+            print("x2:\(x2)")
+        }
         let xx = testToDo.getElem(numberFrom0: 0)
         print("x=\(xx)\n==========")
         for i in 0..<180 {
             let yy = testToDo.getElem(numberFrom0: i)
             print("\(i):\(yy)")
+            if i % 35 == 0 {
+                print("-----")
+            }
         }
         var kk = [Int]()    // [5,5,3,4,2,5]
         for _ in 0...5 {
