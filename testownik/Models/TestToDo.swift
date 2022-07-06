@@ -120,7 +120,8 @@ class TestToDo {
         let numberFrom1 = numberFrom0 + 1
         let fullSize = groupSize + reapeadTest
         let currentGroup = Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0) - 1
-        guard numberFrom0 < self.count, currentGroup < groups else {      return nil   }        
+        guard numberFrom0 < self.count, currentGroup < groups else {      return nil   }
+        self.currentPosition = numberFrom0
         let positionInGroup = numberFrom0 - (currentGroup * fullSize)
         let currGroupSize = mainTests[currentGroup].count
         if   positionInGroup < currGroupSize {
@@ -279,11 +280,18 @@ class TestToDo {
             mixTests(inputElements: &row, count: reapeadTest)
             if let number = (i != 0 ? mainTests[i-1].last?.fileNumber : 0) {
                 changeQueue(forRow: &row, fileNumber: number)
-                
-                //swapWhenDupplicate(forRow: &row, currentGroup: i)
                 extraTests[i].append(contentsOf: row)
                 extraCount += row.count
             }
+        }
+        if let lastCount = extraTests.last?.count, lastCount < reapeadTest {
+            let preLast = max(groups - 2, 0)
+            for i in 0..<(reapeadTest - lastCount) {
+                let tmp = extraTests[preLast][i]
+                extraTests[groups - 1].append(tmp)
+                extraCount += 1
+            }
+            
         }
     }
     private func lotteryMainTests(fromFilePosition startPos: Int, arraySize size: Int ) -> [RawTest]    {

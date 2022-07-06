@@ -34,7 +34,7 @@ let ratings = Ratings()
         print("S T A R T\n")
 
         var xxList: [Int] = [Int]()
-        for i in 0..<320 {
+        for i in 0..<301 {
             xxList.append(i+1)
         }
         let testToDo = TestToDo(rawTestList: xxList)
