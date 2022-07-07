@@ -416,7 +416,7 @@ class TestToDo {
                 oldIsExtra = elem.isExtraTest
             }
         }
-        print("MAIN:\(mainTests.count),\(extraTests.count)")
+        print("MAIN   :\(mainTests.count),\(extraTests.count)")
         //  self.rawTests = rawTests
         //  self.mainTests = mainTests
         //  self.extraTests = extraTests
