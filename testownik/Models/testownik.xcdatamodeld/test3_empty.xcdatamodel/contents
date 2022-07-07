@@ -65,7 +65,9 @@
         <attribute name="errorCorrect" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="fileNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isExtraTest" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lp" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="uuId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="uuid_parent" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
         <element name="AllTestEntity" positionX="58.984375" positionY="-10917.7265625" width="163.9453125" height="269"/>
@@ -74,6 +76,6 @@
         <element name="SelectedTestEntity" positionX="-154.8046875" positionY="-11101.62890625" width="128" height="134"/>
         <element name="TestDescriptionEntity" positionX="430.66015625" positionY="-10795.6171875" width="128" height="149"/>
         <element name="TestListEntity" positionX="54" positionY="-10944" width="128" height="104"/>
-        <element name="TestToDoEntity" positionX="45" positionY="-10953" width="128" height="104"/>
+        <element name="TestToDoEntity" positionX="45" positionY="-10953" width="128" height="134"/>
     </elements>
 </model>

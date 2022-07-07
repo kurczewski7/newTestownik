@@ -356,33 +356,77 @@ class TestToDo {
     }
     func save()  {
         print("saveTestToDo, befor del:\(database.testToDoTable.count)")
-        //database.testToDoTable[0]?.fileNumber
-        //database.testToDoTable[0]
+        
+        
+        database.testToDoTable.deleteAll()
+        database.testToDoTable.save()
+        
+        database.selectedTestTable.loadData()
+        guard let uuidParent = database.selectedTestTable[0]?.uuId, self.count > 0 else {   return    }
+        for i in 0..<count {
+            if let elem = getElem(numberFrom0: i) {
+                let rec = TestToDoEntity(context: database.context)
+                rec.lp = Int16(i)
+                rec.uuId = UUID()
+                rec.uuid_parent = uuidParent
+                rec.fileNumber = Int16(elem.fileNumber)
+                rec.isExtraTest = elem.isExtraTest
+                rec.checked = elem.checked
+                rec.errorCorrect = elem.errorCorrect
+                _ = database.testToDoTable?.add(value: rec)
+            }
+        }
+        database.testToDoTable.save()
     }
-//    guard let uuId = database.selectedTestTable[0]?.uuId, self.results.count > 0 else {   return    }
-//
-//    print("saveRatings, befor del:\(database.ratingsTable.count)")
-//    database.ratingsTable.deleteGroup(uuidDeleteField: "uuid_parent", forValue: uuId)
-//    database.ratingsTable.save()
-//    print("saveRatings,ratingsTable after del:\(database.ratingsTable.count)")
-//
-//    print("saveRatings,results save:\(self.results.count)")
-//    for (index, value) in self.results.enumerated() {
-//        let rec = RatingsEntity(context: database.context)
-//        rec.lp = Int16(index)
-//        print("index:\(index).\(uuId)")
-//        rec.uuId = UUID()
-//        rec.uuid_parent = uuId
-//        rec.file_number = Int16(value.fileNumber)
-//        rec.good_answers = Int16(value.goodAnswers)
-//        rec.wrong_answers = Int16(value.wrongAnswers)
-//        rec.last_answer = value.lastAnswer
-//        rec.corrections_to_do = Int16(value.correctionsToDo)
-//        rec.repetitions_to_do = Int16(value.repetitionsToDo)
-//        _ = database.ratingsTable?.add(value: rec)
-//    }
-//    print("restoreRatings, befor save:\(database.ratingsTable.count)")
-//    database.ratingsTable?.save()
-//    print("restoreRatings, after save:\(database.ratingsTable.count)")
+    func restore() {
+        var restoredTests = [RawTest]()
+        
+        let emptyArray = [RawTest]()
+        var rawTests: [RawTest] = [RawTest]()
+        var mainTests: [[RawTest]] = [[RawTest]]()
+        var extraTests: [[RawTest]] = [[RawTest]]()
+        
+        var oldIsExtra = true
+        
+        //guard let uuidParent = database.selectedTestTable[0]?.uuId, self.count > 0 else {   return    }
+        database.testToDoTable.loadData()
+        
+        
+        database.testToDoTable.forEach { index, oneRecord in
+            guard let rec = oneRecord else {    return    }
+            let elem = RawTest(fileNumber: Int(rec.fileNumber), isExtraTest: rec.isExtraTest, checked: rec.checked, errorCorrect: rec.errorCorrect)
+            restoredTests.append(elem)
+        }
+        restoredTests = restoredTests.sorted(by: { $0.fileNumber < $1.fileNumber  })
+        if restoredTests.count > 0 {
+            for elem in restoredTests {
+                if !elem.isExtraTest {
+                    if oldIsExtra != elem.isExtraTest {
+                        mainTests.append(emptyArray)
+                    }
+                    rawTests.append(elem)
+                    mainTests[mainTests.count - 1].append(elem)
+                }
+                else {
+                    if oldIsExtra != elem.isExtraTest {
+                        extraTests.append(emptyArray)
+                    }
+                    extraTests[extraTests.count - 1].append(elem)
+                }
+                oldIsExtra = elem.isExtraTest
+            }
+        }
+        print("MAIN:\(mainTests.count),\(extraTests.count)")
+        //  self.rawTests = rawTests
+        //  self.mainTests = mainTests
+        //  self.extraTests = extraTests
+        //  self.count = 9999
+        //  self.groupSize = 999
+        //  self.reapeadTest = 555
+    }
+    
+
+        
+        
 
 }

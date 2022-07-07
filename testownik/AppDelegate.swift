@@ -61,7 +61,12 @@ let ratings = Ratings()
         testToDo.mainTests[0][8].checked = true
         let rk = testToDo.getNext(onlyNewElement: true)
         var kk = [Int]()    // [5,5,3,4,2,5]
-        testToDo.save()
+   
+        //testToDo.save()
+        testToDo.restore()
+        
+        
+        
         for _ in 0...5 {
             kk.append(Setup.randomOrder(toMax: 5))
         }
@@ -192,6 +197,8 @@ let ratings = Ratings()
         database.testDescriptionTable.loadData()
         database.ratingsTable.loadData()
         database.testListTable.loadData()
+        
+
         
         print("allTestsTable.count:\(database.allTestsTable.count)\n")
         print("selectedTestTable.count:\(database.selectedTestTable.count)\n")
