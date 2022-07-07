@@ -31,6 +31,10 @@ class RatingsTable: DatabaseTableGeneric<RatingsEntity> {
 class TestListTable: DatabaseTableGeneric<TestListEntity> {
     override class func className() -> String {        return "TestListTable"   }
 }
+class TestToDoTable: DatabaseTableGeneric<TestToDoEntity> {
+    override class func className() -> String {        return "TestToDoTable"   }
+}
+
 
 //    var xx: RatingsEntity
 //    var TestListEntity
@@ -47,6 +51,7 @@ class Database {
     var selectedTestTable: SelectedTestTable!
     var ratingsTable: RatingsTable!
     var testListTable: TestListTable!
+    var testToDoTable: TestToDoTable!
     
     //    var xx: RatingsEntity
     //    var TestListEntity
@@ -72,6 +77,9 @@ class Database {
         }
         testListTable = TestListTable(databaseSelf: self, keys: ["uuId"], ascendingKeys: [true]) {
             return TestListEntity.fetchRequest()
+        }
+        testToDoTable = TestToDoTable(databaseSelf: self, keys: ["uuId"], ascendingKeys: [true]) {
+            return TestToDoEntity.fetchRequest()
         }
     }
 

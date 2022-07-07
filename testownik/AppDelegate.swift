@@ -10,11 +10,9 @@ import UIKit
 import CoreData
 import CoreMedia
 
-
 // FIXME: comment here
 // TODO:  comment here
 // MARK:  do zrobienia
-
 
 let speech = Speech()
 
@@ -34,7 +32,7 @@ let ratings = Ratings()
         print("S T A R T\n")
 
         var xxList: [Int] = [Int]()
-        for i in 0..<301 {
+        for i in 0..<32 {
             xxList.append(i+1)
         }
         let testToDo = TestToDo(rawTestList: xxList)
@@ -54,7 +52,16 @@ let ratings = Ratings()
             let yy = testToDo.getElem(numberFrom0: i)
             //print("\(i):\(yy?.fileNumber)")
        }
+        testToDo.mainTests[0][0].checked = true
+        testToDo.mainTests[0][1].checked = true
+        let zz = testToDo.getFirst(onlyNewElement: true)
+        for i in 0..<20 {
+            testToDo.mainTests[0][i].checked = true
+        }
+        testToDo.mainTests[0][8].checked = true
+        let rk = testToDo.getNext(onlyNewElement: true)
         var kk = [Int]()    // [5,5,3,4,2,5]
+        testToDo.save()
         for _ in 0...5 {
             kk.append(Setup.randomOrder(toMax: 5))
         }

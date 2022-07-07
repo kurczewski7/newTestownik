@@ -9,6 +9,7 @@ import Foundation
 
 protocol TestToDoDelegate {
     func allTestDone()
+    func progress()
 }
 class TestToDo {
     struct TestInfo {
@@ -42,6 +43,18 @@ class TestToDo {
             return self.mainCount + self.extraCount
         }
     }
+    var currentGroup: Int {
+        get {
+            let numberFrom1 = currentPosition + 1
+            let fullSize = groupSize + reapeadTest
+            return Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0) - 1
+        }
+    }
+    var startSegment: Int {
+        get {
+            return currentGroup * (groupSize + reapeadTest)
+        }
+    }
         
     init(rawTestList: [Int]) {
         for i in 0..<rawTestList.count {
@@ -62,19 +75,31 @@ class TestToDo {
         else    {
             return mainTests[group][position - self.groupSize]  }
     }
-    func getFirst()  -> RawTest? {
-        currentPosition = 0
-        return getElem(numberFrom0: currentPosition)
+    func getFirst(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
+        self.currentPosition = 0
+        for i in 0..<count {
+            if let elem = getElem(numberFrom0: i), (!elem.checked || !onlyNew) {
+                self.currentPosition = i
+                return elem
+            }
+        }
+        return nil
     }
-    func getLast() -> RawTest? {
+    func getLast(onlyNewElement onlyNew: Bool = false) -> RawTest? {
         currentPosition = count - 1
         return getElem(numberFrom0: currentPosition)
     }
-    func getNext()  -> RawTest? {
+    func getNext(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
         currentPosition += 1
-        return getElem(numberFrom0: currentPosition)
+        for i in currentPosition..<count {
+            if let elem = getElem(numberFrom0: i), (!elem.checked || !onlyNew) {
+                self.currentPosition = i
+                return elem
+            }
+        }
+        return nil
     }
-    func getPrev()  -> RawTest? {
+    func getPrev(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
         currentPosition -= 1
         guard currentPosition >= 0 else {  return nil  }
         return getElem(numberFrom0: currentPosition)
@@ -285,13 +310,16 @@ class TestToDo {
             }
         }
         if let lastCount = extraTests.last?.count, lastCount < reapeadTest {
+            var row = extraTests[extraTests.count - 1]
             let preLast = max(groups - 2, 0)
             for i in 0..<(reapeadTest - lastCount) {
                 let tmp = extraTests[preLast][i]
-                extraTests[groups - 1].append(tmp)
+                row.append(tmp)
                 extraCount += 1
             }
-            
+            let number = mainTests[preLast].last?.fileNumber ?? 0
+            changeQueue(forRow: &row, fileNumber: number)
+            extraTests[extraTests.count - 1] = row
         }
     }
     private func lotteryMainTests(fromFilePosition startPos: Int, arraySize size: Int ) -> [RawTest]    {
@@ -326,4 +354,35 @@ class TestToDo {
         }
         inputTst = outputTst
     }
+    func save()  {
+        print("saveTestToDo, befor del:\(database.testToDoTable.count)")
+        //database.testToDoTable[0]?.fileNumber
+        //database.testToDoTable[0]
+    }
+//    guard let uuId = database.selectedTestTable[0]?.uuId, self.results.count > 0 else {   return    }
+//
+//    print("saveRatings, befor del:\(database.ratingsTable.count)")
+//    database.ratingsTable.deleteGroup(uuidDeleteField: "uuid_parent", forValue: uuId)
+//    database.ratingsTable.save()
+//    print("saveRatings,ratingsTable after del:\(database.ratingsTable.count)")
+//
+//    print("saveRatings,results save:\(self.results.count)")
+//    for (index, value) in self.results.enumerated() {
+//        let rec = RatingsEntity(context: database.context)
+//        rec.lp = Int16(index)
+//        print("index:\(index).\(uuId)")
+//        rec.uuId = UUID()
+//        rec.uuid_parent = uuId
+//        rec.file_number = Int16(value.fileNumber)
+//        rec.good_answers = Int16(value.goodAnswers)
+//        rec.wrong_answers = Int16(value.wrongAnswers)
+//        rec.last_answer = value.lastAnswer
+//        rec.corrections_to_do = Int16(value.correctionsToDo)
+//        rec.repetitions_to_do = Int16(value.repetitionsToDo)
+//        _ = database.ratingsTable?.add(value: rec)
+//    }
+//    print("restoreRatings, befor save:\(database.ratingsTable.count)")
+//    database.ratingsTable?.save()
+//    print("restoreRatings, after save:\(database.ratingsTable.count)")
+
 }
