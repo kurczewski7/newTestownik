@@ -62,7 +62,7 @@ let ratings = Ratings()
         let rk = testToDo.getNext(onlyNewElement: true)
         var kk = [Int]()    // [5,5,3,4,2,5]
    
-        //testToDo.save()
+        testToDo.save()
         testToDo.restore()
         
         

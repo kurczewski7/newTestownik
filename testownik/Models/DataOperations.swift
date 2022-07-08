@@ -70,9 +70,7 @@ class DataOperations {
         if currentTest > 0 && currentTest < count {
             currentTest -= 1
         }
-    }
-
-    
+    }    
     func add(value: T) -> Int {
         genericArray.append(value)
         return genericArray.count

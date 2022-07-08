@@ -357,17 +357,16 @@ class TestToDo {
     func save()  {
         print("saveTestToDo, befor del:\(database.testToDoTable.count)")
         
-        
-        database.testToDoTable.deleteAll()
-        database.testToDoTable.save()
-        
         database.selectedTestTable.loadData()
         guard let uuidParent = database.selectedTestTable[0]?.uuId, self.count > 0 else {   return    }
+        database.testToDoTable.deleteGroup(uuidDeleteField: "uuid_parent", forValue: uuidParent)
+        database.testToDoTable.save()
+        let uuId = UUID()
         for i in 0..<count {
             if let elem = getElem(numberFrom0: i) {
                 let rec = TestToDoEntity(context: database.context)
                 rec.lp = Int16(i)
-                rec.uuId = UUID()
+                rec.uuId = uuId
                 rec.uuid_parent = uuidParent
                 rec.fileNumber = Int16(elem.fileNumber)
                 rec.isExtraTest = elem.isExtraTest
@@ -378,55 +377,52 @@ class TestToDo {
         }
         database.testToDoTable.save()
     }
-    func restore() {
-        var restoredTests = [RawTest]()
+    func restore(_ onlyTest: Bool = true) {
+        var restoredDict = [Int: RawTest]()
+        //var restoredTests = [RawTest]()
         
         let emptyArray = [RawTest]()
         var rawTests: [RawTest] = [RawTest]()
         var mainTests: [[RawTest]] = [[RawTest]]()
         var extraTests: [[RawTest]] = [[RawTest]]()
-        
         var oldIsExtra = true
         
-        //guard let uuidParent = database.selectedTestTable[0]?.uuId, self.count > 0 else {   return    }
-        database.testToDoTable.loadData()
-        
-        
+        database.selectedTestTable.loadData()
+        guard let uuidParent = database.selectedTestTable[0]?.uuId else {   return    }
+        database.testToDoTable.loadData(forFilterField: "uuid_parent", fieldValue: uuidParent)
+        print("COUNT:\(database.testToDoTable.count)")
         database.testToDoTable.forEach { index, oneRecord in
             guard let rec = oneRecord else {    return    }
             let elem = RawTest(fileNumber: Int(rec.fileNumber), isExtraTest: rec.isExtraTest, checked: rec.checked, errorCorrect: rec.errorCorrect)
-            restoredTests.append(elem)
+            restoredDict[Int(rec.lp)] = elem
         }
-        restoredTests = restoredTests.sorted(by: { $0.fileNumber < $1.fileNumber  })
-        if restoredTests.count > 0 {
-            for elem in restoredTests {
-                if !elem.isExtraTest {
-                    if oldIsExtra != elem.isExtraTest {
-                        mainTests.append(emptyArray)
+        if restoredDict.count > 0 {
+            for i in 0..<restoredDict.count {
+                if let elem = restoredDict[i] {
+                    if !elem.isExtraTest {
+                        if oldIsExtra != elem.isExtraTest {
+                            mainTests.append(emptyArray)
+                        }
+                        rawTests.append(elem)
+                        mainTests[mainTests.count - 1].append(elem)
                     }
-                    rawTests.append(elem)
-                    mainTests[mainTests.count - 1].append(elem)
-                }
-                else {
-                    if oldIsExtra != elem.isExtraTest {
-                        extraTests.append(emptyArray)
+                    else {
+                        if oldIsExtra != elem.isExtraTest {
+                            extraTests.append(emptyArray)
+                        }
+                        extraTests[extraTests.count - 1].append(elem)
                     }
-                    extraTests[extraTests.count - 1].append(elem)
+                    oldIsExtra = elem.isExtraTest
                 }
-                oldIsExtra = elem.isExtraTest
             }
         }
         print("MAIN   :\(mainTests.count),\(extraTests.count)")
-        //  self.rawTests = rawTests
-        //  self.mainTests = mainTests
-        //  self.extraTests = extraTests
-        //  self.count = 9999
-        //  self.groupSize = 999
-        //  self.reapeadTest = 555
+        if !onlyTest {
+            self.rawTests = rawTests
+            self.mainTests = mainTests
+            self.extraTests = extraTests
+            self.groupSize = mainTests.first?.count ?? 30
+            self.reapeadTest = extraTests.first?.count ?? 5
+        }
     }
-    
-
-        
-        
-
 }

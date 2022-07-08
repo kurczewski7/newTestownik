@@ -130,10 +130,10 @@ class DatabaseTableGeneric <P: NSFetchRequestResult> {
         }
         save()
     }
-    func deleteNewGroup<T>(forDeleteField fieldName: String, fieldValue: T) {
-        
-         
-    }
+//    func deleteNewGroup<T>(forDeleteField fieldName: String, fieldValue: T) {
+//        
+//         
+//    }
     func next() -> P? {
         if currentRow+1 < count {
             currentRow += 1

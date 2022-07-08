@@ -17,10 +17,10 @@ class AllTestsTable:  DatabaseTableGeneric<AllTestEntity> {
     override class func className() -> String {        return "AllTestsTable"       }
 }
 class CategoriesTable:  DatabaseTableGeneric<CategoriesEntity> {
-    override class func className() -> String {        return "CategoriesTable"     }
+    override class func className() -> String {        return "CategoriesTable"   }
 }
 class TestDescriptionTable:  DatabaseTableGeneric<TestDescriptionEntity> {
-    override class func className() -> String {        return "TestDescriptionTable"     }
+    override class func className() -> String {        return "TestDescriptionTable"   }
 }
 class SelectedTestTable: DatabaseTableGeneric<SelectedTestEntity> {
     override class func className() -> String {        return "SelectedTestTable"   }
@@ -55,8 +55,6 @@ class Database {
     
     //    var xx: RatingsEntity
     //    var TestListEntity
-
-    //var testToUpgrade = true
     
     init(context: NSManagedObjectContext) {
         self.context = context
