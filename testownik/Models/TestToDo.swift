@@ -12,6 +12,11 @@ protocol TestToDoDelegate {
     func progress()
 }
 class TestToDo {
+//    mainTests[j].append(contentsOf: testsList)
+//    mainCount += testsList.count
+
+    typealias MainTestsValues = (mainTests: [[RawTest]], mainCount: Int)
+    typealias ExtraTestsValues = (extraTests: [[RawTest]], extraCount: Int)
     struct TestInfo {
         let fileNumber: Int
         let groupNr: Int
@@ -62,8 +67,13 @@ class TestToDo {
             self.rawTests.append(tmpElem)
         }
         groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
-        fillMainTests()
-        fillExtraTests()
+        let mainVal = fillMainTests()
+        self.mainTests = mainVal.mainTests
+        self.mainCount = mainVal.mainCount
+        
+        let extraVal = fillExtraTests()
+        self.extraTests = extraVal.extraTests
+        self.extraCount = extraVal.extraCount
     }
     subscript(index: Int)  -> RawTest? {
         return getElem(numberFrom0: index)
@@ -286,8 +296,11 @@ class TestToDo {
             return true
         }
     }
-    private func fillMainTests() {
-        self.mainCount = 0
+    private func fillMainTests()  -> MainTestsValues  {
+        var mainTests: [[RawTest]] = [[RawTest]]()
+        var mainCount = 0
+        var retVal: MainTestsValues
+        
         for j in 0..<groups {
             let emptyArray = [RawTest]()
             mainTests.append(emptyArray)
@@ -295,8 +308,15 @@ class TestToDo {
             mainTests[j].append(contentsOf: testsList)
             mainCount += testsList.count
         }
+        retVal.mainTests = mainTests
+        retVal.mainCount = mainCount
+        return retVal
     }
-    private func fillExtraTests()   {
+    private func fillExtraTests() -> ExtraTestsValues  {
+        var extraTests: [[RawTest]] = [[RawTest]]()
+        var extraCount = 0
+        var retVal: ExtraTestsValues
+        
         self.extraCount = 0
         for i in 0..<groups {
             let emptyArray = [RawTest]()
@@ -321,6 +341,9 @@ class TestToDo {
             changeQueue(forRow: &row, fileNumber: number)
             extraTests[extraTests.count - 1] = row
         }
+        retVal.extraTests = extraTests
+        retVal.extraCount = extraCount
+        return retVal
     }
     private func lotteryMainTests(fromFilePosition startPos: Int, arraySize size: Int ) -> [RawTest]    {
         var newTests: [RawTest] = [RawTest]()
@@ -424,5 +447,11 @@ class TestToDo {
             self.groupSize = mainTests.first?.count ?? 30
             self.reapeadTest = extraTests.first?.count ?? 5
         }
+    }
+    func reorganize() {
+        //currentPosition
+        //let tmpGroup = getGroup(forNumerTest: self.currentPosition)
+        //let tmpGroup = currentGroup * (groupSize + reapeadTest)
+        startSegment
     }
 }
