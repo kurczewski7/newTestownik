@@ -62,8 +62,10 @@ let ratings = Ratings()
         let rk = testToDo.getNext(onlyNewElement: true)
         var kk = [Int]()    // [5,5,3,4,2,5]
    
-        testToDo.save()
-        testToDo.restore()
+        testToDo.resizeAll(newGroupSize: 10, newReapeadCount: 3, onlyTest: false)
+        
+        //testToDo.save()
+        //testToDo.restore()
         
         
         

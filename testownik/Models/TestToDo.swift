@@ -15,7 +15,7 @@ class TestToDo {
 //    mainTests[j].append(contentsOf: testsList)
 //    mainCount += testsList.count
 
-    typealias MainTestsValues = (mainTests: [[RawTest]], mainCount: Int)
+    typealias MainTestsValues = (mainTests: [[RawTest]], mainCount: Int, groups: Int)
     typealias ExtraTestsValues = (extraTests: [[RawTest]], extraCount: Int)
     struct TestInfo {
         let fileNumber: Int
@@ -66,12 +66,13 @@ class TestToDo {
             let tmpElem = RawTest(fileNumber: rawTestList[i], isExtraTest: false)
             self.rawTests.append(tmpElem)
         }
-        groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
+        //groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
         let mainVal = fillMainTests(forGroupSize: self.groupSize)
         self.mainTests = mainVal.mainTests
         self.mainCount = mainVal.mainCount
+        self.groups    = mainVal.groups
         
-        let extraVal = fillExtraTests(forReapeadTest: self.reapeadTest)
+        let extraVal = fillExtraTests(forMainTest: self.mainTests, forGroupSize: self.groupSize, forReapeadTest: self.reapeadTest)
         self.extraTests = extraVal.extraTests
         self.extraCount = extraVal.extraCount
     }
@@ -300,6 +301,7 @@ class TestToDo {
         var mainCount = 0
         var retVal: MainTestsValues
         
+        let groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
         for j in 0..<groups {
             let emptyArray = [RawTest]()
             mainTests.append(emptyArray)
@@ -309,14 +311,15 @@ class TestToDo {
         }
         retVal.mainTests = mainTests
         retVal.mainCount = mainCount
+        retVal.groups = groups
         return retVal
     }
-    private func fillExtraTests(forReapeadTest reapeadTest: Int ) -> ExtraTestsValues  {
+    private func fillExtraTests(forMainTest mainTests: [[RawTest]], forGroupSize groupSize: Int, forReapeadTest reapeadTest: Int ) -> ExtraTestsValues  {
         var extraTests: [[RawTest]] = [[RawTest]]()
         var extraCount = 0
         var retVal: ExtraTestsValues
         
-        //self.extraCount = 0
+        let groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
         for i in 0..<groups {
             let emptyArray = [RawTest]()
             extraTests.append(emptyArray)
@@ -447,13 +450,19 @@ class TestToDo {
             self.reapeadTest = extraTests.first?.count ?? 5
         }
     }
-    func reorganize(newGroupSize groupSize: Int, newReapeadCount reapeadTest:Int, onlyTest: Bool = true) {
+    func resizeAll(newGroupSize groupSize: Int, newReapeadCount reapeadTest:Int, onlyTest: Bool = true) {
         
         let currentPosition = self.currentPosition
-        let mainValu = fillMainTests(forGroupSize: groupSize)
-        let extreVal = fillExtraTests(forReapeadTest: reapeadTest)
+        let mainVal = fillMainTests(forGroupSize: groupSize)
+        let extraVal = fillExtraTests(forMainTest: mainVal.mainTests, forGroupSize: groupSize, forReapeadTest: reapeadTest)
         
-        
+        if !onlyTest {
+            self.mainTests  = mainVal.mainTests
+            self.mainCount  = mainVal.mainCount
+            self.groups     = mainVal.groups
+            self.extraTests = extraVal.extraTests
+            self.extraCount = extraVal.extraCount
+        }
         
         //        var groupSize: Int = 30
         //        var reapeadTest: Int = 5
