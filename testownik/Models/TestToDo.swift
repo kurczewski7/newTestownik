@@ -316,7 +316,7 @@ class TestToDo {
         var extraCount = 0
         var retVal: ExtraTestsValues
         
-        self.extraCount = 0
+        //self.extraCount = 0
         for i in 0..<groups {
             let emptyArray = [RawTest]()
             extraTests.append(emptyArray)
