@@ -67,11 +67,11 @@ class TestToDo {
             self.rawTests.append(tmpElem)
         }
         groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
-        let mainVal = fillMainTests()
+        let mainVal = fillMainTests(forGroupSize: self.groupSize)
         self.mainTests = mainVal.mainTests
         self.mainCount = mainVal.mainCount
         
-        let extraVal = fillExtraTests()
+        let extraVal = fillExtraTests(forReapeadTest: self.reapeadTest)
         self.extraTests = extraVal.extraTests
         self.extraCount = extraVal.extraCount
     }
@@ -268,7 +268,6 @@ class TestToDo {
             row.remove(at: pos)
         }
     }
-
     private func findPosition(forRow row: [RawTest], fileNumber number: Int) -> Int? {
             for (index, value) in row.enumerated() {
                 if value.fileNumber == number {   return index    }
@@ -296,7 +295,7 @@ class TestToDo {
             return true
         }
     }
-    private func fillMainTests()  -> MainTestsValues  {
+    private func fillMainTests(forGroupSize groupSize: Int)  -> MainTestsValues  {
         var mainTests: [[RawTest]] = [[RawTest]]()
         var mainCount = 0
         var retVal: MainTestsValues
@@ -312,7 +311,7 @@ class TestToDo {
         retVal.mainCount = mainCount
         return retVal
     }
-    private func fillExtraTests() -> ExtraTestsValues  {
+    private func fillExtraTests(forReapeadTest reapeadTest: Int ) -> ExtraTestsValues  {
         var extraTests: [[RawTest]] = [[RawTest]]()
         var extraCount = 0
         var retVal: ExtraTestsValues
@@ -448,7 +447,17 @@ class TestToDo {
             self.reapeadTest = extraTests.first?.count ?? 5
         }
     }
-    func reorganize() {
+    func reorganize(newGroupSize groupSize: Int, newReapeadCount reapeadTest:Int, onlyTest: Bool = true) {
+        
+        let currentPosition = self.currentPosition
+        let mainValu = fillMainTests(forGroupSize: groupSize)
+        let extreVal = fillExtraTests(forReapeadTest: reapeadTest)
+        
+        
+        
+        //        var groupSize: Int = 30
+        //        var reapeadTest: Int = 5
+        
         //currentPosition
         //let tmpGroup = getGroup(forNumerTest: self.currentPosition)
         //let tmpGroup = currentGroup * (groupSize + reapeadTest)
