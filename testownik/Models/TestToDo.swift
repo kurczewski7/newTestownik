@@ -55,11 +55,7 @@ class TestToDo {
             return Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0) - 1
         }
     }
-    var startSegment: Int {
-        get {
-            return currentGroup * (groupSize + reapeadTest)
-        }
-    }
+    var startSegment = 0
         
     init(rawTestList: [Int]) {
         for i in 0..<rawTestList.count {
@@ -96,10 +92,14 @@ class TestToDo {
         }
         return nil
     }
+    func getCurrent(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
+        return getElem(numberFrom0: self.currentPosition)
+    }
     func getLast(onlyNewElement onlyNew: Bool = false) -> RawTest? {
         currentPosition = count - 1
         return getElem(numberFrom0: currentPosition)
     }
+    
     func getNext(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
         currentPosition += 1
         for i in currentPosition..<count {
@@ -462,14 +462,22 @@ class TestToDo {
             self.groups     = mainVal.groups
             self.extraTests = extraVal.extraTests
             self.extraCount = extraVal.extraCount
+            
+            self.groupSize = groupSize
+            self.reapeadTest = reapeadTest
         }
         
-        //        var groupSize: Int = 30
-        //        var reapeadTest: Int = 5
-        
-        //currentPosition
-        //let tmpGroup = getGroup(forNumerTest: self.currentPosition)
-        //let tmpGroup = currentGroup * (groupSize + reapeadTest)
-        startSegment
-    }
+        let fileNumber = getElem(numberFrom0: self.currentPosition)?.fileNumber
+        var currentGroup = 0
+        for i in 0..<self.groups {
+            if mainTests[i].contains(where: { $0.fileNumber == fileNumber    }) {
+                currentGroup = i
+                self.startSegment = currentGroup * (groupSize + reapeadTest)
+                self.currentPosition = self.startSegment
+                //
+                //self.currentGroup = currentGroup
+                break
+            }
+        }        
+   }
 }
