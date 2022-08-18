@@ -16,6 +16,7 @@ protocol TestToDoDataSource {
 protocol TestToDoDelegate {
     func allTestDone()
     func progress()
+    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition)
 }
     
     
@@ -59,7 +60,11 @@ class TestToDo: TestToDoDataSource {
     var groups: Int = 0
     var groupSize: Int = 30
     var reapeadTest: Int = 5
-    var filePosition = FilePosition.first
+    var filePosition: FilePosition = FilePosition.first {
+        didSet {
+            delegate?.refreshFilePosition(newFilePosition: filePosition)
+        }
+    }
     var currentPosition: Int = 0 {
         didSet {
             if  self.currentPosition == 0 {    filePosition = .first     }

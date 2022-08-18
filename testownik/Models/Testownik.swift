@@ -14,7 +14,8 @@ protocol TestownikDelegate {
     func refreshTabbarUI(visableLevel: Int)
     func refreshContent(forCurrentTest test: Test)
 }
-class Testownik: DataOperations, TestToDoDelegate {        
+class Testownik: DataOperations, TestToDoDelegate {
+    
     struct Answer {
             let isOK: Bool
             let answerOption: String
@@ -45,10 +46,12 @@ class Testownik: DataOperations, TestToDoDelegate {
 //        }
 //        return nil
 //    }
-    func allTestDone() {
+    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition) {
         
     }
-    
+    func allTestDone() {
+        
+    }    
     func progress() {
         
     }
@@ -157,7 +160,7 @@ class Testownik: DataOperations, TestToDoDelegate {
         }
         self.testToDo = TestToDo(rawTestList: rawTestList)
         if let elem = self.testToDo?[0] {
-            self.currentTest = elem.fileNumber        
+            self.currentTest = elem.fileNumber
         }
         
         print("testownik.count after:\(self.count)")
