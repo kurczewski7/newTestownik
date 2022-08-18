@@ -13,6 +13,19 @@ protocol DatabaseDelegate {
     func updateGUI()
 //    func getNumberOfRecords(numbersOfRecords recNo: Int, eanMode: Bool)
 }
+protocol DatabaseDataSource {
+    var delegate: DatabaseDelegate? { get }
+    var context: NSManagedObjectContext { get }
+    var fetch: [DatabaseFetch] { get }
+    
+    var allTestsTable: AllTestsTable! { get }
+    var categoriesTable: CategoriesTable! { get }
+    var testDescriptionTable: TestDescriptionTable! { get }
+    var selectedTestTable: SelectedTestTable! { get }
+    var ratingsTable: RatingsTable! { get }
+    var testListTable: TestListTable! { get }
+    var testToDoTable: TestToDoTable! { get }
+}
 class AllTestsTable:  DatabaseTableGeneric<AllTestEntity> {
     override class func className() -> String {        return "AllTestsTable"       }
 }
@@ -39,7 +52,7 @@ class TestToDoTable: DatabaseTableGeneric<TestToDoEntity> {
 //    var xx: RatingsEntity
 //    var TestListEntity
 
-class Database {
+class Database: DatabaseDataSource {
     var delegate: DatabaseDelegate?
     var context: NSManagedObjectContext
     var fetch: [DatabaseFetch] = [DatabaseFetch](repeating: DatabaseFetch(), count: 3)

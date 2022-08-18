@@ -64,7 +64,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     @IBOutlet weak var highButton9: NSLayoutConstraint!
     @IBOutlet weak var highButton10: NSLayoutConstraint!
     
-   
     var pictureSwitchOn: Bool = false {
         didSet {
             if self.pictureSwitchOn == true {
@@ -130,7 +129,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                                 oldButton.tintColor = self.lastButton.Color
                                 oldButton.backgroundColor = self.lastButton.BackgroundColor
                             }
-
                         }
                         print("NR 1:\(self.lastButton.Tag)")
                     }
@@ -237,7 +235,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             }
             print("swipeRefreshLabel:\(tag),\(sender.direction.rawValue)")            
         }
-        
     }
     func swipeRefreshUI(direction: UISwipeGestureRecognizer.Direction) {
         print("=====\nA currentTest: \(testownik.currentTest)")
@@ -268,7 +265,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     }
     
     // MARK: TestownikDelegate protocol "refreshUI" metods
-    func refreshButtonUI(forFilePosition filePosition: Testownik.FilePosition) {
+    func refreshContent(forCurrentTest test: Test) {
+        if let fileNumber = testownik.testToDo?.getCurrent()?.fileNumber {
+            if fileNumber < testownik.count {
+                testownik.currentTest = fileNumber
+                refreshView()
+            }
+        }
+  
+        // MARK: To do
+    }
+    func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition) {
         
         if filePosition == .first {
             hideButton(forButtonNumber: 0)
@@ -379,7 +386,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         for buttHight in tabHigh {       buttHight.constant -= 2        }
     }
     @IBAction func firstButtonPress(_ sender: UIButton) {
-        testownik.currentTest = 0
+        testownik.first()
+    }
+    @IBAction func nextButtonPress(_ sender: UIButton) {
+        if testownik.currentTest < testownik.count-1 {      testownik.next()        }
     }
     @IBAction func previousButtonPress(_ sender: UIButton) {
         if testownik.currentTest > 0 {       testownik.previous()  }
@@ -395,9 +405,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             }
         }
     }
-    @IBAction func nextButtonPress(_ sender: UIButton) {
-        if testownik.currentTest < testownik.count-1 {      testownik.next()        }
-    }
     @objc func tapAction(sender :UITapGestureRecognizer) {
         print("TAP AAAAAAAA")
         sender.view?.removeFromSuperview()
@@ -410,6 +417,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     // MARK: viewDidLoad - initial method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //testownik.first()
+        
         print("TestownikViewController viewDidLoad-testownik.count:\(testownik.count)")        
         Settings.shared.saveTestPreferences()
         
@@ -489,6 +499,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(startMe), userInfo: nil, repeats: false)
     }
     //--------------------------------
+    // TODO: Check content
     func resizeView() {
         //self.view.setNeedsUpdateConstraints()
         //self.view.layoutIfNeeded()
@@ -497,7 +508,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         //delegateView.setNeedsDisplay()
         //delegateView.layoutIfNeeded()
         //delegate.setNeedsUpdateConstraints()
-
     }
     @objc func restart() {
         listeningText.alpha = alphaLabel
@@ -554,7 +564,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                 xx.textColor = .red
                 xx.tintColor = .blue
             default: print("ERROR")
-
         }
     }
     // MARK: Shake event method
@@ -658,8 +667,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             print("JEST \(testownik.count)  TESTOW")
             return            
         }
+         
         let txtFile = testownik[testownik.currentTest].fileName
         self.title = "Test \(txtFile)"
+        // TODO: check it
         testownik[testownik.currentTest].youAnswer2 = []
         let totalQuest = testownik[testownik.currentTest].answerOptions.count
         testownik[testownik.currentTest].youAnswers5 = []
@@ -672,8 +683,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         }
         else {
             pictureSwitchOn = false
-        }
-        
+        }        
         for curButt in stackView.arrangedSubviews     {
             if let butt = curButt as? UIButton {
                 butt.contentHorizontalAlignment =  (Setup.isNumericQuestions ? .left : .center)

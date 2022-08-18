@@ -10,46 +10,86 @@ import UIKit
 import  CoreData // to delete
 
 protocol TestownikDelegate {
-    func refreshButtonUI(forFilePosition filePosition: Testownik.FilePosition)
+    func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition)
     func refreshTabbarUI(visableLevel: Int)
+    func refreshContent(forCurrentTest test: Test)
 }
-class Testownik: DataOperations {
-    enum FilePosition {
-        case first
-        case last
-        case other
-    }
+class Testownik: DataOperations, TestToDoDelegate {        
     struct Answer {
             let isOK: Bool
             let answerOption: String
     }
     var delegate: TestownikDelegate?
-    var filePosition = FilePosition.first
     var isChanged = false
-    
-    //override public var text: String? = "text"
+    var testToDo: TestToDo?
+    var filePosition: TestToDo.FilePosition {
+        get {
+            return testToDo?.filePosition ?? TestToDo.FilePosition.first
+        }
+    }
     override var currentTest: Int  {
         didSet {
             print("currentTest:\(oldValue),\(currentTest)")
             delegate?.refreshButtonUI(forFilePosition: filePosition)
             // currentRow = currentTest < count ? currentTest : count-1
-            if  self.currentTest == 0 {    filePosition = .first     }
-            else if  self.currentTest == count-1 {   filePosition = .last     }
-            else  {  filePosition = .other      }
         }
     }
-        
-//    var currentTest: Int = 0 {
-
     var visableLevel: Int = 4 {
         didSet {     delegate?.refreshTabbarUI(visableLevel: visableLevel)    }
-    }    
+    }
+    // MARK: Perform protocol TestToDoDelegate
+//    func getCurrentTest(forFileNumber number: Int) -> Test? {
+//        if  let number = testToDo?.getFirst()?.fileNumber {
+//            self.currentTest = number
+//            return self.getCurrent()
+//        }
+//        return nil
+//    }
+    func allTestDone() {
+        
+    }
+    
+    func progress() {
+        
+    }
+    // MARK: Metod for navigation
+    override func getCurrent() -> Test {
+        let number = testToDo?.getCurrent()?.fileNumber ?? 0
+        self.currentTest = number
+        return super.getCurrent()
+    }
+    override func first() {
+        if  let number = testToDo?.getFirst()?.fileNumber, number >= 0 {
+            self.currentTest = number
+        }
+    }
+    override func last() {
+        if  let number = testToDo?.getLast()?.fileNumber, number < count {
+            self.currentTest = number
+        }
+    }
+    override func next() {
+        if  let number = testToDo?.getNext()?.fileNumber, number < count {
+            self.currentTest = number
+        }
+    }
+    override func previous() {
+        if  let number = testToDo?.getPrev()?.fileNumber, number >= 0 {
+            self.currentTest = number
+        }
+    }
+
+    // MARK: Perform protocol TestownikDelegate
     func refreshData() {
         self.loadTestFromDatabase()
         self.fillDataDb()
-        self.currentTest = 0
+        
+        // TODO: check this
+        //self.currentTest = 0
         self.isChanged = true
     }
+    
+    
     // MARK: Methods for Testownik database
     func loadTestFromDatabase() {
     //    database.selectedTestTable.loadData()
@@ -71,7 +111,14 @@ class Testownik: DataOperations {
                 else    {
                     print("Pełny rekord")
                     fillDataDb()
+                    let xxxx = testToDo?.mainTests
+                    let yyy = testToDo?.mainTests[0]
+                    let zzz = testToDo?.currentPosition
+                    let bbb = testToDo?[0]
+                    let ddd = testToDo?.getCurrent()?.fileNumber
+                    let aaa = testToDo?.extraTests
                 }
+                //currentTest = testToDo?.getCurrent()?.fileNumber
             }
         }
     }
@@ -103,6 +150,16 @@ class Testownik: DataOperations {
                 self.testList.append(test)
             }
         }
+        // TODO:  comment here
+        var  rawTestList = [Int]()
+        for i in 0..<self.testList.count {
+            rawTestList.append(i)
+        }
+        self.testToDo = TestToDo(rawTestList: rawTestList)
+        if let elem = self.testToDo?[0] {
+            self.currentTest = elem.fileNumber        
+        }
+        
         print("testownik.count after:\(self.count)")
      }
     func fillDemoData() {
@@ -225,8 +282,6 @@ class Testownik: DataOperations {
         let context = database.context
         let allTestRecord = AllTestEntity(context: context)
     }
-    
- 
      func getText(fileName: String, encodingSystem encoding: String.Encoding = .utf8) -> [String] {  //windowsCP1250
         var texts: [String] = ["brak danych"]
         var encodingType: String.Encoding = .utf8
@@ -294,8 +349,6 @@ class Testownik: DataOperations {
     func giveCodepaeText2(contentsOfFile: String ,encoding: String.Encoding) -> String? {
         return "brak"
     }
-
-        
     func getTextDb666(txt: String, encodingSystem encoding: String.Encoding = .utf8) -> [String]  {
         var texts: [String] = ["brak danych"]
         var outputTxt: [String] = [String]()
@@ -320,18 +373,18 @@ class Testownik: DataOperations {
         //print("answer,\(answer)")
         return answer
     }
-    func frstRandom(repeat: Bool) -> Test?   {
-        return nil
-    }
-    func nextRandom(repeat: Bool) -> Test?  {
-        return nil
-    }
-    func previousRandom(repeat: Bool) -> Test?  {
-        return nil
-    }
-    func lastRandom(repeat: Bool) -> Test?  {
-        return nil
-    }    
+//    func frstRandom(repeat: Bool) -> Test?   {
+//        return nil
+//    }
+//    func nextRandom(repeat: Bool) -> Test?  {
+//        return nil
+//    }
+//    func previousRandom(repeat: Bool) -> Test?  {
+//        return nil
+//    }
+//    func lastRandom(repeat: Bool) -> Test?  {
+//        return nil
+//    }    
     
 
 }

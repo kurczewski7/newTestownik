@@ -6,12 +6,31 @@
 //  Copyright © 2022 Slawomir Kurczewski. All rights reserved.
 //
 import Foundation
-
+protocol TestToDoDataSource {
+    var count: Int { get }
+    var groups: Int { get }
+    var groupSize: Int { get }
+    var reapeadTest: Int { get }
+    var currentPosition: Int { get }
+}
 protocol TestToDoDelegate {
     func allTestDone()
     func progress()
 }
-class TestToDo {
+    
+    
+//    func getCurrentTest(forFileNumber FileNumber: Int) -> Test?
+//    func next(_ currentPos: Int)
+//    func prev(_ currentPos: Int)
+//extension TestToDoDelegate {
+//    func next(_ currentPos: Int) -> Int {
+//        return currentPos + 1
+//    }
+//    func prev(_ currentPos: Int) -> Int {
+//        return currentPos - 1
+//    }
+//}
+class TestToDo: TestToDoDataSource {
 //    mainTests[j].append(contentsOf: testsList)
 //    mainCount += testsList.count
 
@@ -31,11 +50,23 @@ class TestToDo {
         var checked: Bool = false
         var errorCorrect: Bool = false
     }
+    enum FilePosition {
+        case first
+        case last
+        case other
+    }
     var delegate: TestToDoDelegate?
     var groups: Int = 0
     var groupSize: Int = 30
     var reapeadTest: Int = 5
-    var currentPosition = 0
+    var filePosition = FilePosition.first
+    var currentPosition: Int = 0 {
+        didSet {
+            if  self.currentPosition == 0 {    filePosition = .first     }
+            else if  self.currentPosition == count-1 {   filePosition = .last     }
+            else  {  filePosition = .other      }
+        }
+    }
     
     private var mainCount: Int = 0
     private var extraCount: Int = 0
@@ -82,36 +113,30 @@ class TestToDo {
         else    {
             return mainTests[group][position - self.groupSize]  }
     }
-    func getFirst(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
-        self.currentPosition = 0
-        for i in 0..<count {
-            if let elem = getElem(numberFrom0: i), (!elem.checked || !onlyNew) {
-                self.currentPosition = i
-                return elem
-            }
+    func getCurrent(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
+        print("currentPosition=\(currentPosition)")
+        print("main[0=\(mainTests[0][0])")
+        if let retVal = getElem(numberFrom0: currentPosition) {
+            return retVal
         }
         return nil
+        
     }
-    func getCurrent(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
-        return getElem(numberFrom0: self.currentPosition)
+    func getFirst(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
+        currentPosition = 0
+        return getElem(numberFrom0: currentPosition)
     }
     func getLast(onlyNewElement onlyNew: Bool = false) -> RawTest? {
         currentPosition = count - 1
         return getElem(numberFrom0: currentPosition)
     }
-    
     func getNext(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
-        currentPosition += 1
-        for i in currentPosition..<count {
-            if let elem = getElem(numberFrom0: i), (!elem.checked || !onlyNew) {
-                self.currentPosition = i
-                return elem
-            }
-        }
-        return nil
+        currentPosition += (currentPosition < count - 1 ? 1 : 0)
+        guard currentPosition < count  else {  return nil  }
+        return getElem(numberFrom0: currentPosition)
     }
     func getPrev(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
-        currentPosition -= 1
+        currentPosition -= (currentPosition > 0 ? 1 : 0)
         guard currentPosition >= 0 else {  return nil  }
         return getElem(numberFrom0: currentPosition)
     }
@@ -125,6 +150,21 @@ class TestToDo {
         }
         return retVal
     }
+    //        for i in 0..<count {
+//            if let elem = getElem(numberFrom0: i), (!elem.checked || !onlyNew) {
+//                self.currentPosition = i
+//                return elem
+//            }
+//        }
+
+//        for i in currentPosition..<count {
+//            if let elem = getElem(numberFrom0: i), (!elem.checked || !onlyNew) {
+//                self.currentPosition = i
+//                return elem
+//            }
+//        }
+//        return nil
+
     func add(forFileNumber number: Int, errorCorrect: Bool = true) {
         guard let foundGroup = getGroup(forNumerTest: number) else { return   }
         var row = extraTests[foundGroup]
@@ -168,7 +208,7 @@ class TestToDo {
             retVal = extraTests[currentGroup][positionInGroup - currGroupSize]
             retVal.isExtraTest = true
         }
-        print("\( positionInGroup < currGroupSize ? " " : "E") \(numberFrom0), \(retVal.fileNumber ?? 0)")
+        print("File number:\( positionInGroup < currGroupSize ? " " : "E") \(numberFrom0), \(retVal.fileNumber ?? 0)")
         return retVal
     }
     func reorganizeExtra(forRow row: inout [RawTest], fileNumber: Int, hawMenyTimes number: Int = 30) {

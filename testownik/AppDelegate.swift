@@ -16,7 +16,6 @@ import CoreMedia
 
 let speech = Speech()
 
-//let testownik99 = Testownik()
 let testownik = Testownik()
 let pictureLibrary = PictureLibrary()
 let ratings = Ratings()
@@ -35,85 +34,13 @@ let ratings = Ratings()
         for i in 0..<32 {
             xxList.append(i+1)
         }
-        let testToDo = TestToDo(rawTestList: xxList)
-        
-        if let x1 = testToDo[0] {
-            print("X1:\(x1)")
-        }
-        if let x2 = testToDo[1,1] {
-            print("x2:\(x2)")
-        }
-        let xx = testToDo.getElem(numberFrom0: 0)
-        print("x=\(xx)\n==========")
-        for i in 0..<450 {
-            if i % 35 == 0 {
-                print("-----")
-            }
-            let yy = testToDo.getElem(numberFrom0: i)
-            //print("\(i):\(yy?.fileNumber)")
-       }
-        testToDo.mainTests[0][0].checked = true
-        testToDo.mainTests[0][1].checked = true
-        let zz = testToDo.getFirst(onlyNewElement: true)
-        for i in 0..<20 {
-            testToDo.mainTests[0][i].checked = true
-        }
-        testToDo.mainTests[0][8].checked = true
-        let rk = testToDo.getNext(onlyNewElement: true)
-        var kk = [Int]()    // [5,5,3,4,2,5]
-   
-        testToDo.resizeAll(newGroupSize: 10, newReapeadCount: 3, onlyTest: false)
-        
-        //testToDo.save()
-        //testToDo.restore()
         
         
         
-        for _ in 0...5 {
-            kk.append(Setup.randomOrder(toMax: 5))
-        }
-        kk = [2,2,2,1,3,3] //,4
-        //kk = [5,5,3,4,2,5]
-        //kk = [0,0,2,4,4,4]
-        //kk = [2,1,6,5,3,4]
-        //kk = [1,2,3,4,5,6]
         
         
         
-        var spelInt = kk.map { NumberFormatter.localizedString(from: $0 as NSNumber, number: .spellOut) }
-        var c = 0
-        var row: [TestToDo.RawTest] = [TestToDo.RawTest]()
-        for i in kk {
-            let errCor = (c % 2 == 0  ? false : true)
-            let y = TestToDo.RawTest(fileNumber: i, isExtraTest: true, checked: false, errorCorrect: errCor)
-            row.append(y)
-            c += 1
-        }
-        //print("\(row)")
-        var tt = TestToDo.RawTest(fileNumber: 0, isExtraTest: true, checked: false, errorCorrect: true)
-        
-        
-        let result = testToDo.isSortingOk(forRow: &row)
-        //testToDo.reorganizeExtra(forRow: &row, fileNumber: 4,hawMenyTimes: 9000)
-        print(("Sort result:\(result)"))
-        //testToDo.addExtra(forRow: tt, fileNumber: 4, errorCorrect: true)
-        //testToDo.addExtra(forRow: &row, fileNumber: 4, errorCorrect: true)
-        
-        //let yy = testToDo.getPositonsToDel(forRow: row, newRow: &row)
-        testToDo.changeQueue(forRow: &row, fileNumber: 3)
-        
-        
-        
-//        for i in 0..< 10 {
-//            
-//        }
-        
-        //testToDo.reSorting(previousElem: tt, forRow: &row)
-        
-        //testToDo.mixTests(inputElements: &row)
-        
-        
-        
+
         if let path0 = Bundle.main.path(forResource: "543", ofType: "txt") {
             let aa0 = testownik.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(15)))
             print("aa0=\(aa0)")
