@@ -23,14 +23,15 @@ class Testownik: DataOperations, TestToDoDelegate {
     var delegate: TestownikDelegate?
     var isChanged = false
     var testToDo: TestToDo?
-    var filePosition: TestToDo.FilePosition {
+    var filePosition: TestToDo.FilePosition  {
         get {
+            // delegate?.refreshButtonUI(forFilePosition: filePosition)
             return testToDo?.filePosition ?? TestToDo.FilePosition.first
         }
     }
     override var currentTest: Int  {
         didSet {
-            print("currentTest:\(oldValue),\(currentTest)")
+            print("currentTest:\(oldValue),\(currentTest), testownik.testToDo?.currentPosition=\(testownik.testToDo?.currentPosition ?? 77), testownik.currentTest=\(testownik.currentTest), \(testownik.filePosition) ")
             delegate?.refreshButtonUI(forFilePosition: filePosition)
             // currentRow = currentTest < count ? currentTest : count-1
         }
@@ -47,7 +48,7 @@ class Testownik: DataOperations, TestToDoDelegate {
 //        return nil
 //    }
     func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition) {
-        
+        delegate?.refreshButtonUI(forFilePosition: filePosition)
     }
     func allTestDone() {
         
@@ -56,9 +57,8 @@ class Testownik: DataOperations, TestToDoDelegate {
         
     }
     // MARK: Metod for navigation
-    override func getCurrent() -> Test {
-        let number = testToDo?.getCurrent()?.fileNumber ?? 0
-        self.currentTest = number
+    override func getCurrent() -> Test {        
+        self.currentTest = testToDo?.getCurrent()?.fileNumber ?? 0
         return super.getCurrent()
     }
     override func first() {

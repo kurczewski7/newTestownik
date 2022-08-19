@@ -76,6 +76,40 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             }
         }
     }
+    @IBAction func microphonePress(_ sender: UIBarButtonItem) {
+        microphoneButt.image = (microphoneButt.image == UIImage(systemName: "mic") ? UIImage(systemName: "mic.fill") : UIImage(systemName: "mic"))
+    }
+    @IBAction func nevButtonSpaceSubPress(_ sender: UIBarButtonItem) {
+        stackView.spacing -= 5
+    }
+    @IBAction func ResizeButtonPlusPress(_ sender: UIBarButtonItem) {
+        for buttHight in tabHigh {  buttHight.constant += 2        }
+    }
+    @IBAction func ResizeButtonMinusPress(_ sender: UIBarButtonItem) {
+         askLabel.layer.cornerRadius = 10
+        for buttHight in tabHigh {       buttHight.constant -= 2        }
+    }
+    @IBAction func firstButtonPress(_ sender: UIButton) {
+        testownik.first()
+    }
+    @IBAction func nextButtonPress(_ sender: UIButton) {
+        if testownik.filePosition != .last {      testownik.next()        }
+    }
+    @IBAction func previousButtonPress(_ sender: UIButton) {
+        if testownik.filePosition != .first  {       testownik.previous()  }
+    }
+    @IBAction func checkButtonPress(_ sender: UIButton) {
+        guard testownik.currentTest < testownik.count else {    return        }
+        let currTest = testownik[testownik.currentTest]
+        let countTest = currTest.answerOptions.count         //okAnswers.count
+        for i in 0..<countTest {
+            if let button = stackView.arrangedSubviews[i] as? UIButton {
+                button.layer.borderWidth =  currTest.answerOptions[i].isOK ? 3 : 1
+                button.layer.borderColor = currTest.answerOptions[i].isOK ? UIColor.systemGreen.cgColor : UIColor.brown.cgColor
+            }
+        }
+    }
+
     func dddddd() {
          let frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         let label = UILabel(frame: frame)
@@ -231,7 +265,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                     sender.view?.frame = frame!
                 }
                 //Setup.popUpStrong.frame = frame!
-
             }
             print("swipeRefreshLabel:\(tag),\(sender.direction.rawValue)")            
         }
@@ -371,39 +404,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 //            newView.hidden = false
 //            scroll.contentOffset = offset
 //        }
-    }
-    @IBAction func microphonePress(_ sender: UIBarButtonItem) {
-        microphoneButt.image = (microphoneButt.image == UIImage(systemName: "mic") ? UIImage(systemName: "mic.fill") : UIImage(systemName: "mic"))      
-    }
-    @IBAction func nevButtonSpaceSubPress(_ sender: UIBarButtonItem) {
-        stackView.spacing -= 5
-    }
-    @IBAction func ResizeButtonPlusPress(_ sender: UIBarButtonItem) {
-        for buttHight in tabHigh {  buttHight.constant += 2        }
-    }
-    @IBAction func ResizeButtonMinusPress(_ sender: UIBarButtonItem) {
-         askLabel.layer.cornerRadius = 10
-        for buttHight in tabHigh {       buttHight.constant -= 2        }
-    }
-    @IBAction func firstButtonPress(_ sender: UIButton) {
-        testownik.first()
-    }
-    @IBAction func nextButtonPress(_ sender: UIButton) {
-        if testownik.currentTest < testownik.count-1 {      testownik.next()        }
-    }
-    @IBAction func previousButtonPress(_ sender: UIButton) {
-        if testownik.currentTest > 0 {       testownik.previous()  }
-    }
-    @IBAction func checkButtonPress(_ sender: UIButton) {
-        guard testownik.currentTest < testownik.count else {    return        }
-        let currTest = testownik[testownik.currentTest]
-        let countTest = currTest.answerOptions.count         //okAnswers.count
-        for i in 0..<countTest {
-            if let button = stackView.arrangedSubviews[i] as? UIButton {
-                button.layer.borderWidth =  currTest.answerOptions[i].isOK ? 3 : 1
-                button.layer.borderColor = currTest.answerOptions[i].isOK ? UIColor.systemGreen.cgColor : UIColor.brown.cgColor
-            }
-        }
     }
     @objc func tapAction(sender :UITapGestureRecognizer) {
         print("TAP AAAAAAAA")
