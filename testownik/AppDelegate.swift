@@ -17,6 +17,8 @@ import CoreMedia
 let speech = Speech()
 
 let testownik = Testownik()
+
+
 let pictureLibrary = PictureLibrary()
 let ratings = Ratings()
 
@@ -29,7 +31,20 @@ let ratings = Ratings()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("S T A R T\n")
-
+        testownik.xcts_random(size: 3, forCount: 500)
+        var answerList: [Testownik.Answer] = [Testownik.Answer]()
+        answerList.append(Testownik.Answer(isOK: true, answerOption: "1"))
+        answerList.append(Testownik.Answer(isOK: true, answerOption: "2"))
+        answerList.append(Testownik.Answer(isOK: true, answerOption: "3"))
+        let wyn1 = testownik.changeOrder(forAnswerOptions: answerList)
+        let wyn2 = testownik.changeOrder(forAnswerOptions: answerList)
+        let wyn3 = testownik.changeOrder(forAnswerOptions: answerList)
+        let wyn4 = testownik.changeOrder(forAnswerOptions: answerList)
+        print(wyn1)
+        print(wyn2)
+        print(wyn3)
+        print(wyn4)
+        
         var xxList: [Int] = [Int]()
         for i in 0..<32 {
             xxList.append(i+1)

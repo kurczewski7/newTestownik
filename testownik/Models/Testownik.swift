@@ -39,6 +39,11 @@ class Testownik: DataOperations, TestToDoDelegate {
     var visableLevel: Int = 4 {
         didSet {     delegate?.refreshTabbarUI(visableLevel: visableLevel)    }
     }
+    var currentElement: Test {
+        get {
+            return testList[currentTest]
+        }
+    }
     // MARK: Perform protocol TestToDoDelegate
 //    func getCurrentTest(forFileNumber number: Int) -> Test? {
 //        if  let number = testToDo?.getFirst()?.fileNumber {
@@ -178,7 +183,7 @@ class Testownik: DataOperations, TestToDoDelegate {
         var sortedAnswerOptions = [Answer]()
         var srcAnswerOptions = answerOptions
         for _ in 1...srcAnswerOptions.count {
-            position = Setup.randomOrder(toMax: srcAnswerOptions.count-1)
+            position = Setup.randomOrder(toMax: srcAnswerOptions.count)
             sortedAnswerOptions.append(srcAnswerOptions[position])
             srcAnswerOptions.remove(at: position)
         }
@@ -376,6 +381,16 @@ class Testownik: DataOperations, TestToDoDelegate {
         //print("answer,\(answer)")
         return answer
     }
+    func xcts_random(size: Int, forCount number: Int = 1000) {
+        var statisticArray: [Int] = [Int](repeating: 0, count: size+1)
+        for _ in 0..<number {
+            let val = Setup.randomOrder(toMax: size)
+            print(val)
+            statisticArray[val] += 1
+        }
+    print("Arr=\(statisticArray)")
+    }
+    
 //    func frstRandom(repeat: Bool) -> Test?   {
 //        return nil
 //    }

@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
             endingLineNumber = "192"
-            landmarkName = "longPressRefreshUI(sender:)"
+            landmarkName = "pinchRefreshUI(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
             endingLineNumber = "207"
-            landmarkName = "forcePressRefreshUI(sender:)"
+            landmarkName = "longPressRefreshUI(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -222,8 +222,8 @@
             filePath = "testownik/Models/Testownik.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "fillDataDb()"
             landmarkType = "7">
          </BreakpointContent>
@@ -240,7 +240,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "654"
             endingLineNumber = "654"
-            landmarkName = "refreshView()"
+            landmarkName = "clearView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -254,8 +254,8 @@
             filePath = "testownik/Models/Testownik.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
             landmarkName = "Testownik"
             landmarkType = "3">
          </BreakpointContent>
@@ -368,7 +368,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "278"
             endingLineNumber = "278"
-            landmarkName = "refreshButtonUI(forFilePosition:)"
+            landmarkName = "swipeRefreshUI(direction:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -384,7 +384,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "284"
             endingLineNumber = "284"
-            landmarkName = "refreshButtonUI(forFilePosition:)"
+            landmarkName = "swipeRefreshUI(direction:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -398,8 +398,8 @@
             filePath = "testownik/Models/Testownik.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "first()"
             landmarkType = "7">
          </BreakpointContent>
@@ -414,8 +414,8 @@
             filePath = "testownik/Models/Testownik.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "last()"
             landmarkType = "7">
          </BreakpointContent>
@@ -430,8 +430,8 @@
             filePath = "testownik/Models/Testownik.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "previous()"
             landmarkType = "7">
          </BreakpointContent>
@@ -450,6 +450,22 @@
             endingLineNumber = "35"
             landmarkName = "currentTest"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6D9DF670-2B0A-45F9-9DB8-D12B9DD6039A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "testownik/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

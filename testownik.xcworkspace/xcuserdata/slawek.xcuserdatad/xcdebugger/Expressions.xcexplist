@@ -11,6 +11,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "Testownik.fillDataDb():Testownik.swift">
+      </ContextState>
+      <ContextState
          contextName = "CloudPicker.getTextEncoding(filePath:defaultEncoding:):CloudPicker.swift">
          <PersistentStrings>
             <PersistentString
@@ -22,10 +25,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Testownik.fillDataDb():Testownik.swift">
+         contextName = "CloudPicker.tryEncodingFile(filePath:encoding:):CloudPicker.swift">
       </ContextState>
       <ContextState
          contextName = "CloudPicker.getText(fromCloudFilePath:):CloudPicker.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Testownik.currentTest.didset:Testownik.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "testownik.currentElement.answerOptions">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "Testownik.getCodePgTxt(path:encodingSystem:):Testownik.swift">
@@ -37,9 +48,6 @@
                value = "ssf">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CloudPicker.tryEncodingFile(filePath:encoding:):CloudPicker.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>
