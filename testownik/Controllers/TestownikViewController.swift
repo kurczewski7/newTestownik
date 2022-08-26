@@ -7,7 +7,13 @@
 //
 
 import UIKit
-class TestownikViewController: UIViewController, GesturesDelegate, TestownikDelegate, ListeningDelegate, CommandDelegate    {
+
+protocol TestownikViewContDataSource {
+    var listening: Listening { get }
+    var command: Command { get }
+    var gestures: Gestures { get }
+}
+class TestownikViewController: UIViewController, GesturesDelegate, TestownikDelegate, ListeningDelegate, TestownikViewContDataSource, CommandDelegate    {
 //    func addAllRequiredGestures(sender: Gestures) {
 //
 //    }

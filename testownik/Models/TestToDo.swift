@@ -12,6 +12,8 @@ protocol TestToDoDataSource {
     var groupSize: Int { get }
     var reapeadTest: Int { get }
     var currentPosition: Int { get }
+    func save()
+    func restore()
 }
 protocol TestToDoDelegate {
     func allTestDone()
@@ -32,6 +34,7 @@ protocol TestToDoDelegate {
 //    }
 //}
 class TestToDo: TestToDoDataSource {
+    
 //    mainTests[j].append(contentsOf: testsList)
 //    mainCount += testsList.count
 
@@ -447,7 +450,8 @@ class TestToDo: TestToDoDataSource {
         }
         database.testToDoTable.save()
     }
-    func restore(_ onlyTest: Bool = true) {
+    func restore() {
+        let onlyTest: Bool = true
         var restoredDict = [Int: RawTest]()
         //var restoredTests = [RawTest]()
         

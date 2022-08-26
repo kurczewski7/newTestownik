@@ -7,14 +7,19 @@
 //
 
 import UIKit
-import  CoreData // to delete
+//import  CoreData 
 
 protocol TestownikDelegate {
     func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition)
     func refreshTabbarUI(visableLevel: Int)
     func refreshContent(forCurrentTest test: Test)
 }
-class Testownik: DataOperations, TestToDoDelegate {
+protocol TestownikDataSource {
+    var delegate: TestownikDelegate? { get }
+    var testToDo: TestToDo? { get }
+    func getCurrent() -> Test    
+}
+class Testownik: DataOperations, TestownikDataSource, TestToDoDelegate {
     
     struct Answer {
             let isOK: Bool
@@ -163,8 +168,10 @@ class Testownik: DataOperations, TestToDoDelegate {
         for i in 0..<self.testList.count {
             rawTestList.append(i)
         }
-        self.testToDo = TestToDo(rawTestList: rawTestList)
-        if let elem = self.testToDo?[0] {
+        testToDo = TestToDo(rawTestList: rawTestList)
+        testToDo?.restore()
+        
+        if let elem = testToDo?[0] {
             self.currentTest = elem.fileNumber
         }
         
