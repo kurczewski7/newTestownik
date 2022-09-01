@@ -124,8 +124,9 @@ class Testownik: DataOperations, TestownikDataSource, TestToDoDelegate {
                 else    {
                     print("Pełny rekord")
                     fillDataDb()
+                    // MARK: INITIAL
                     let xxxx = testToDo?.mainTests
-                    let yyy = testToDo?.mainTests[0]
+                    let yyy = testToDo?.mainTests.first
                     let zzz = testToDo?.currentPosition
                     let bbb = testToDo?[0]
                     let ddd = testToDo?.getCurrent()?.fileNumber
@@ -133,8 +134,10 @@ class Testownik: DataOperations, TestownikDataSource, TestToDoDelegate {
                 }
                 //currentTest = testToDo?.getCurrent()?.fileNumber
             }
+            // MARK: INTTIAL
         }
     }
+
     func fillDataDb() {
         var titles = [String]()
         var textLines = [String]()
@@ -142,6 +145,7 @@ class Testownik: DataOperations, TestownikDataSource, TestToDoDelegate {
         print("database.testDescriptionTable.count fillDataDb:\(database.testDescriptionTable.count)")
         print("testownik.count befor:\(self.count)")
         self.testList.removeAll()
+        
         database.testDescriptionTable.forEach { (index, testRecord) in
             if let txt = testRecord?.text, !txt.isEmpty {
                 titles.removeAll()

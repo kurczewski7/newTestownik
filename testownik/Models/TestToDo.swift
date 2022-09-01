@@ -20,24 +20,7 @@ protocol TestToDoDelegate {
     func progress()
     func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition)
 }
-    
-    
-//    func getCurrentTest(forFileNumber FileNumber: Int) -> Test?
-//    func next(_ currentPos: Int)
-//    func prev(_ currentPos: Int)
-//extension TestToDoDelegate {
-//    func next(_ currentPos: Int) -> Int {
-//        return currentPos + 1
-//    }
-//    func prev(_ currentPos: Int) -> Int {
-//        return currentPos - 1
-//    }
-//}
 class TestToDo: TestToDoDataSource {
-    
-//    mainTests[j].append(contentsOf: testsList)
-//    mainCount += testsList.count
-
     typealias MainTestsValues = (mainTests: [[RawTest]], mainCount: Int, groups: Int)
     typealias ExtraTestsValues = (extraTests: [[RawTest]], extraCount: Int)
     struct TestInfo {
@@ -95,13 +78,29 @@ class TestToDo: TestToDoDataSource {
         }
     }
     var startSegment = 0
-        
+    
     init(rawTestList: [Int]) {
         for i in 0..<rawTestList.count {
             let tmpElem = RawTest(fileNumber: rawTestList[i], isExtraTest: false)
             self.rawTests.append(tmpElem)
         }
+        if let selectRec = database.selectedTestTable[0] {
+            self.groupSize = Int(selectRec.group_size)
+            self.reapeadTest = Int(selectRec.reapead_test)
+            self.currentPosition = Int(selectRec.current_position)
+            database.testToDoTable.loadData(forUuid: "uuid_parent", fieldValue: selectRec.uuId!)
+
+        }
+        if database.testToDoTable.isEmpty {
+            createTests()
+        }
+        else {
+            restore()
+        }
+    }
+    private func createTests() {
         //groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
+        
         let mainVal = fillMainTests(forGroupSize: self.groupSize)
         self.mainTests = mainVal.mainTests
         self.mainCount = mainVal.mainCount
@@ -111,6 +110,7 @@ class TestToDo: TestToDoDataSource {
         self.extraTests = extraVal.extraTests
         self.extraCount = extraVal.extraCount
     }
+
     subscript(index: Int)  -> RawTest? {
         return getElem(numberFrom0: index)
     }
@@ -123,7 +123,7 @@ class TestToDo: TestToDoDataSource {
     }
     func getCurrent(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
         print("currentPosition=\(currentPosition)")
-        print("main[0=\(mainTests[0][0])")
+        // print("main[0=\(mainTests[0][0])")
         if let retVal = getElem(numberFrom0: currentPosition) {
             return retVal
         }
@@ -204,7 +204,7 @@ class TestToDo: TestToDoDataSource {
         let numberFrom1 = numberFrom0 + 1
         let fullSize = groupSize + reapeadTest
         let currentGroup = Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0) - 1
-        guard numberFrom0 < self.count, currentGroup < groups else {      return nil   }
+        guard numberFrom0 < self.count, currentGroup < groups, currentGroup < mainTests.count else {      return nil   }
         self.currentPosition = numberFrom0
         let positionInGroup = numberFrom0 - (currentGroup * fullSize)
         let currGroupSize = mainTests[currentGroup].count
@@ -348,9 +348,8 @@ class TestToDo: TestToDoDataSource {
         var mainTests: [[RawTest]] = [[RawTest]]()
         var mainCount = 0
         var retVal: MainTestsValues
-        
-        let groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
-        for j in 0..<groups {
+            let groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
+            for j in 0..<groups {
             let emptyArray = [RawTest]()
             mainTests.append(emptyArray)
             let testsList = lotteryMainTests(fromFilePosition: j*groupSize, arraySize: groupSize)
@@ -395,7 +394,7 @@ class TestToDo: TestToDoDataSource {
         retVal.extraCount = extraCount
         return retVal
     }
-    private func lotteryMainTests(fromFilePosition startPos: Int, arraySize size: Int ) -> [RawTest]    {
+    private func lotteryMainTests(fromFilePosition startPos: Int, arraySize size: Int, shuffle: Bool = true  ) -> [RawTest]    {
         var newTests: [RawTest] = [RawTest]()
         newTests.removeAll()
         for i in 0..<size {
@@ -406,7 +405,10 @@ class TestToDo: TestToDoDataSource {
         for el in newTests {
             print("\(el.fileNumber)")
         }
-        mixTests(inputElements: &newTests)
+        if shuffle {
+            mixTests(inputElements: &newTests)
+        }
+        
         print("after")
         for el in newTests {
             print("\(el.fileNumber)")
@@ -426,78 +428,6 @@ class TestToDo: TestToDoDataSource {
             outputTst.append(elem)
         }
         inputTst = outputTst
-    }
-    func save()  {
-        print("saveTestToDo, befor del:\(database.testToDoTable.count)")
-        
-        database.selectedTestTable.loadData()
-        guard let uuidParent = database.selectedTestTable[0]?.uuId, self.count > 0 else {   return    }
-        database.testToDoTable.deleteGroup(uuidDeleteField: "uuid_parent", forValue: uuidParent)
-        database.testToDoTable.save()
-        let uuId = UUID()
-        for i in 0..<count {
-            if let elem = getElem(numberFrom0: i) {
-                let rec = TestToDoEntity(context: database.context)
-                rec.lp = Int16(i)
-                rec.uuId = uuId
-                rec.uuid_parent = uuidParent
-                rec.fileNumber = Int16(elem.fileNumber)
-                rec.isExtraTest = elem.isExtraTest
-                rec.checked = elem.checked
-                rec.errorCorrect = elem.errorCorrect
-                _ = database.testToDoTable?.add(value: rec)
-            }
-        }
-        database.testToDoTable.save()
-    }
-    func restore() {
-        let onlyTest: Bool = true
-        var restoredDict = [Int: RawTest]()
-        //var restoredTests = [RawTest]()
-        
-        let emptyArray = [RawTest]()
-        var rawTests: [RawTest] = [RawTest]()
-        var mainTests: [[RawTest]] = [[RawTest]]()
-        var extraTests: [[RawTest]] = [[RawTest]]()
-        var oldIsExtra = true
-        
-        database.selectedTestTable.loadData()
-        guard let uuidParent = database.selectedTestTable[0]?.uuId else {   return    }
-        database.testToDoTable.loadData(forFilterField: "uuid_parent", fieldValue: uuidParent)
-        print("COUNT:\(database.testToDoTable.count)")
-        database.testToDoTable.forEach { index, oneRecord in
-            guard let rec = oneRecord else {    return    }
-            let elem = RawTest(fileNumber: Int(rec.fileNumber), isExtraTest: rec.isExtraTest, checked: rec.checked, errorCorrect: rec.errorCorrect)
-            restoredDict[Int(rec.lp)] = elem
-        }
-        if restoredDict.count > 0 {
-            for i in 0..<restoredDict.count {
-                if let elem = restoredDict[i] {
-                    if !elem.isExtraTest {
-                        if oldIsExtra != elem.isExtraTest {
-                            mainTests.append(emptyArray)
-                        }
-                        rawTests.append(elem)
-                        mainTests[mainTests.count - 1].append(elem)
-                    }
-                    else {
-                        if oldIsExtra != elem.isExtraTest {
-                            extraTests.append(emptyArray)
-                        }
-                        extraTests[extraTests.count - 1].append(elem)
-                    }
-                    oldIsExtra = elem.isExtraTest
-                }
-            }
-        }
-        print("MAIN   :\(mainTests.count),\(extraTests.count)")
-        if !onlyTest {
-            self.rawTests = rawTests
-            self.mainTests = mainTests
-            self.extraTests = extraTests
-            self.groupSize = mainTests.first?.count ?? 30
-            self.reapeadTest = extraTests.first?.count ?? 5
-        }
     }
     func resizeAll(newGroupSize groupSize: Int, newReapeadCount reapeadTest:Int, onlyTest: Bool = true) {
         
@@ -527,6 +457,109 @@ class TestToDo: TestToDoDataSource {
                 //self.currentGroup = currentGroup
                 break
             }
-        }        
+        }
    }
+    func save()  {
+        print("saveTestToDo, befor del:\(database.testToDoTable.count)")
+        
+        database.selectedTestTable.loadData()
+        guard let uuidParent = database.selectedTestTable[0]?.uuId, self.count > 0 else {   return    }
+        database.testToDoTable.deleteGroup(uuidDeleteField: "uuid_parent", forValue: uuidParent)
+        database.testToDoTable.save()
+        let uuId = UUID()
+        for i in 0..<count {
+            if let elem = getElem(numberFrom0: i) {
+                let rec = TestToDoEntity(context: database.context)
+                rec.lp = Int16(i)
+                rec.uuId = uuId
+                rec.uuid_parent = uuidParent
+                rec.fileNumber = Int16(elem.fileNumber)
+                rec.isExtraTest = elem.isExtraTest
+                rec.checked = elem.checked
+                rec.errorCorrect = elem.errorCorrect
+                _ = database.testToDoTable?.add(value: rec)
+            }
+        }
+        database.testToDoTable.save()
+        database.selectedTestTable[0]?.current_position = Int16(self.currentPosition)
+        database.selectedTestTable[0]?.group_size = Int16(self.groupSize)
+        database.selectedTestTable[0]?.reapead_test = Int16(self.reapeadTest)
+        database.selectedTestTable.save()
+    }
+    func countArrayElement<T>(ofArray aArray: [[T]]) -> Int {
+        var retVal = 0
+        for i in 0..<aArray.count {
+            for j in 0..<aArray[i].count {
+                retVal += 1
+            }
+        }
+        return retVal
+    }
+    func restore() {
+        //let onlyTest: Bool = false
+        var restoredDict = [Int: RawTest]()
+        //var restoredTests = [RawTest]()
+        
+        let emptyArray = [RawTest]()
+        var rawTests: [RawTest] = [RawTest]()
+        var mainTests: [[RawTest]] = [[RawTest]]()
+        var extraTests: [[RawTest]] = [[RawTest]]()
+        //var oldIsExtra = true
+        
+        database.selectedTestTable.loadData()
+        guard let uuidParent = database.selectedTestTable[0]?.uuId else {   return    }
+        database.testToDoTable.loadData(forFilterField: "uuid_parent", fieldValue: uuidParent)
+        print("COUNT:\(database.testToDoTable.count)")
+        database.testToDoTable.forEach { index, oneRecord in
+            guard let rec = oneRecord else {    return    }
+            let elem = RawTest(fileNumber: Int(rec.fileNumber), isExtraTest: rec.isExtraTest, checked: rec.checked, errorCorrect: rec.errorCorrect)
+            restoredDict[Int(rec.lp)] = elem
+        }
+//        self.mainCount = mainVal.mainCount
+//        self.extraCount = extraVal.extraCount
+
+        if restoredDict.count > 0 {
+            for i in 0..<restoredDict.count {
+                if let elem = restoredDict[i] {
+                    rawTests.append(elem)
+                    if !elem.isExtraTest {
+                        if mainTests.last?.count == self.groupSize {
+                            mainTests.append(emptyArray)
+                        }
+                        mainTests[mainTests.count - 1].append(elem)
+                   }
+                    else {
+                        if extraTests.last?.count == self.extraCount {
+                            extraTests.append(emptyArray)
+                        }
+                        extraTests[extraTests.count - 1].append(elem)
+                    }
+                }
+            }
+            self.currentPosition = Int(database.selectedTestTable[0]?.current_position ?? 0)
+            self.groupSize = Int(database.selectedTestTable[0]?.group_size ?? 30)
+            self.reapeadTest = Int(database.selectedTestTable[0]?.reapead_test ?? 5)
+            self.rawTests = rawTests
+            self.mainTests = mainTests
+            self.extraTests = extraTests
+//                self.groupSize = mainTests.first?.count ?? 30
+//                self.reapeadTest = extraTests.first?.count ?? 5
+        }
+        else {
+            // MARK: INITIAL
+            createTests()
+            
+//            self.mainTests = mainVal.mainTests
+//            self.mainCount = mainVal.mainCount
+//            self.groups    = mainVal.groups
+//
+//            let extraVal = fillExtraTests(forMainTest: self.mainTests, forGroupSize: self.groupSize, forReapeadTest: self.reapeadTest)
+//            self.extraTests = extraVal.extraTests
+//            self.extraCount = extraVal.extraCount
+        }
+        print("MAIN   :\(mainTests.count),\(extraTests.count)")
+    }
+    deinit {
+        save()
+    }
 }

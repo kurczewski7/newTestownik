@@ -183,6 +183,9 @@ let ratings = Ratings()
         if database.selectedTestTable.count == 0 {
             let selTest = SelectedTestEntity(context: database.context)
             selTest.uuId = UUID()
+            selTest.group_size = 30
+            selTest.reapead_test = 5
+            selTest.current_position = 0
             _ = database.selectedTestTable.add(value: selTest)
             database.save()
         }
