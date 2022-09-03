@@ -13,7 +13,7 @@ protocol TestownikViewContDataSource {
     var command: Command { get }
     var gestures: Gestures { get }
 }
-class TestownikViewController: UIViewController, GesturesDelegate, TestownikDelegate, ListeningDelegate, TestownikViewContDataSource, CommandDelegate    {
+class TestownikViewController: UIViewController, GesturesDelegate, TestownikDelegate, TestToDoDelegate, ListeningDelegate, TestownikViewContDataSource, CommandDelegate    {
 //    func addAllRequiredGestures(sender: Gestures) {
 //
 //    }
@@ -131,6 +131,18 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         button.contentHorizontalAlignment = .center
         button.backgroundImage(for: .normal)
     }
+    
+    // MARK: TestToDoDelegate
+    func allTestDone() {
+        print("allTestDone")
+    }
+    func progress() {
+        print("progress")
+    }
+    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition) {
+        print("refreshFilePosition: \(filePosition)")
+    }
+
     // MARK: addAllRequiredestures
     func addAllRequiredGestures(sender: Gestures) {
         guard  gestures.view != nil  else { return   }
@@ -436,11 +448,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         askLabel.addGestureRecognizer(gesture)
         Settings.shared.checkResetRequest(forUIViewController: self)
         
+        
         listening.linkSpeaking = speech.self
         listening.delegate     = self
         command.delegate       = self
         testownik.delegate     = self
-        gestures.delegate      = self
+        gestures.delegate      = self        
+        testownik.testToDo?.delegate = self
+        
         gestures.setView(forView: view)
         
         listeningText.text = loremIpsum

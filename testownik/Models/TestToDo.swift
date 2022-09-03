@@ -42,13 +42,14 @@ class TestToDo: TestToDoDataSource {
         case last
         case other
     }
-    var delegate: TestToDoDelegate?
+    var delegate: TestToDoDelegate?  //? TestownikDelegate?
     var groups: Int = 0
     var groupSize: Int = 30
     var reapeadTest: Int = 5
     var filePosition: FilePosition = FilePosition.first {
         didSet {
             delegate?.refreshFilePosition(newFilePosition: filePosition)
+            //delegate?.refreshContent(forCurrentTest: <#T##Test#>)
         }
     }
     var currentPosition: Int = 0 {
@@ -57,6 +58,7 @@ class TestToDo: TestToDoDataSource {
             if  self.currentPosition == 0 {    filePosition = .first     }
             else if  self.currentPosition == count-1 {   filePosition = .last     }
             else  {  filePosition = .other      }
+            delegate?.progress()
         }
     }
     
@@ -91,7 +93,7 @@ class TestToDo: TestToDoDataSource {
             self.reapeadTest = Int(selectRec.reapead_test)
             self.currentPosition = Int(selectRec.current_position)
             database.testToDoTable.loadData(forUuid: "uuid_parent", fieldValue: selectRec.uuId!)
-
+            //selectRec.current_position
         }
         if database.testToDoTable.isEmpty {
             createTests()
@@ -104,14 +106,16 @@ class TestToDo: TestToDoDataSource {
     private func createTests() {
         //groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
         
-        let mainVal = fillMainTests(forGroupSize: self.groupSize)
-        self.mainTests = mainVal.mainTests
-        self.mainCount = mainVal.mainCount
-        self.groups    = mainVal.groups
+        if let mainVal = fillMainTests(forGroupSize: self.groupSize) {
+            self.mainTests = mainVal.mainTests
+            self.mainCount = mainVal.mainCount
+            self.groups    = mainVal.groups
+        }
         
-        let extraVal = fillExtraTests(forMainTest: self.mainTests, forGroupSize: self.groupSize, forReapeadTest: self.reapeadTest)
-        self.extraTests = extraVal.extraTests
-        self.extraCount = extraVal.extraCount
+        if let extraVal = fillExtraTests(forMainTest: self.mainTests, forGroupSize: self.groupSize, forReapeadTest: self.reapeadTest) {
+            self.extraTests = extraVal.extraTests
+            self.extraCount = extraVal.extraCount
+        }
         self.currentPosition = 0
     }
 
@@ -145,12 +149,13 @@ class TestToDo: TestToDoDataSource {
     func getNext(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
         currentPosition += (currentPosition < count - 1 ? 1 : 0)
         guard currentPosition < count  else {  return nil  }
-        return getElem(numberFrom0: currentPosition)
+        return getElem(numberFrom0: currentPosition, changePosition: true)
+        //return getElem(numberFrom0: currentPosition,
     }
     func getPrev(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
         currentPosition -= (currentPosition > 0 ? 1 : 0)
         guard currentPosition >= 0 else {  return nil  }
-        return getElem(numberFrom0: currentPosition)
+        return getElem(numberFrom0: currentPosition, changePosition: true)
     }
     func getGroup(forNumerTest number: Int) -> Int? {
         var retVal: Int? = nil
@@ -203,10 +208,11 @@ class TestToDo: TestToDoDataSource {
             row.remove(at: row.count - 1)
         }
     }
-    func getElem(numberFrom0: Int, changePosition: Bool = true) -> RawTest? {
+    func getElem(numberFrom0: Int, changePosition: Bool = false) -> RawTest? {
         var retVal: RawTest = RawTest(fileNumber: 0, isExtraTest: false)
         let numberFrom1 = numberFrom0 + 1
         let fullSize = groupSize + reapeadTest
+        guard fullSize > 0 else {  return nil  }
         let currentGroup = Int(numberFrom1 / fullSize) + (numberFrom1 % fullSize > 0 ? 1 : 0) - 1
         guard numberFrom0 < self.count, currentGroup < groups, currentGroup < mainTests.count else {      return nil   }
         if changePosition {
@@ -350,10 +356,11 @@ class TestToDo: TestToDoDataSource {
             return true
         }
     }
-    private func fillMainTests(forGroupSize groupSize: Int)  -> MainTestsValues  {
+    private func fillMainTests(forGroupSize groupSize: Int)  -> MainTestsValues?  {
         var mainTests: [[RawTest]] = [[RawTest]]()
         var mainCount = 0
         var retVal: MainTestsValues
+        guard groupSize > 0 else {  return nil   }
             let groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
             for j in 0..<groups {
             let emptyArray = [RawTest]()
@@ -367,11 +374,11 @@ class TestToDo: TestToDoDataSource {
         retVal.groups = groups
         return retVal
     }
-    private func fillExtraTests(forMainTest mainTests: [[RawTest]], forGroupSize groupSize: Int, forReapeadTest reapeadTest: Int ) -> ExtraTestsValues  {
+    private func fillExtraTests(forMainTest mainTests: [[RawTest]], forGroupSize groupSize: Int, forReapeadTest reapeadTest: Int ) -> ExtraTestsValues?  {
         var extraTests: [[RawTest]] = [[RawTest]]()
         var extraCount = 0
         var retVal: ExtraTestsValues
-        
+        guard groupSize > 0 else {  return nil   }
         let groups = Int(rawTests.count / groupSize) + (rawTests.count % groupSize == 0 ? 0 : 1 )
         for i in 0..<groups {
             let emptyArray = [RawTest]()
@@ -435,19 +442,23 @@ class TestToDo: TestToDoDataSource {
         }
         inputTst = outputTst
     }
-    func resizeAll(newGroupSize groupSize: Int, newReapeadCount reapeadTest:Int, onlyTest: Bool = true) {
-        
+    func resizeAll(newGroupSize groupSize: Int, newReapeadCount reapeadTest:Int, onlyTest: Bool = true) {        
         let currentPosition = self.currentPosition
-        let mainVal = fillMainTests(forGroupSize: groupSize)
-        let extraVal = fillExtraTests(forMainTest: mainVal.mainTests, forGroupSize: groupSize, forReapeadTest: reapeadTest)
+        
+        
         
         if !onlyTest {
-            self.mainTests  = mainVal.mainTests
-            self.mainCount  = mainVal.mainCount
-            self.groups     = mainVal.groups
-            self.extraTests = extraVal.extraTests
-            self.extraCount = extraVal.extraCount
-            
+            if let mainVal = fillMainTests(forGroupSize: groupSize) {
+                
+                self.mainTests  = mainVal.mainTests
+                self.mainCount  = mainVal.mainCount
+                self.groups     = mainVal.groups
+            }
+            if let extraVal = fillExtraTests(forMainTest: self.mainTests, forGroupSize: groupSize, forReapeadTest: reapeadTest) {
+                self.extraTests = extraVal.extraTests
+                self.extraCount = extraVal.extraCount
+            }
+
             self.groupSize = groupSize
             self.reapeadTest = reapeadTest
         }
@@ -489,9 +500,9 @@ class TestToDo: TestToDoDataSource {
         }
         self.currentPosition = oldPosition
         database.testToDoTable.save()
-        database.selectedTestTable[0]?.current_position = Int16(self.currentPosition)
-        database.selectedTestTable[0]?.group_size = Int16(self.groupSize)
-        database.selectedTestTable[0]?.reapead_test = Int16(self.reapeadTest)
+        database.selectedTestTable[0]?.current_position = self.currentPosition.toInt16()
+        database.selectedTestTable[0]?.group_size = self.groupSize.toInt16()
+        database.selectedTestTable[0]?.reapead_test = self.reapeadTest.toInt16()
         database.selectedTestTable.save()
     }
     func countArrayElement<T>(ofArray aArray: [[T]]) -> Int {

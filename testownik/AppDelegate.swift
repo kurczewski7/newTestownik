@@ -14,13 +14,14 @@ import CoreMedia
 // TODO:  comment here
 // MARK:  do zrobienia
 
-let speech = Speech()
+let coreData       = CoreDataStack()
+let database       = Database(context: coreData.persistentContainer.viewContext)
 
-let testownik = Testownik()
-
-
+let testownik      = Testownik()
+let ratings        = Ratings()
+let speech         = Speech()
 let pictureLibrary = PictureLibrary()
-let ratings = Ratings()
+
 
 
 //let coreData = CoreDataStack()
@@ -50,12 +51,6 @@ let ratings = Ratings()
             xxList.append(i+1)
         }
         
-        
-        
-        
-        
-        
-
         if let path0 = Bundle.main.path(forResource: "543", ofType: "txt") {
             let aa0 = testownik.giveCodepaeText(contentsOfFile: path0, encoding: String.Encoding(rawValue: UInt(15)))
             print("aa0=\(aa0)")
@@ -135,9 +130,19 @@ let ratings = Ratings()
         
         let fullHomePath = NSHomeDirectory()
         print("\n=========\nfullHomePath = file:///\(fullHomePath)")
+        
         //database.allTestsTable.loadData(fieldName: "user_name", fieldValue: "trzeci")
-        database.allTestsTable.loadData()
+        
         database.selectedTestTable.loadData()
+        if database.selectedTestTable.count > 0 && Int(database.selectedTestTable[0]!.group_size) == 0 {
+            database.selectedTestTable[0]?.group_size = 10
+            database.selectedTestTable.save()
+        }
+        if database.selectedTestTable.count > 0 && Int(database.selectedTestTable[0]!.reapead_test) == 0 {
+            database.selectedTestTable[0]?.reapead_test = 2
+            database.selectedTestTable.save()
+        }
+        database.allTestsTable.loadData()
         database.testDescriptionTable.loadData()
         database.ratingsTable.loadData()
         database.testListTable.loadData()

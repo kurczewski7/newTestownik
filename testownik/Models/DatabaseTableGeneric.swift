@@ -30,6 +30,9 @@ class DatabaseTableGeneric <P: NSFetchRequestResult> {
     var isEmpty: Bool  {
         get { return genericArray.count == 0  }
     }
+    var isNotEmpty: Bool  {
+        get { return genericArray.count > 0  }
+    }
     var array: [P] {
         get {   return genericArray   }
         set {   genericArray = newValue  }

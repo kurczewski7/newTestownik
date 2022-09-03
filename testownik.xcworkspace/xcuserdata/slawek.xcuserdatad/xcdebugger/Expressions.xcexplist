@@ -14,6 +14,14 @@
          contextName = "Testownik.fillDataDb():Testownik.swift">
       </ContextState>
       <ContextState
+         contextName = "TestToDo.getPrev(onlyNewElement:):TestToDo.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentPosition">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CloudPicker.getTextEncoding(filePath:defaultEncoding:):CloudPicker.swift">
          <PersistentStrings>
             <PersistentString
@@ -25,7 +33,31 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "TestToDo.getNext(onlyNewElement:):TestToDo.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentPosition">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CloudPicker.tryEncodingFile(filePath:encoding:):CloudPicker.swift">
+      </ContextState>
+      <ContextState
+         contextName = "TestToDo.currentPosition.didset:TestToDo.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "filePosition">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Testownik.previous():Testownik.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "number">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "CloudPicker.getText(fromCloudFilePath:):CloudPicker.swift">

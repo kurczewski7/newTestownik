@@ -100,3 +100,13 @@ extension UIView {
         return rightAnchor
     }
 }
+extension Int16 {
+    func toInt() -> Int {
+        return Int(self)
+    }
+}
+    extension Int {
+        func toInt16() -> Int16 {
+            return Int16(self)
+        }
+}

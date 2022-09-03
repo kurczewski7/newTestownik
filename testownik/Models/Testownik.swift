@@ -13,13 +13,16 @@ protocol TestownikDelegate {
     func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition)
     func refreshTabbarUI(visableLevel: Int)
     func refreshContent(forCurrentTest test: Test)
+    //    func allTestDone()
+    //    func progress()
+    //    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition)
 }
 protocol TestownikDataSource {
     var delegate: TestownikDelegate? { get }
     var testToDo: TestToDo? { get }
     func getCurrent() -> Test    
 }
-class Testownik: DataOperations, TestownikDataSource, TestToDoDelegate {
+class Testownik: DataOperations, TestownikDataSource { // , TestToDoDelegate
     
     struct Answer {
             let isOK: Bool
@@ -48,6 +51,24 @@ class Testownik: DataOperations, TestownikDataSource, TestToDoDelegate {
         get {
             return testList[currentTest]
         }
+    }
+    override init() {
+        super.init()
+        database.selectedTestTable.loadData()
+        guard database.selectedTestTable.isNotEmpty else {  return  }
+        if let uuId = database.selectedTestTable[0]?.uuId {
+            database.testDescriptionTable.loadData(forUuid: "uuid_parent", fieldValue: uuId)
+            let number = database.testDescriptionTable.count
+            var  rawTestList = [Int]()
+            for i in 0..<number  { // self.testList.count
+                rawTestList.append(i)
+            }
+            // TODO: duplicate testToDo
+            self.testToDo = TestToDo(rawTestList: rawTestList)
+        }
+            
+        //
+        //testToDo?.delegate = self
     }
     // MARK: Perform protocol TestToDoDelegate
 //    func getCurrentTest(forFileNumber number: Int) -> Test? {
@@ -167,13 +188,14 @@ class Testownik: DataOperations, TestownikDataSource, TestToDoDelegate {
                 self.testList.append(test)
             }
         }
-        // TODO:  comment here
-        var  rawTestList = [Int]()
-        for i in 0..<self.testList.count {
-            rawTestList.append(i)
-        }
-        testToDo = TestToDo(rawTestList: rawTestList)
-        testToDo?.restore()
+//        // TODO:  comment here
+//        var  rawTestList = [Int]()
+//        for i in 0..<self.testList.count {
+//            rawTestList.append(i)
+//        }
+//        
+//        testToDo = TestToDo(rawTestList: rawTestList)
+//        testToDo?.restore()
         
         if let elem = testToDo?[0] {
             self.currentTest = elem.fileNumber

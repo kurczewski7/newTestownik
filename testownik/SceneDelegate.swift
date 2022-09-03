@@ -8,8 +8,8 @@
 
 import UIKit
 
-let coreData = CoreDataStack()
-let database = Database(context: coreData.persistentContainer.viewContext)
+//let coreData = CoreDataStack()
+//let database = Database(context: coreData.persistentContainer.viewContext)
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
