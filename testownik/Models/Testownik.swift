@@ -12,7 +12,7 @@ import UIKit
 protocol TestownikDelegate {
     //func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition)
     func refreshTabbarUI(visableLevel: Int)
-    func refreshContent(forCurrentTest test: Test)
+    //func refreshContent(forCurrentTest test: Test)
     //    func allTestDone()
     //    func progress()
     //    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition)
@@ -56,6 +56,10 @@ class Testownik: DataOperations, TestownikDataSource { // , TestToDoDelegate
             return testList[currentTest]
         }
     }
+//    subscript(index: Int)  -> Test? {
+//        guard index < testList.count else {  return nil   }
+//        return testList[index]
+//    }
     override init() {
         super.init()
         database.selectedTestTable.loadData()
@@ -85,12 +89,12 @@ class Testownik: DataOperations, TestownikDataSource { // , TestToDoDelegate
 //    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition) {
 //        delegate?.refreshButtonUI(forFilePosition: filePosition)
 //    }
-    func allTestDone() {
-        
-    }    
-    func progress() {
-        
-    }
+//    func allTestDone() {
+//        
+//    }    
+//    func progress() {
+//
+//    }
     // MARK: Metod for navigation
     override func getCurrent() -> Test {        
         self.currentTest = testToDo?.getCurrent()?.fileNumber ?? 0

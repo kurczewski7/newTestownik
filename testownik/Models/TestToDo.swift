@@ -17,9 +17,9 @@ protocol TestToDoDataSource {
 }
 protocol TestToDoDelegate {
     func allTestDone()
-    func progress()
+    func progress(forCurrentPosition currentPosition: Int, totalCount count:Int)
+    func refreshContent(forFileNumber fileNumber: Int)
     func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition)
-    //func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition)
 }
 class TestToDo: TestToDoDataSource {
     typealias MainTestsValues = (mainTests: [[RawTest]], mainCount: Int, groups: Int)
@@ -50,9 +50,9 @@ class TestToDo: TestToDoDataSource {
     var filePosition: FilePosition = FilePosition.first {
         didSet {
             delegate?.refreshButtonUI(forFilePosition: filePosition)
-            //delegate?.refreshFilePosition(newFilePosition: filePosition)
-            //delegate?.refreshFilePosition(newFilePosition: filePosition)
-            //delegate?.refreshContent(forCurrentTest: <#T##Test#>)
+            if filePosition == .last {
+                delegate?.allTestDone()
+            }
         }
     }
     var currentPosition: Int = 0 {
@@ -61,7 +61,7 @@ class TestToDo: TestToDoDataSource {
             if  self.currentPosition == 0 {    filePosition = .first     }
             else if  self.currentPosition == count-1 {   filePosition = .last     }
             else  {  filePosition = .other      }
-            delegate?.progress()
+            delegate?.progress(forCurrentPosition: currentPosition + 1, totalCount: count)
         }
     }
     
@@ -84,7 +84,16 @@ class TestToDo: TestToDoDataSource {
         }
     }
     var startSegment = 0
-    
+    subscript(index: Int)  -> RawTest? {
+        return getElem(numberFrom0: index)
+    }
+    subscript(_ group: Int, _ position: Int) ->  RawTest? {
+    guard   group < self.groups, position < mainTests[group].count else {  return nil  }
+        if position <= self.groupSize {
+            return mainTests[group][position]  }
+        else    {
+            return mainTests[group][position - self.groupSize]  }
+    }
     init(rawTestList: [Int]) {
         for i in 0..<rawTestList.count {
             let tmpElem = RawTest(fileNumber: rawTestList[i], isExtraTest: false)
@@ -122,16 +131,7 @@ class TestToDo: TestToDoDataSource {
         self.currentPosition = 0
     }
 
-    subscript(index: Int)  -> RawTest? {
-        return getElem(numberFrom0: index)
-    }
-    subscript(_ group: Int, _ position: Int) ->  RawTest? {
-    guard   group < self.groups, position < mainTests[group].count else {  return nil  }
-        if position <= self.groupSize {
-            return mainTests[group][position]  }
-        else    {
-            return mainTests[group][position - self.groupSize]  }
-    }
+
     func getCurrent(onlyNewElement onlyNew: Bool = false)  -> RawTest? {
         print("currentPosition=\(currentPosition)")
         // print("main[0=\(mainTests[0][0])")

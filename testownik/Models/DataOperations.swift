@@ -22,16 +22,25 @@ class DataOperations {
     var notEmpty: Bool {
         get { genericArray.count > 0 } }
     var currentTest: Int = 0
+    var isCurrentValid: Bool {
+        return currentTest >= 0 && currentTest < count
+    }
+
     
-    subscript(index: Int) -> T {
+    subscript(index: Int) -> T? {
         get {  //_ = isIndexInRange(index: index)
             let isValid = isIndexValid(index: index)
-            assert(isValid, "ERROR!!: Index \(index) is bigger then count \(count). Give correct index!")
+            guard isValid == true else {
+                assert(isValid, "ERROR!!: Index \(index) is bigger then count \(count). Give correct index!")
+                return nil }
             return genericArray[index]
-        }
-       set {   //_ = isIndexInRange(index: index)
-            assert(isIndexValid(index: index), "ERROR!!: Index \(index) is bigger then count \(count). Give correct index!")
-            genericArray[index] = newValue
+            }
+       set {
+           let isValid = isIndexInRange(index: index)
+           guard isValid == true else {
+               assert(isValid, "ERROR!!: Index \(index) is bigger then count \(count). Give correct index!")
+               return    }
+           genericArray[index] = newValue!
         }
     }
     func clearData() {

@@ -105,9 +105,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         if testownik.filePosition != .first  {       testownik.previous()  }
     }
     @IBAction func checkButtonPress(_ sender: UIButton) {
-        guard testownik.currentTest < testownik.count else {    return        }
-        let currTest = testownik[testownik.currentTest]
-        let countTest = currTest.answerOptions.count         //okAnswers.count
+        guard let currTest = testownik[testownik.currentTest] else {    return        }
+        let countTest = currTest.answerOptions.count        //okAnswers.count
         for i in 0..<countTest {
             if let button = stackView.arrangedSubviews[i] as? UIButton {
                 button.layer.borderWidth =  currTest.answerOptions[i].isOK ? 3 : 1
@@ -136,8 +135,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     func allTestDone() {
         print("allTestDone")
     }
-    func progress() {
-        print("progress")
+    func progress(forCurrentPosition currentPosition: Int, totalCount count:Int) {
+        guard count > 0 else { return }
+        let promil = Int((currentPosition * 1000)/count)
+        print("progress:\(promil)")
     }
 //    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition) {
 //        print("refreshFilePosition: \(filePosition)")
@@ -316,16 +317,20 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     }
     
     // MARK: TestownikDelegate protocol "refreshUI" metods
-    func refreshContent(forCurrentTest test: Test) {
-        if let fileNumber = testownik.testToDo?.getCurrent()?.fileNumber {
-            if fileNumber < testownik.count {
-                testownik.currentTest = fileNumber
-                refreshView()
-            }
-        }
-  
-        // MARK: To do
+    func refreshContent(forFileNumber fileNumber: Int) {
+        let test = testownik[fileNumber]
+        
     }
+//    func refreshContent(forCurrentTest test: Test) {
+//        if let fileNumber = testownik.testToDo?.getCurrent()?.fileNumber {
+//            if fileNumber < testownik.count {
+//                testownik.currentTest = fileNumber
+//                refreshView()
+//            }
+//        }
+//
+//        // MARK: To do
+//    }
     func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition) {
         print("filePosition=\(filePosition)")
         if filePosition == .first {
@@ -615,12 +620,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         
         print("buttonAnswerPress:\(youSelectedNumber)")
         guard testownik.currentTest < testownik.count else {  return   }
-        isChecked = testownik[testownik.currentTest].youAnswer2.contains(youSelectedNumber)
+        isChecked = testownik[testownik.currentTest]?.youAnswer2.contains(youSelectedNumber) ?? false
         if isChecked {
-            testownik[testownik.currentTest].youAnswer2.remove(youSelectedNumber)
+            testownik[testownik.currentTest]?.youAnswer2.remove(youSelectedNumber)
             isChecked = false
         } else  {
-            testownik[testownik.currentTest].youAnswer2.insert(youSelectedNumber)
+            testownik[testownik.currentTest]?.youAnswer2.insert(youSelectedNumber)
             isChecked = true
         }
         //#colorLiteral(red: 0.9995340705, green: 0.988355577, blue: 0.4726552367, alpha: 1)
@@ -646,13 +651,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 //            button.layer.borderWidth = 3
 //            button.layer.borderColor = okAnswer ? UIColor.green.cgColor : UIColor.red.cgColor
 //        }
-        print("aswers:\(testownik[testownik.currentTest].youAnswers5)")
-        print("aswers2:\(testownik[testownik.currentTest].youAnswer2.sorted())")
+        print("aswers:\(testownik[testownik.currentTest]?.youAnswers5)")
+        print("aswers2:\(testownik[testownik.currentTest]?.youAnswer2.sorted())")
     }
     func isAnswerOk(selectedOptionForTest selectedOption: Int) -> Bool {
          var value = false
-        if  selectedOption < testownik[testownik.currentTest].answerOptions.count {
-            value = testownik[testownik.currentTest].answerOptions[selectedOption].isOK
+        if  selectedOption < testownik[testownik.currentTest]?.answerOptions.count ?? 0 {
+            value = testownik[testownik.currentTest]?.answerOptions[selectedOption].isOK ?? false
         }
         return value
     }
@@ -688,17 +693,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             print("JEST \(testownik.count)  TESTOW")
             return            
         }
-         
-        let txtFile = testownik[testownik.currentTest].fileName
+        guard let txtFile = testownik[testownik.currentTest]?.fileName, testownik.currentTest < testownik.count else {   return   }
         self.title = "Test \(txtFile)"
         // TODO: check it
-        testownik[testownik.currentTest].youAnswer2 = []
-        let totalQuest = testownik[testownik.currentTest].answerOptions.count
-        testownik[testownik.currentTest].youAnswers5 = []
-        askLabel.text = testownik[testownik.currentTest].ask
+        testownik[testownik.currentTest]!.youAnswer2 = []
+        let totalQuest = testownik[testownik.currentTest]!.answerOptions.count
+        testownik[testownik.currentTest]!.youAnswers5 = []
+        askLabel.text = testownik[testownik.currentTest]!.ask
         //askPicture.image = testownik[testownik.currentTest].pict
         //testownik[testownik.currentTest].pict = UIImage(named: "004.png")
-        if  let currPict = testownik[testownik.currentTest].pict {
+        if  let currPict = testownik[testownik.currentTest]!.pict {
             askPicture.image = currPict
             pictureSwitchOn = true
         }
@@ -709,10 +713,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             if let butt = curButt as? UIButton {
                 butt.contentHorizontalAlignment =  (Setup.isNumericQuestions ? .left : .center)
                 butt.isHidden = (i < totalQuest) ? false : true
-                butt.setTitle((i < totalQuest) ? Setup.getNumericPict(number: i) + testownik[testownik.currentTest].answerOptions[i].answerOption : "", for: .normal)
+                guard testownik.isCurrentValid else {   return     }
+                butt.setTitle((i < totalQuest) ? Setup.getNumericPict(number: i) + testownik[testownik.currentTest]!.answerOptions[i].answerOption : "", for: .normal)
                 butt.layer.borderWidth = 1
                 butt.layer.borderColor = UIColor.brown.cgColor
-                let isSelect = testownik[testownik.currentTest].youAnswer2.contains(i)
+                let isSelect = testownik[testownik.currentTest]?.youAnswer2.contains(i) ?? false
                 butt.layer.backgroundColor = isSelect ? selectedColor.cgColor: unSelectedColor.cgColor
                 // MARK: ggggg ffffff
                 if set.contains(i)  {
