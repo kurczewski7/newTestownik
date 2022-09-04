@@ -139,9 +139,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     func progress() {
         print("progress")
     }
-    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition) {
-        print("refreshFilePosition: \(filePosition)")
-    }
+//    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition) {
+//        print("refreshFilePosition: \(filePosition)")
+//    }
 
     // MARK: addAllRequiredestures
     func addAllRequiredGestures(sender: Gestures) {
@@ -327,7 +327,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         // MARK: To do
     }
     func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition) {
-        
+        print("filePosition=\(filePosition)")
         if filePosition == .first {
             hideButton(forButtonNumber: 0)
             hideButton(forButtonNumber: 1)
@@ -452,7 +452,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         listening.linkSpeaking = speech.self
         listening.delegate     = self
         command.delegate       = self
-        testownik.delegate     = self
+        //testownik.delegate     = self
         gestures.delegate      = self        
         testownik.testToDo?.delegate = self
         

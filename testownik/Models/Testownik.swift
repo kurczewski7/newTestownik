@@ -10,7 +10,7 @@ import UIKit
 //import  CoreData 
 
 protocol TestownikDelegate {
-    func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition)
+    //func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition)
     func refreshTabbarUI(visableLevel: Int)
     func refreshContent(forCurrentTest test: Test)
     //    func allTestDone()
@@ -18,7 +18,7 @@ protocol TestownikDelegate {
     //    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition)
 }
 protocol TestownikDataSource {
-    var delegate: TestownikDelegate? { get }
+    //var delegate: TestownikDelegate? { get }
     var testToDo: TestToDo? { get }
     func getCurrent() -> Test    
 }
@@ -28,7 +28,7 @@ class Testownik: DataOperations, TestownikDataSource { // , TestToDoDelegate
             let isOK: Bool
             let answerOption: String
     }
-    var delegate: TestownikDelegate?
+    //var delegate: TestownikDelegate?
     var isChanged = false
     var testToDo: TestToDo?
     var filePosition: TestToDo.FilePosition  {
@@ -40,12 +40,16 @@ class Testownik: DataOperations, TestownikDataSource { // , TestToDoDelegate
     override var currentTest: Int  {
         didSet {
             print("currentTest:\(oldValue),\(currentTest), testownik.testToDo?.currentPosition=\(testownik.testToDo?.currentPosition ?? 77), testownik.currentTest=\(testownik.currentTest), \(testownik.filePosition) ")
-            delegate?.refreshButtonUI(forFilePosition: filePosition)
+            // TODO: ???
+            //delegate?.refreshButtonUI(forFilePosition: filePosition)
             // currentRow = currentTest < count ? currentTest : count-1
         }
     }
     var visableLevel: Int = 4 {
-        didSet {     delegate?.refreshTabbarUI(visableLevel: visableLevel)    }
+        didSet {
+            // TODO: ????
+            //delegate?.refreshTabbarUI(visableLevel: visableLevel)
+        }
     }
     var currentElement: Test {
         get {
@@ -78,9 +82,9 @@ class Testownik: DataOperations, TestownikDataSource { // , TestToDoDelegate
 //        }
 //        return nil
 //    }
-    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition) {
-        delegate?.refreshButtonUI(forFilePosition: filePosition)
-    }
+//    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition) {
+//        delegate?.refreshButtonUI(forFilePosition: filePosition)
+//    }
     func allTestDone() {
         
     }    

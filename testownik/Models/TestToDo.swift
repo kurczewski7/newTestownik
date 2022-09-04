@@ -18,7 +18,8 @@ protocol TestToDoDataSource {
 protocol TestToDoDelegate {
     func allTestDone()
     func progress()
-    func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition)
+    func refreshButtonUI(forFilePosition filePosition: TestToDo.FilePosition)
+    //func refreshFilePosition(newFilePosition filePosition: TestToDo.FilePosition)
 }
 class TestToDo: TestToDoDataSource {
     typealias MainTestsValues = (mainTests: [[RawTest]], mainCount: Int, groups: Int)
@@ -48,7 +49,9 @@ class TestToDo: TestToDoDataSource {
     var reapeadTest: Int = 5
     var filePosition: FilePosition = FilePosition.first {
         didSet {
-            delegate?.refreshFilePosition(newFilePosition: filePosition)
+            delegate?.refreshButtonUI(forFilePosition: filePosition)
+            //delegate?.refreshFilePosition(newFilePosition: filePosition)
+            //delegate?.refreshFilePosition(newFilePosition: filePosition)
             //delegate?.refreshContent(forCurrentTest: <#T##Test#>)
         }
     }
